@@ -17,7 +17,7 @@ public class Receipt {
         return true;
     }
     public boolean add(Product product, int quantity) {
-        boolean result = false;
+        boolean result = true;
         if(product != null || quantity > 0){
             for(Product p : ticket){
 
