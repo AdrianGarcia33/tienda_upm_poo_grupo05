@@ -58,7 +58,8 @@ public class ProductList {
      * @param product
      * @return
      */
-    boolean addProduct (Product product) {
+    public boolean addProduct (Product product) { // No se si es mejor meter un objeto de tipo producto (Y utilizar el constructor de la clase)
+        // O meter id, cantidad etc. como parametros en este metodo y crear el objeto en aqui
         boolean resultado = false;
 
         if (product != null) {
@@ -68,9 +69,47 @@ public class ProductList {
         } else {
             System.out.println("Error: el producto no existe");
         }
-
+        number_products++;
         return resultado;
 
+    }
+
+    public boolean removeProduct (int id) {
+        boolean resultado = false;
+        if (id < max_products && productlist[id] != null) {
+            productlist[id] = null;
+            resultado = true;
+        } else {
+            System.out.println("Error: el producto no existe");
+        }
+        number_products--;
+        return resultado;
+    }
+
+    public boolean updateProduct(int id, String name, float price, Category category, int value) {
+        boolean resultado = false;
+        if (id < max_products && productlist[id] != null) {
+            Product product = productlist[id];
+            product.setName(name);
+            product.setPrice(price);
+            product.setCategory(category);
+            product.setQuantity(value);
+            resultado = true;
+        } else {
+            System.out.println("Error: el producto no existe");
+        }
+        return resultado;
+    }
+
+    public String printList() {
+        StringBuilder catalog = new StringBuilder();
+        catalog.append("Catalog: \n");
+        for (int i = 0; i < max_products; i++) {
+            if (productlist[i] != null) {
+                catalog.append(productlist[i].toString()+"\n");
+            }
+        }
+        return catalog.toString();
     }
 
 
