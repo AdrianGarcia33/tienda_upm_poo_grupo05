@@ -98,4 +98,11 @@ public class Product {
         }
         return total;
     }
+    public String toString(){
+        StringBuilder result = new StringBuilder("{class:Product, id:"+ID+", name:'"+name+"', category:"+category+", price:"+price+"}");
+                if(discount) {
+                    result.append(", **discountPercentage: -").append(1-discountPercentage);
+                }
+                return result.toString();
+    }
 }
