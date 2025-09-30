@@ -74,6 +74,11 @@ public class ProductList {
 
     }
 
+    /**
+     * Elimina un producto del catalogo
+     * @param id
+     * @return
+     */
     public boolean removeProduct (int id) {
         boolean resultado = false;
         if (id < max_products && productlist[id] != null) {
@@ -86,6 +91,15 @@ public class ProductList {
         return resultado;
     }
 
+    /**
+     * Actualiza los datos de cierto producto del catalogo
+     * @param id
+     * @param name
+     * @param price
+     * @param category
+     * @param value
+     * @return
+     */
     public boolean updateProduct(int id, String name, float price, Category category, int value) {
         boolean resultado = false;
         if (id < max_products && productlist[id] != null) {
@@ -101,6 +115,10 @@ public class ProductList {
         return resultado;
     }
 
+    /**
+     * Imprime por pantalla los productos existentes del catalogo
+     * @return
+     */
     public String printList() {
         StringBuilder catalog = new StringBuilder();
         catalog.append("Catalog: \n");
