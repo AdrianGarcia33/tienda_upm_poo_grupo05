@@ -1,5 +1,8 @@
 package es.upm.etsisi.poo.grupo05;
 
+/**
+ * Class made for storing all the data from our repertoire of products.
+ */
 public class ProductList {
     private Product[] productlist = null;
     private int number_products;
@@ -38,9 +41,9 @@ public class ProductList {
     }
 
     /**
-     * Metodo que devuelve el producto
-     * @param id
-     * @return devuelve el producto tras utilizar el id como identificador
+     * As the name suggests, it returns a Product given a certain id.
+     * @param id An integer which identifies an object in the list
+     * @return
      */
     public Product getProduct (int id) {
         if (productlist[id] != null) {
@@ -54,7 +57,7 @@ public class ProductList {
 
 
     /**
-     * Es la función encargada de añadir un producto a nuestro diccionario
+     * Method made to add a product into our catalog
      * @param product
      * @return
      */
@@ -75,7 +78,7 @@ public class ProductList {
     }
 
     /**
-     * Elimina un producto del catalogo
+     * Method to remove said product from said id
      * @param id
      * @return
      */
@@ -92,7 +95,7 @@ public class ProductList {
     }
 
     /**
-     * Actualiza los datos de cierto producto del catalogo
+     * Method made to update the data of a certain product
      * @param id
      * @param name
      * @param price
@@ -116,7 +119,7 @@ public class ProductList {
     }
 
     /**
-     * Imprime por pantalla los productos existentes del catalogo
+     * Method made to give a visual representation of our catalog
      * @return
      */
     public String printList() {
