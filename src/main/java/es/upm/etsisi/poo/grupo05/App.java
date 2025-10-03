@@ -67,12 +67,15 @@ public class App {
                 return true;
 
             default:
-                System.out.println("Comando no reconocido.");
+                System.out.println("Unknown command.");
                 break;
         }
         return false;
     }
 
+    /**
+     * Prints on screen a menu with the possible commands
+     */
         public static void help () {
             StringBuilder menu = new StringBuilder();
 

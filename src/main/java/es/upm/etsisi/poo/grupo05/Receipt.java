@@ -2,6 +2,9 @@ package es.upm.etsisi.poo.grupo05;
 
 import java.util.*;
 
+/**
+ * Class which records the items a client wants to purchase
+ */
 public class Receipt {
     private List<Product> ticket;
     private int numberItems;
@@ -50,19 +53,23 @@ public class Receipt {
 
     //Methods
 
-    /*
-    Adrian, no te he tocado nada (por si acaso :b) Simplemente te he añadido los getter y setters, y he añadido
-    un atributo, max_items, porque los tickets no pueden superar 100 items. En el metodo add, simplemente te he añadido
-    un condicional mas grande q detecta eso
-    - Haoyu
-    */
 
+    /**
+     * As the name suggests, it resets the ticket
+     * @return true if it was succesful
+     */
     public boolean reset(){
         this.ticket = new LinkedList<>();
         this.numberItems = 0;
         return true;
     }
 
+    /**
+     * Adds an item from the catalog to the ticket
+     * @param id key of the product being added
+     * @param quantity amount
+     * @return true if succesful
+     */
     public boolean addItem(int id, int quantity) {
         boolean result = false;
         boolean added = false;
@@ -89,10 +96,16 @@ public class Receipt {
                 }
             }
         }
+        checkDiscount();
         return result;
     }
 
-    public boolean removeItem(int id) {
+    /** It removes the item from
+     * @param id
+     * @return
+     */
+    public boolean removeItem(int id) { // Una pregunta, en este metodo no habría que mirar si el ciente quiere
+                                        //quitar x cantidad de producto? porque aquí solo está la opción
         boolean result = false;
         Iterator<Product> it = ticket.iterator();
         while (it.hasNext()) {
@@ -103,8 +116,38 @@ public class Receipt {
                 result = true;
             }
         }
+        checkDiscount();
         return result;
     }
+
+    /**
+     * Iterative methods which goes through the list 5 times and  checks if there are more than one
+     * product of the same category. If so, sets the boolean discount to true. Complexity O(n)
+     */
+    private void checkDiscount() {
+        for (Category category : Category.values()) {
+            int count = 0;
+            for (Product p : ticket) {
+                if (p.getCategory() == category) {
+                    count += p.getQuantity();
+                }
+            }
+            if (count > 1) {
+                for (Product p : ticket) {
+                    if (p.getCategory() == category) {
+                        p.setDiscount(true);
+                    }
+                }
+            } else {
+                for (Product p : ticket) {
+                    if (p.getCategory() == category) {
+                        p.setDiscount(false);
+                    }
+                }
+            }
+        }
+    }
+
 
     public Product getProduct(int id) {
         for (Product p : ticket) {

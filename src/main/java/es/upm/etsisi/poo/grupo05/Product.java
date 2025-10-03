@@ -1,5 +1,8 @@
 package es.upm.etsisi.poo.grupo05;
 
+/**
+ * Product Class, which comprises of the data for each objetct product
+ */
 public class Product {
     private int ID;
     private String name;
@@ -10,6 +13,14 @@ public class Product {
     float discountPercentage;
 
 
+    /**
+     * Builder of this class
+     * @param ID
+     * @param name
+     * @param price
+     * @param category
+     * @param quantity
+     */
     public Product(int ID, String name, float price, Category category, int quantity) {
         this.ID = ID;
         this.name = name;
@@ -91,6 +102,10 @@ public class Product {
     }
 
 
+    /**
+     * Method that calculates the total price if the boolean discount is set to true
+     * @return
+     */
     public float getTotalPrice() {
         float total = price * quantity;
         if (discount == true) {
@@ -98,6 +113,11 @@ public class Product {
         }
         return total;
     }
+
+    /**
+     * Prints on screen a visualization of an object from this class
+     * @return
+     */
     public String toString(){
         StringBuilder result = new StringBuilder("{class:Product, id:"+ID+", name:'"+name+"', category:"+category+", price:"+price+"}");
                 if(discount) {
