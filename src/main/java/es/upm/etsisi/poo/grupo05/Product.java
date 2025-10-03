@@ -7,7 +7,7 @@ public class Product {
     Category category;
     private int quantity;
     boolean discount;
-    float discountPercentage;
+    float afterDiscount;
 
 
     public Product(int ID, String name, float price, Category category, int quantity) {
@@ -17,19 +17,19 @@ public class Product {
         this.category = category;
         switch (category) {
             case PAPELERIA:
-                this.discountPercentage = 0.95f;
+                this.afterDiscount = 0.95f;
                 break;
             case ROPA:
-                this.discountPercentage = 0.93f;
+                this.afterDiscount = 0.93f;
                 break;
             case LIBRO:
-                this.discountPercentage = 0.9f;
+                this.afterDiscount = 0.9f;
                 break;
             case ELECTRONICA:
-                this.discountPercentage = 0.97f;
+                this.afterDiscount = 0.97f;
                 break;
             default:
-                this.discountPercentage = 1f;
+                this.afterDiscount = 1f;
                 break;
         }
     }
@@ -58,8 +58,8 @@ public class Product {
         return discount;
     }
 
-    public float getDiscountPercentage() {
-        return discountPercentage;
+    public float getAfterDiscount() {
+        return afterDiscount;
     }
 
     public void setID(int ID) {
@@ -86,22 +86,22 @@ public class Product {
         this.discount = discount;
     }
 
-    public void setDiscountPercentage(float discountPercentage) {
-        this.discountPercentage = discountPercentage;
+    public void setAfterDiscount(float afterDiscount) {
+        this.afterDiscount = afterDiscount;
     }
 
 
     public float getTotalPrice() {
         float total = price * quantity;
         if (discount == true) {
-            total *= discountPercentage;
+            total *= afterDiscount;
         }
         return total;
     }
     public String toString(){
         StringBuilder result = new StringBuilder("{class:Product, id:"+ID+", name:'"+name+"', category:"+category+", price:"+price+"}");
                 if(discount) {
-                    result.append(", **discountPercentage: -").append(1-discountPercentage);
+                    result.append(", **discountPercentage: -").append(1- afterDiscount);
                 }
                 return result.toString();
     }
