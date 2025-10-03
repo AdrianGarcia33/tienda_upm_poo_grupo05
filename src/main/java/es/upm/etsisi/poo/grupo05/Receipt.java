@@ -63,7 +63,7 @@ public class Receipt {
         return true;
     }
 
-    public boolean add(int id, int quantity) {
+    public boolean addItem(int id, int quantity) {
         boolean result = false;
         boolean added = false;
         Product product = productList.getProduct(id);
@@ -90,5 +90,53 @@ public class Receipt {
             }
         }
         return result;
+    }
+
+    public boolean removeItem(int id) {
+        boolean result = false;
+        Iterator<Product> it = ticket.iterator();
+        while (it.hasNext()) {
+            Product p = it.next();
+            if (p.getID() == id) {
+                numberItems -= p.getQuantity();
+                it.remove();
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    public Product getProduct(int id) {
+        for (Product p : ticket) {
+            if (p.getID() == id) {
+                return p;
+            }
+        }
+        // Podemos lanzar una excepcion si no os gusta devolver null
+        return null;
+    }
+    // El print es horrible y me lo ha hecho la ia usa una arraylist pq se puede ordenar
+    // y decia q las linked list estan mal optimizadas
+    public String print() {
+        List<Product> ticketArray = new ArrayList<>(ticket);
+        ticketArray.sort(Comparator.comparing(Product::getName));
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("===== TICKET =====\n");
+
+        double total = 0.0;
+        for (Product p : ticketArray) {
+            double precioProd = p.getTotalPrice();
+            sb.append(p.getName())
+                    .append(" x").append(p.getQuantity())
+                    .append(" -> ").append(String.format("%.2f", precioProd)).append(" €\n");
+            total += precioProd;
+        }
+
+        sb.append("------------------\n");
+        sb.append("TOTAL: ").append(String.format("%.2f", total)).append(" €\n");
+
+        reset();
+        return sb.toString();
     }
 }
