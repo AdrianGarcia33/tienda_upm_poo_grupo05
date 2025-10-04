@@ -135,6 +135,10 @@ public class App {
 
     }
 
+    private static void handleTicketCommand(String[] parts) {
+
+    }
+
     public static void checkSuccesful(boolean check, String[] parts) {
         switch (parts[0]) {
             case "prod":
@@ -145,7 +149,10 @@ public class App {
                 break;
 
             case "ticket":
-
+                if (check) {
+                    System.out.println(receipt.print());
+                    System.out.println(parts[0]+" "+parts[1]+": ok");
+                }
 
         }
 
