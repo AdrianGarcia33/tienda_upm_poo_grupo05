@@ -121,7 +121,7 @@ public class Product {
     public String toString(){
         StringBuilder result = new StringBuilder("{class:Product, id:"+ID+", name:'"+name+"', category:"+category+", price:"+price+"}");
                 if(discount) {
-                    result.append(", **discountPercentage: -").append(1- afterDiscount);
+                    result.append(", **discount: -").append(1- afterDiscount);
                 }
                 return result.toString();
     }

@@ -123,16 +123,19 @@ public class App {
         try {
             switch (parts[1]) {
                 case "new":
-                    // Handle ticket new
+                    checkSuccesful(receipt.reset(), parts);
                     break;
                 case "add":
-                    // Handle ticket add
+                    int prodId = Integer.parseInt(parts[2]);
+                    int quantity = Integer.parseInt(parts[3]);
+                    checkSuccesful(receipt.addItem(prodId, quantity), parts);
                     break;
                 case "remove":
-                    // Handle ticket remove
+                    int ID=  Integer.parseInt(parts[2]);
+                    checkSuccesful(receipt.removeItem(ID), parts);
                     break;
                 case "print":
-                    // Handle ticket print
+                    System.out.println(receipt.print());
                     break;
                 default:
                     System.out.println("Unknown command");
@@ -158,6 +161,7 @@ public class App {
                 if (check) {
                     System.out.println(receipt.print());
                     System.out.println(parts[0]+" "+parts[1]+": ok");
+
                 }
 
         }

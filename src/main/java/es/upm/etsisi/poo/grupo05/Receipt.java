@@ -75,9 +75,8 @@ public class Receipt {
         boolean added = false;
         Product product = productList.getProduct(id);
 
-        if (numberItems <= max_items) {
-
-            // Si el producto ya esta
+        if (numberItems < max_items) {  //creo que esto puede dar problemas, si queremos añadir 3 ud y solo queda 1 espacio hay que añadir solo 1 o no se añade?
+            // Si el producto ya está
             if (product != null && quantity > 0) {
                 for(Product p : ticket){
                     if (p.getID() == id) {
@@ -87,7 +86,7 @@ public class Receipt {
                         added = true;
                     }
                 }
-                // Si no esta el producto
+                // Si no está el producto
                 if (!added) {
                     product.setQuantity(quantity);
                     ticket.add(product);
@@ -121,7 +120,7 @@ public class Receipt {
     }
 
     /**
-     * Iterative methods which goes through the list 5 times and  checks if there are more than one
+     * Iterative methods which goes through the list 5 times and checks if there are more than one
      * product of the same category. If so, sets the boolean discount to true. Complexity O(n)
      */
     private void checkDiscount() {
@@ -165,20 +164,18 @@ public class Receipt {
         ticketArray.sort(Comparator.comparing(Product::getName));
 
         StringBuilder sb = new StringBuilder();
-        sb.append("===== TICKET =====\n");
-
-        double total = 0.0;
-        for (Product p : ticketArray) {
-            double precioProd = p.getTotalPrice();
-            sb.append(p.getName())
-                    .append(" x").append(p.getQuantity())
-                    .append(" -> ").append(String.format("%.2f", precioProd)).append(" €\n");
-            total += precioProd;
+        double totalPrice = 0.0;
+        double totalDiscount = 0.0;
+        double finalPrice = 0.0;
+        for(Product p : ticketArray){
+           sb.append(p.toString());
+           totalPrice += p.getPrice()*p.getQuantity();
+           finalPrice +=p.getTotalPrice();
         }
-
-        sb.append("------------------\n");
-        sb.append("TOTAL: ").append(String.format("%.2f", total)).append(" €\n");
-
+        totalPrice = totalPrice - finalPrice;
+        sb.append("Total price: " + totalPrice + "\n");
+        sb.append("Total discount: " + totalDiscount + "\n");
+        sb.append("Final price: " + finalPrice + "\n");
         reset();
         return sb.toString();
     }
