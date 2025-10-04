@@ -27,16 +27,16 @@ public class Product {
         this.price = price;
         this.category = category;
         switch (category) {
-            case PAPELERIA:
+            case STATIONERY:
                 this.afterDiscount = 0.95f;
                 break;
-            case ROPA:
+            case CLOTHES:
                 this.afterDiscount = 0.93f;
                 break;
-            case LIBRO:
+            case BOOK:
                 this.afterDiscount = 0.9f;
                 break;
-            case ELECTRONICA:
+            case ELECTRONICS:
                 this.afterDiscount = 0.97f;
                 break;
             default:

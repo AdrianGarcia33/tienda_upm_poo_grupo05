@@ -64,13 +64,17 @@ public class ProductList {
     public boolean addProduct (Product product) { // No se si es mejor meter un objeto de tipo producto (Y utilizar el constructor de la clase)
         // O meter id, cantidad etc. como parametros en este metodo y crear el objeto en aqui
         boolean resultado = false;
+        int id = product.getID();
 
         if (product != null) {
-            productlist[product.getID()] = product;
-            resultado = true;
-            System.out.println("Producto añadido correctamente");
+            if (productlist[id] != null) {
+                System.out.println("This type of product already exists, please try to use the update product command ");
+            } else {
+                productlist[id] = product;
+                resultado = true;
+            }
         } else {
-            System.out.println("Error: el producto no existe");
+            System.out.println("Error: this product does not exist");
         }
         number_products++;
         return resultado;
@@ -88,7 +92,7 @@ public class ProductList {
             productlist[id] = null;
             resultado = true;
         } else {
-            System.out.println("Error: el producto no existe");
+            System.out.println("Error: this product does not exist");
         }
         number_products--;
         return resultado;
@@ -103,18 +107,31 @@ public class ProductList {
      * @param value
      * @return
      */
-    public boolean updateProduct(int id, String name, float price, Category category, int value) {
+    public boolean updateProduct(int id, String name, float price, Category category) {
         boolean resultado = false;
-        if (id < max_products && productlist[id] != null) {
-            Product product = productlist[id];
-            product.setName(name);
-            product.setPrice(price);
-            product.setCategory(category);
-            product.setQuantity(value);
-            resultado = true;
-        } else {
-            System.out.println("Error: el producto no existe");
-        }
+
+            if (id < max_products && productlist[id] != null) {
+                Product p = productlist[id];
+
+                if (name != null) {
+                    p.setName(name);
+                }
+
+                if (price < 0) {
+                    System.out.println("Error: product prize cannot be negative");
+                } else {
+                    p.setPrice(price);
+                }
+
+                if (category != null) {
+                    p.setCategory(category);
+                }
+                resultado = true;
+
+            } else {
+                System.out.println("Error: producat does not exist");
+            }
+
         return resultado;
     }
 

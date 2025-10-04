@@ -6,6 +6,9 @@ import java.util.*;
  * Hello world!
  */
 public class App {
+    private static ProductList productList;
+    private static Receipt receipt;
+    private static Scanner scanner;
 
 
     /**
@@ -15,62 +18,137 @@ public class App {
      * @param line Entry Strig
      */
     public static boolean detect(String line) {
-        String parts[] = line.split(" ");
+        try {
+            String parts[] = line.split(" ");
+            switch (parts[0]) {
+                case "prod":
+                    handleProdCommand(parts);
+                    break;
+
+                case "ticket":
+                    switch (parts[1]) {
+                        case "new":
+                            // Handle ticket new
+                            break;
+                        case "add":
+                            // Handle ticket add
+                            break;
+                        case "remove":
+                            // Handle ticket remove
+                            break;
+                        case "print":
+                            // Handle ticket print
+                            break;
+                        default:
+                            System.out.println("Unknown command");
+                            break;
+                    }
+                    break;
+
+                case "echo":
+                    System.out.println("echo " + String.join(" ", Arrays.copyOfRange(parts, 1, parts.length)));
+                    break;
+
+                case "help":
+                    help();
+                    break;
+                case "exit":
+                    return true;
+
+                default:
+                    System.out.println("Unknown command.");
+                    break;
+            }
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: Lack of data or Incorrect command");
+        } catch (InputMismatchException e) {
+            System.out.println("Error: Error on the data");
+        }
+
+        return false;
+    }
+
+    /**
+     * Secondary method to cleanup and not stack so many switches and cases
+     * Handles the commands from the prefix prod
+     * @param parts
+     */
+    private static void handleProdCommand(String[] parts) {
+        try {
+            switch (parts[1]) {
+
+                case "add":
+                    //Variables for creating new product
+                    int id = Integer.parseInt(parts[2]);
+                    String name = parts[3].replace("\"", "");
+                    float price = Float.parseFloat(parts[5]);
+                    Category category = Category.valueOf(parts[4].toUpperCase());
+
+                    Product p = new Product(id, name, price, category, 0);
+                    checkSuccesful(productList.addProduct(p), parts);
+                    break;
+
+                case "list":
+                    System.out.println(productList.printList());
+                    break;
+
+                case "update":
+                    id = Integer.parseInt(parts[2]);
+                    float originalprice = productList.getProduct(id).getPrice();
+                    switch (parts[3].toUpperCase()) {
+                        case "NAME":
+                            name = parts[4];
+                            checkSuccesful(productList.updateProduct(id, name, originalprice, null ), parts);
+                            break;
+
+                        case "PRICE":
+                            price = Float.parseFloat(parts[4]);
+                            checkSuccesful(productList.updateProduct(id, null, price, null ), parts);
+                            break;
+
+                        case "CATEGORY":
+                            category = Category.valueOf(parts[4].toUpperCase());
+                            checkSuccesful(productList.updateProduct(id, null, originalprice, category), parts);
+                            break;
+
+                        default:
+                            System.out.println("Unknown command");
+                            break;
+                    }
+
+                    break;
+
+                case "remove":
+                    id = Integer.parseInt(parts[2]);
+                    checkSuccesful(productList.removeProduct(id), parts);
+                    break;
+
+                default:
+                    System.out.println("Unknown command with prod prefix");
+                    break;
+            }
+        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException exception) {
+            System.out.println("Error a la hora de introducir los datos");
+        }
+
+    }
+
+    public static void checkSuccesful(boolean check, String[] parts) {
         switch (parts[0]) {
             case "prod":
-                switch (parts[1]) {
-                    case "add":
-
-                        break;
-                    case "list":
-
-                        break;
-                    case "update":
-
-                        break;
-                    case "remove":
-
-                        break;
-                    default:
-                        System.out.println("Unknown command with prod prefix");
-                        break;
+                if (check) {
+                    System.out.println(productList.printList());
+                    System.out.println(parts[0]+" "+parts[1]+": ok");
                 }
                 break;
 
             case "ticket":
-                switch (parts[1]) {
-                    case "new":
-                        // Handle ticket new
-                        break;
-                    case "add":
-                        // Handle ticket add
-                        break;
-                    case "remove":
-                        // Handle ticket remove
-                        break;
-                    case "print":
-                        // Handle ticket print
-                        break;
-                    default:
-                        System.out.println("Unknown command");
-                        break;
-                }
-                break;
 
-            case "echo":
 
-                break;
-            case "help":
-                help();
-                break;
-            case "exit":
-                return true;
-
-            default:
-                System.out.println("Unknown command.");
-                break;
         }
-        return false;
+
     }
 
     /**
@@ -102,9 +180,9 @@ public class App {
 
         public static void main (String[] args) {
             int max_products = 200 ;
-            Receipt receipt = new Receipt();
-            ProductList productList = new ProductList(max_products);
-            Scanner scanner = new Scanner(System.in);
+            receipt = new Receipt();
+            productList = new ProductList(max_products);
+            scanner = new Scanner(System.in);
 
             System.out.println("Welcome to the ticket module App");
             System.out.println("Ticket module. Type 'help' to see commands.");
@@ -118,7 +196,7 @@ public class App {
                 }
             }
 
-            System.out.println("App Closed, ");
+            System.out.println("App Closed, have a nice day ");
 
         }
 }
