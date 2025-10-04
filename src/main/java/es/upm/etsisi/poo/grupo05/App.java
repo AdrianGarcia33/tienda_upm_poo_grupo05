@@ -26,23 +26,7 @@ public class App {
                     break;
 
                 case "ticket":
-                    switch (parts[1]) {
-                        case "new":
-                            // Handle ticket new
-                            break;
-                        case "add":
-                            // Handle ticket add
-                            break;
-                        case "remove":
-                            // Handle ticket remove
-                            break;
-                        case "print":
-                            // Handle ticket print
-                            break;
-                        default:
-                            System.out.println("Unknown command");
-                            break;
-                    }
+                    handleTicketCommand(parts);
                     break;
 
                 case "echo":
@@ -130,12 +114,34 @@ public class App {
             }
         } catch (NullPointerException e) {
         } catch (IllegalArgumentException exception) {
-            System.out.println("Error a la hora de introducir los datos");
+            System.out.println("Incorrect Data");
         }
 
     }
 
     private static void handleTicketCommand(String[] parts) {
+        try {
+            switch (parts[1]) {
+                case "new":
+                    // Handle ticket new
+                    break;
+                case "add":
+                    // Handle ticket add
+                    break;
+                case "remove":
+                    // Handle ticket remove
+                    break;
+                case "print":
+                    // Handle ticket print
+                    break;
+                default:
+                    System.out.println("Unknown command");
+                    break;
+            }
+        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException exception) {
+            System.out.println("Incorrect data");
+        }
 
     }
 
