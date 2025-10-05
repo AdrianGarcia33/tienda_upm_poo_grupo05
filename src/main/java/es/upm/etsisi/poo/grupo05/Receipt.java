@@ -76,7 +76,7 @@ public class Receipt {
         boolean added = false;
         Product product = productList.getProduct(id);
 
-        if (numberItems < max_items) {  //creo que esto puede dar problemas, si queremos añadir 3 ud y solo queda 1 espacio hay que añadir solo 1 o no se añade?
+        if (numberItems < max_items) {
             // Si el producto ya está
             if (product != null && quantity > 0) {
                 for(Product p : ticket){
@@ -178,11 +178,11 @@ public class Receipt {
             totalPrice += (price * quantity);
             finalPrice += p.getTotalPrice();
             if (p.getDiscount()) {
-                totalDiscount += (price * quantity) * ((1 - p.getAfterDiscount()));
+                totalDiscount = totalPrice-finalPrice;
             }
 
         }
-        sb.append("Total price: " + totalPrice + "\n");
+        sb.append("Total price: " + String.format("%.1f", totalPrice) + "\n");
         sb.append("Total discount: " + String.format(Locale.US,"%.1f", totalDiscount)  + "\n");
         sb.append("Final price: " + String.format(Locale.US,"%.1f", finalPrice) + "\n");
 
