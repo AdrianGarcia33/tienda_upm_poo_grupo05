@@ -72,11 +72,11 @@ public class ProductList {
             } else {
                 productlist[id] = product;
                 resultado = true;
+                number_products++;
             }
         } else {
             System.out.println("Error: this product does not exist");
         }
-        number_products++;
         return resultado;
 
     }
@@ -84,13 +84,18 @@ public class ProductList {
     /**
      * Method to remove said product from said id
      * @param id
+     * @param receipt We do this, so if we remove something from the catalog, it also dissapears from the current receipt
      * @return
      */
-    public boolean removeProduct (int id) {
+    public boolean removeProduct (int id, Receipt receipt) {
         boolean resultado = false;
         if (id < max_products && productlist[id] != null) {
             productlist[id] = null;
             resultado = true;
+            if (receipt != null) {
+                receipt.removeItem(id); // Remove from receipt as well
+            }
+
         } else {
             System.out.println("Error: this product does not exist");
         }
@@ -144,8 +149,12 @@ public class ProductList {
         catalog.append("Catalog: \n");
         for (int i = 0; i < max_products; i++) {
             if (productlist[i] != null) {
-                catalog.append(productlist[i].toString()+"\n");
+                catalog.append(" "+productlist[i].toString()+"\n");
             }
+        }
+        int lastLine = catalog.lastIndexOf("\n");
+        if (lastLine != -1) {
+            catalog.delete(lastLine, catalog.length());
         }
         return catalog.toString();
     }

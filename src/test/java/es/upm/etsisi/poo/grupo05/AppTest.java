@@ -1,19 +1,20 @@
 package es.upm.etsisi.poo.grupo05;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+import java.io.*;
 
 import org.junit.jupiter.api.Test;
+import java.io.*;
 
-/**
- * Unit test for simple App.
- */
 public class AppTest {
-
-    /**
-     * Rigorous Test :-)
-     */
     @Test
-    public void shouldAnswerWithTrue() {
-        assertTrue(true);
+    public void testInputFromFile() throws Exception {
+        InputStream originalIn = System.in;
+        try (FileInputStream fis = new FileInputStream("input.txt")) {
+            System.setIn(fis);
+            App.main(new String[]{});
+        } finally {
+            System.setIn(originalIn);
+        }
     }
 }

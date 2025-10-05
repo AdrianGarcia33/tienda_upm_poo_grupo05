@@ -11,10 +11,11 @@ public class Receipt {
     private ProductList productList;
     private int max_items;
 
-    public Receipt() {
+    public Receipt(ProductList productList) {
         this.ticket = new LinkedList<>();
         this.numberItems = 0;
         max_items = 100;
+        this.productList = productList;
     }
 
     //Getters and Setters
@@ -86,10 +87,11 @@ public class Receipt {
                         added = true;
                     }
                 }
-                // Si no está el producto
+                // If there is not a product, we insert a copy of it
                 if (!added) {
-                    product.setQuantity(quantity);
-                    ticket.add(product);
+                    Product productCopy = new Product(product);
+                    productCopy.setQuantity(quantity);
+                    ticket.add(productCopy);
                     numberItems += quantity;
                     result = true;
                 }
@@ -103,8 +105,8 @@ public class Receipt {
      * @param id
      * @return
      */
-    public boolean removeItem(int id) { // Una pregunta, en este metodo no habría que mirar si el ciente quiere
-                                        //quitar x cantidad de producto? porque aquí solo está la opción
+    public boolean removeItem(int id) {
+
         boolean result = false;
         Iterator<Product> it = ticket.iterator();
         while (it.hasNext()) {
@@ -157,9 +159,9 @@ public class Receipt {
         // Podemos lanzar una excepcion si no os gusta devolver null
         return null;
     }
-    // El print es horrible y me lo ha hecho la ia usa una arraylist pq se puede ordenar
-    // y decia q las linked list estan mal optimizadas
+
     public String print() {
+
         List<Product> ticketArray = new ArrayList<>(ticket);
         ticketArray.sort(Comparator.comparing(Product::getName));
 
@@ -168,15 +170,23 @@ public class Receipt {
         double totalDiscount = 0.0;
         double finalPrice = 0.0;
         for(Product p : ticketArray){
-           sb.append(p.toString());
-           totalPrice += p.getPrice()*p.getQuantity();
-           finalPrice +=p.getTotalPrice();
+            int quantity = p.getQuantity();
+            float price = p.getPrice();
+            for (int i = 0; i < quantity; i++) {
+                sb.append(p.toString()+"\n");
+            }
+            totalPrice += (price * quantity);
+            finalPrice += p.getTotalPrice();
+            if (p.getDiscount()) {
+                totalDiscount += (price * quantity) * ((1 - p.getAfterDiscount()));
+            }
+
         }
-        totalPrice = totalPrice - finalPrice;
         sb.append("Total price: " + totalPrice + "\n");
-        sb.append("Total discount: " + totalDiscount + "\n");
-        sb.append("Final price: " + finalPrice + "\n");
-        reset();
+        sb.append("Total discount: " + String.format(Locale.US,"%.1f", totalDiscount)  + "\n");
+        sb.append("Final price: " + String.format(Locale.US,"%.1f", finalPrice) + "\n");
+
+
         return sb.toString();
     }
 }

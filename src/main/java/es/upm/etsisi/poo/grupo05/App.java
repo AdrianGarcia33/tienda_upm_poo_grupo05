@@ -1,6 +1,8 @@
 package es.upm.etsisi.poo.grupo05;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Hello world!
@@ -65,16 +67,31 @@ public class App {
                 case "add":
                     //Variables for creating new product
                     int id = Integer.parseInt(parts[2]);
-                    String name = parts[3].replace("\"", "");
-                    float price = Float.parseFloat(parts[5]);
-                    Category category = Category.valueOf(parts[4].toUpperCase());
+                    String line = String.join(" ", parts);
 
+                    Matcher matcher = Pattern.compile("\"([^\"]+)\"").matcher(line);
+                    String name = "";
+                    int nameEnd = -1;
+                    if (matcher.find()) {
+                        name = matcher.group(1);
+                        nameEnd = matcher.end();
+                    } else {
+                        name = parts[3].replace("\"", "");
+                        nameEnd = line.indexOf(parts[3]) + parts[3].length();
+                    }
+
+                    String rest = line.substring(nameEnd).trim();
+                    String[] restParts = rest.split(" ");
+                    Category category = Category.valueOf(restParts[0].toUpperCase());
+                    float price = Float.parseFloat(restParts[1]);
                     Product p = new Product(id, name, price, category, 0);
+
                     checkSuccesful(productList.addProduct(p), parts);
                     break;
 
                 case "list":
                     System.out.println(productList.printList());
+                    System.out.println("prod list: ok"); //regardless of what, it will print, so always succesful
                     break;
 
                 case "update":
@@ -82,7 +99,9 @@ public class App {
                     float originalprice = productList.getProduct(id).getPrice();
                     switch (parts[3].toUpperCase()) {
                         case "NAME":
-                            name = parts[4];
+                            String[] restofString = Arrays.copyOfRange(parts, 4, parts.length);
+                            name = String.join(" ", restofString);
+                            name = name.replace("\"", "");
                             checkSuccesful(productList.updateProduct(id, name, originalprice, null ), parts);
                             break;
 
@@ -105,7 +124,8 @@ public class App {
 
                 case "remove":
                     id = Integer.parseInt(parts[2]);
-                    checkSuccesful(productList.removeProduct(id), parts);
+                    System.out.println(productList.getProduct(id).toString());
+                    checkSuccesful(productList.removeProduct(id, receipt), parts);
                     break;
 
                 default:
@@ -116,6 +136,7 @@ public class App {
         } catch (IllegalArgumentException exception) {
             System.out.println("Incorrect Data");
         }
+
 
     }
 
@@ -149,20 +170,30 @@ public class App {
     }
 
     public static void checkSuccesful(boolean check, String[] parts) {
+        int id = Integer.parseInt(parts[2]);
         switch (parts[0]) {
             case "prod":
-                if (check) {
-                    System.out.println(productList.printList());
-                    System.out.println(parts[0]+" "+parts[1]+": ok");
+                switch (parts[1]) {
+                    case "remove": //in a separate case or else it will say the product doest no exist
+                        System.out.println(parts[0]+" "+parts[1]+": ok");
+                        System.out.println("");
+                        break;
+                    default:
+                        if (check) {
+                            System.out.println(productList.getProduct(id).toString());
+                            System.out.println(parts[0]+" "+parts[1]+": ok");
+                            System.out.println("");
+                        }
+                        break;
                 }
                 break;
-
             case "ticket":
                 if (check) {
                     System.out.println(receipt.print());
                     System.out.println(parts[0]+" "+parts[1]+": ok");
-
+                    System.out.println("");
                 }
+            break;
 
         }
 
@@ -175,7 +206,7 @@ public class App {
             StringBuilder menu = new StringBuilder();
 
             menu.append("Commands:\n");
-            menu.append("   prod add <id> <name> <category> <price>\n");
+            menu.append("   prod add <id> \"<name>\" <category> <price>\n");
             menu.append("   prod list\n");
             menu.append("   prod update <id> NAME|CATEGORY|PRICE <value>\n");
             menu.append("   prod remove <id>\n");
@@ -188,6 +219,7 @@ public class App {
             menu.append("   exit\n\n");
             menu.append("   Categories: MERCH, STATIONERY, CLOTHES, BOOK, ELECTRONICS\n");
             menu.append("   Discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.\n");
+            menu.append("\n");
 
             System.out.print(menu);
         }
@@ -197,8 +229,8 @@ public class App {
 
         public static void main (String[] args) {
             int max_products = 200 ;
-            receipt = new Receipt();
             productList = new ProductList(max_products);
+            receipt = new Receipt(productList);
             scanner = new Scanner(System.in);
 
             System.out.println("Welcome to the ticket module App");

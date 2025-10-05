@@ -1,5 +1,7 @@
 package es.upm.etsisi.poo.grupo05;
 
+import java.util.Locale;
+
 /**
  * Product Class, which comprises of the data for each objetct product
  */
@@ -43,6 +45,16 @@ public class Product {
                 this.afterDiscount = 1f;
                 break;
         }
+    }
+
+    public Product(Product other) {
+        this.ID = other.ID;
+        this.name = other.name;
+        this.price = other.price;
+        this.category = other.category;
+        this.quantity = other.quantity;
+        this.discount = other.discount;
+        this.afterDiscount = other.afterDiscount;
     }
 
     public int getID() {
@@ -121,7 +133,7 @@ public class Product {
     public String toString(){
         StringBuilder result = new StringBuilder("{class:Product, id:"+ID+", name:'"+name+"', category:"+category+", price:"+price+"}");
                 if(discount) {
-                    result.append(", **discount: -").append(1- afterDiscount);
+                    result.append(" **discount-").append(String.format(Locale.US,"%.1f", price * (1 - afterDiscount)));
                 }
                 return result.toString();
     }
