@@ -11,6 +11,10 @@ public class Receipt {
     private ProductList productList;
     private int max_items;
 
+    /**
+     * Builder of this class
+     * @param productList
+     */
     public Receipt(ProductList productList) {
         this.ticket = new LinkedList<>();
         this.numberItems = 0;
