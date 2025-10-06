@@ -77,7 +77,7 @@ public class Receipt {
         Product product = productList.getProduct(id);
 
         if (numberItems < max_items) {
-            // Si el producto ya está
+            // If the product is already on the ticket
             if (product != null && quantity > 0) {
                 for(Product p : ticket){
                     if (p.getID() == id) {
@@ -150,16 +150,24 @@ public class Receipt {
     }
 
 
+    /**
+     * Searches for a product by its id
+     * @param id
+     * @return the searched product or null if not found
+     */
     public Product getProduct(int id) {
         for (Product p : ticket) {
             if (p.getID() == id) {
                 return p;
             }
         }
-        // Podemos lanzar una excepcion si no os gusta devolver null
         return null;
     }
 
+    /**
+     * Print the ticket
+     * @return string with the ticket information
+     */
     public String print() {
 
         List<Product> ticketArray = new ArrayList<>(ticket);
