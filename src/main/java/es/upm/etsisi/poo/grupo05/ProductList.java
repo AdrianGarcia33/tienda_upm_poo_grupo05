@@ -1,27 +1,28 @@
 package es.upm.etsisi.poo.grupo05;
+import java.util.*;
 
 /**
  * Class made for storing all the data from our repertoire of products.
  */
 public class ProductList {
-    private Product[] productlist = null;
+    private HashMap<Integer, Product> productMap;
     private int number_products;
     private int max_products;
 
     //Builder
     public ProductList (int max_products){
         this.max_products = max_products;
-        productlist = new Product[max_products];
+        productMap = new HashMap<>();
         int number_products = 0;
     }
 
     //Getters y Setters por default
-    public Product[] getProductlist() {
-        return productlist;
+    public HashMap<Integer, Product> getproductMap() {
+        return productMap;
     }
 
-    public void setProductlist(Product[] productlist) {
-        this.productlist = productlist;
+    public void setProductMap(HashMap<Integer, Product> productMap) {
+        this.productMap = productMap;
     }
 
     public int getNumber_products() {
@@ -46,9 +47,9 @@ public class ProductList {
      * @return
      */
     public Product getProduct (int id) {
-        if (productlist[id] != null) {
-            return productlist[id];
-
+        Product p = productMap.get(id);
+        if (p != null) {
+            return p;
         } else {
             System.out.println("Error: el producto no existe");
             return null;
@@ -67,10 +68,10 @@ public class ProductList {
         int id = product.getID();
 
         if (product != null) {
-            if (productlist[id] != null) {
+            if (productMap.containsKey(id)) {
                 System.out.println("This type of product already exists, please try to use the update product command ");
             } else {
-                productlist[id] = product;
+                productMap.put(id, product);
                 resultado = true;
                 number_products++;
             }
@@ -89,9 +90,11 @@ public class ProductList {
      */
     public boolean removeProduct (int id, Receipt receipt) {
         boolean resultado = false;
-        if (id < max_products && productlist[id] != null) {
-            productlist[id] = null;
+
+        if (productMap.get(id) != null) {
+            productMap.remove(id);
             resultado = true;
+
             if (receipt != null) {
                 receipt.removeItem(id); // Remove from receipt as well
             }
@@ -115,8 +118,8 @@ public class ProductList {
     public boolean updateProduct(int id, String name, float price, Category category) {
         boolean resultado = false;
 
-            if (id < max_products && productlist[id] != null) {
-                Product p = productlist[id];
+            if (id < max_products && productMap.get(id) != null) {
+                Product p = productMap.get(id);
 
                 if (name != null) {
                     p.setName(name);
@@ -134,7 +137,7 @@ public class ProductList {
                 resultado = true;
 
             } else {
-                System.out.println("Error: producat does not exist");
+                System.out.println("Error: product does not exist");
             }
 
         return resultado;
@@ -147,10 +150,8 @@ public class ProductList {
     public String printList() {
         StringBuilder catalog = new StringBuilder();
         catalog.append("Catalog: \n");
-        for (int i = 0; i < max_products; i++) {
-            if (productlist[i] != null) {
-                catalog.append(" "+productlist[i].toString()+"\n");
-            }
+        for (Map.Entry<Integer, Product> entry : productMap.entrySet()) {
+            catalog.append(" "+entry.getValue().toString()+"\n");
         }
         int lastLine = catalog.lastIndexOf("\n");
         if (lastLine != -1) {

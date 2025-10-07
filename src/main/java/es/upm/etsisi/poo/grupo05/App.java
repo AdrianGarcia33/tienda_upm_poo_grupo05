@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.grupo05;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,6 +35,7 @@ public class App {
 
                 case "echo":
                     System.out.println("echo " + String.join(" ", Arrays.copyOfRange(parts, 1, parts.length)));
+                    System.out.println();
                     break;
 
                 case "help":
@@ -141,6 +143,9 @@ public class App {
 
     }
 
+    /** Auxiliary method to handle the commands with ticket prefix
+     * @param parts
+     */
     private static void handleTicketCommand(String[] parts) {
         try {
             switch (parts[1]) {
@@ -157,7 +162,8 @@ public class App {
                     checkSuccesful(receipt.removeItem(ID), parts);
                     break;
                 case "print":
-                    System.out.println(receipt.print());
+                    System.out.print(receipt.print());
+                    System.out.println("ticket print: ok"+"\n");
                     break;
                 default:
                     System.out.println("Unknown command");
@@ -170,8 +176,12 @@ public class App {
 
     }
 
+    /** Second method to clean up the code, checks if the previous operation was succesful
+     * and prints the corresponding message
+     * @param check
+     * @param parts
+     */
     public static void checkSuccesful(boolean check, String[] parts) {
-        int id = Integer.parseInt(parts[2]);
         switch (parts[0]) {
             case "prod":
                 switch (parts[1]) {
@@ -180,6 +190,7 @@ public class App {
                         System.out.println("");
                         break;
                     default:
+                        int id = Integer.parseInt(parts[2]);
                         if (check) {
                             System.out.println(productList.getProduct(id).toString());
                             System.out.println(parts[0]+" "+parts[1]+": ok");
@@ -190,7 +201,7 @@ public class App {
                 break;
             case "ticket":
                 if (check) {
-                    System.out.println(receipt.print());
+                    System.out.print(receipt.print());
                     System.out.println(parts[0]+" "+parts[1]+": ok");
                     System.out.println("");
                 }
@@ -227,36 +238,34 @@ public class App {
 
 
 
-        /*
-        if len(args) > 0
-        Sanner (newfile()
-        else
-        Scanner(System.in)
-         */
         public static void main (String[] args) {
             int max_products = 200 ;
             productList = new ProductList(max_products);
             receipt = new Receipt(productList);
-            if (args.length > 0) {
-                Scanner scanner = new Scanner (new File(args[0]));
-            } else {
-                scanner = new Scanner(System.in);
-            }
-
-            System.out.println("Welcome to the ticket module App");
-            System.out.println("Ticket module. Type 'help' to see commands.");
-            boolean stop = false;
-
-            while (!stop) {
-                System.out.print("tUPM> ");
-                String line = scanner.nextLine();
-                if (detect(line)) {
-                    stop = true;
+            try {
+                if (args.length > 0) {
+                    scanner = new Scanner(new File(args[0]));
+                } else {
+                    scanner = new Scanner(System.in);
                 }
+
+                System.out.println("Welcome to the ticket module App");
+                System.out.println("Ticket module. Type 'help' to see commands.");
+                boolean stop = false;
+
+                while (!stop) {
+                    System.out.print("tUPM>");
+                    String line = scanner.nextLine();
+                    System.out.println(line);
+                    if (detect(line)) {
+                        stop = true;
+                    }
+                }
+
+                System.out.println("App Closed, have a nice day ");
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found");
             }
-
-            System.out.println("App Closed, have a nice day ");
-
         }
 }
 
