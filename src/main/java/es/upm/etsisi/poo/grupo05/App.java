@@ -1,5 +1,6 @@
 package es.upm.etsisi.poo.grupo05;
 
+import java.io.File;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -226,12 +227,21 @@ public class App {
 
 
 
-
+        /*
+        if len(args) > 0
+        Sanner (newfile()
+        else
+        Scanner(System.in)
+         */
         public static void main (String[] args) {
             int max_products = 200 ;
             productList = new ProductList(max_products);
             receipt = new Receipt(productList);
-            scanner = new Scanner(System.in);
+            if (args.length > 0) {
+                Scanner scanner = new Scanner (new File(args[0]));
+            } else {
+                scanner = new Scanner(System.in);
+            }
 
             System.out.println("Welcome to the ticket module App");
             System.out.println("Ticket module. Type 'help' to see commands.");
