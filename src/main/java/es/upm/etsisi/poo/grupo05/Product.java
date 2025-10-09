@@ -22,6 +22,7 @@ public class Product {
      * @param quantity
      */
     public Product(int ID, String name, float price, Category category, int quantity) {
+
         this.ID = ID;
         this.name = name;
         this.price = price;
