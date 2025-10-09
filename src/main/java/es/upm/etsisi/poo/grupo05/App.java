@@ -246,9 +246,10 @@ public class App {
             productList = new ProductList(max_products);
             receipt = new Receipt(productList);
             try {
-                
+                boolean imprimir_comando = false;
                 if (args.length > 0) {
                     scanner = new Scanner(new File(args[0]));
+                    imprimir_comando = true;
                 } else {
                     scanner = new Scanner(System.in);
                 }
@@ -260,7 +261,9 @@ public class App {
                 while (!stop) {
                     System.out.print("tUPM>");
                     String line = scanner.nextLine();
-                    System.out.println(line);
+                    if (imprimir_comando) {
+                        System.out.println(line);
+                    }
                     if (detect(line)) {
                         stop = true;
                     }
