@@ -65,24 +65,25 @@ public class ProductList {
     public boolean addProduct (Product product) { // No se si es mejor meter un objeto de tipo producto (Y utilizar el constructor de la clase)
         // O meter id, cantidad etc. como parametros en este metodo y crear el objeto en aqui
         boolean resultado = false;
+        boolean problem = false;
         int id = product.getID();
         if (id <= 0) {
             System.out.println("Error: product ID is out of range");
-            return resultado;
+            problem = true;
         }
         if(product.getName()=="" || product.getName().length()>100){
             System.out.println("Error: product NAME is out of range");
-            return resultado;
+            problem = true;
         }
         if(product.getPrice()<0){
             System.out.println("Error: product PRICE is out of range");
-            return resultado;
+            problem = true;
         }
         if (number_products >= max_products) {
             System.out.println("Error: product list is full");
-            return resultado;
+            problem = true;
         }
-
+        if(problem){return resultado;}
         if (product != null) {
             if (productMap.containsKey(id)) {
                 System.out.println("This type of product already exists, please try to use the update product command ");
