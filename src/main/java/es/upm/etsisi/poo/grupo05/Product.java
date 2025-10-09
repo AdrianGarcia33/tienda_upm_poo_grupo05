@@ -13,8 +13,6 @@ public class Product {
     private int quantity;
     boolean discount;
     float afterDiscount;
-
-
     /**
      * Builder of this class
      * @param ID

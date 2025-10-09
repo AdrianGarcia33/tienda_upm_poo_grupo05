@@ -112,7 +112,6 @@ public class ProductList {
      * @param name
      * @param price
      * @param category
-     * @param value
      * @return
      */
     public boolean updateProduct(int id, String name, float price, Category category) {
