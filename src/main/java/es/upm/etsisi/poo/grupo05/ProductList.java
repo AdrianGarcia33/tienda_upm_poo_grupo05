@@ -66,6 +66,15 @@ public class ProductList {
         // O meter id, cantidad etc. como parametros en este metodo y crear el objeto en aqui
         boolean resultado = false;
         int id = product.getID();
+        if (id < 0) {
+            System.out.println("Error: product ID is out of range");
+            return resultado;
+        }
+
+        if (number_products >= max_products) {
+            System.out.println("Error: product list is full");
+            return resultado;
+        }
 
         if (product != null) {
             if (productMap.containsKey(id)) {
@@ -78,6 +87,7 @@ public class ProductList {
         } else {
             System.out.println("Error: this product does not exist");
         }
+
         return resultado;
 
     }
