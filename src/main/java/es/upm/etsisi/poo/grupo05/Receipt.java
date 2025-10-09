@@ -194,7 +194,7 @@ public class Receipt {
             }
 
         }
-        sb.append("Total price: " + String.format("%.1f", totalPrice) + "\n");
+        sb.append("Total price: " + String.format(Locale.US,"%.1f", totalPrice) + "\n");
         sb.append("Total discount: " + String.format(Locale.US,"%.1f", totalDiscount)  + "\n");
         sb.append("Final price: " + String.format(Locale.US,"%.1f", finalPrice) + "\n");
 
