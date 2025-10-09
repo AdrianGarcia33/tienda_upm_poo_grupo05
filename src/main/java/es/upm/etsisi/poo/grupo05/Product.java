@@ -45,6 +45,10 @@ public class Product {
         }
     }
 
+    /**
+     * Builder of the product class
+     * @param other
+     */
     public Product(Product other) {
         this.ID = other.ID;
         this.name = other.name;

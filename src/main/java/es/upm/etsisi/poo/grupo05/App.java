@@ -237,12 +237,16 @@ public class App {
         }
 
 
-
+    /**
+     * Runs the app, and if a file is provided as argument, reads commands from it
+     * @param args
+     */
         public static void main (String[] args) {
             int max_products = 200 ;
             productList = new ProductList(max_products);
             receipt = new Receipt(productList);
             try {
+                
                 if (args.length > 0) {
                     scanner = new Scanner(new File(args[0]));
                 } else {
