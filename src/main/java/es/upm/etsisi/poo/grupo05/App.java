@@ -75,6 +75,7 @@ public class App {
                     int id = Integer.parseInt(parts[2]);
 //                    String line = String.join(" ", parts);
                     String name = parts[3];
+                    name= name.replaceAll("\"","");
                     Category category = Category.valueOf(parts[4].toUpperCase());
                     float price =  Float.parseFloat(parts[5]);
 //                    Matcher matcher = Pattern.compile("\"([^\"]+)\"").matcher(line);
