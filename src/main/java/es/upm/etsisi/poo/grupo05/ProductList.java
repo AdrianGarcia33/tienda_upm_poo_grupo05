@@ -16,7 +16,7 @@ public class ProductList {
         int number_products = 0;
     }
 
-    //Getters y Setters por default
+    //Getters and Setters
     public HashMap<Integer, Product> getproductMap() {
         return productMap;
     }
@@ -169,7 +169,12 @@ public class ProductList {
         catalog.append("Catalog: \n");
         for (Map.Entry<Integer, Product> entry : productMap.entrySet()) {
             catalog.append(" "+entry.getValue().toString()+"\n");
+            /*
+            Entry = set of <key, value>. In this, value is our objects of the class Product.
+            when one does entry.getvalue, it tkaes that. Entryset is all pairs of <key, value> of our hash
+            */
         }
+
         int lastLine = catalog.lastIndexOf("\n");
         if (lastLine != -1) {
             catalog.delete(lastLine, catalog.length());
