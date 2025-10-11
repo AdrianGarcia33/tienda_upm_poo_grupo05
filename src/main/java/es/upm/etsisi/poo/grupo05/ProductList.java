@@ -62,8 +62,7 @@ public class ProductList {
      * @param product
      * @return
      */
-    public boolean addProduct (Product product) { // No se si es mejor meter un objeto de tipo producto (Y utilizar el constructor de la clase)
-        // O meter id, cantidad etc. como parametros en este metodo y crear el objeto en aqui
+    public boolean addProduct (Product product) {
         boolean resultado = false;
         boolean problem = false;
         int id = product.getID();
