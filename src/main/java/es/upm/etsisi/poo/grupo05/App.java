@@ -232,7 +232,7 @@ public class App {
             menu.append("   ticket add <prodId> <quantity>\n");
             menu.append("   ticket remove <prodId>\n");
             menu.append("   ticket print\n");
-            menu.append("   echo <texto>");
+            menu.append("   echo <texto>\n");
             menu.append("   help\n");
             menu.append("   exit\n\n");
             menu.append("   Categories: MERCH, STATIONERY, CLOTHES, BOOK, ELECTRONICS\n");
