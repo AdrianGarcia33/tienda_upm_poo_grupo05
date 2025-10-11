@@ -24,9 +24,7 @@ public class App {
     public static boolean detect(String line) {
         try {
             String parts[] = line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-//            for(int i=0;i<parts.length;i++) {
-//                System.out.println(parts[i]);
-//            }
+
             switch (parts[0]) {
                 case "prod":
                     handleProdCommand(parts);
@@ -73,26 +71,11 @@ public class App {
                 case "add":
                     //Variables for creating new product
                     int id = Integer.parseInt(parts[2]);
-//                    String line = String.join(" ", parts);
                     String name = parts[3];
                     name= name.replaceAll("\"","");
                     Category category = Category.valueOf(parts[4].toUpperCase());
                     float price =  Float.parseFloat(parts[5]);
-//                    Matcher matcher = Pattern.compile("\"([^\"]+)\"").matcher(line);
-//                    String name = "";
-//                    int nameEnd = -1;
-//                    if (matcher.find()) {
-//                        name = matcher.group(1);
-//                        nameEnd = matcher.end();
-//                    } else {
-//                        name = parts[3].replace("\"", "");
-//                        nameEnd = line.indexOf(parts[3]) + parts[3].length();
-//                    }
-//
-//                    String rest = line.substring(nameEnd).trim();
-//                    String[] restParts = rest.split(" ");
-//                    Category category = Category.valueOf(restParts[0].toUpperCase());
-//                    float price = Float.parseFloat(restParts[1]);
+
                     Product p = new Product(id, name, price, category, 0);
 
                     checkSuccesful(productList.addProduct(p), parts);
