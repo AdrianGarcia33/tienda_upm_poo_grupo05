@@ -83,6 +83,7 @@ public class ProductList {
             problem = true;
         }
         if(problem){return resultado;}
+
         if (product != null) {
             if (productMap.containsKey(id)) {
                 System.out.println("This type of product already exists, please try to use the update product command ");
@@ -168,8 +169,8 @@ public class ProductList {
         catalog.append("Catalog: \n");
         for (Map.Entry<Integer, Product> entry : productMap.entrySet()) {
             catalog.append(" "+entry.getValue().toString()+"\n");
-            /*
-            Entry = set of <key, value>. In this, value is our objects of the class Product.
+            /* Slight Explanation
+            Entry = set of <key, value>. Here, value is our objects of the class Product.
             when one does entry.getvalue, it tkaes that. Entryset is all pairs of <key, value> of our hash
             */
         }
