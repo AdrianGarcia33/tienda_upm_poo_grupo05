@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 /**
- * Hello world!
+ * Main, whose purpose is to read and execute commands
  */
 public class App {
     private static ProductList productList;
