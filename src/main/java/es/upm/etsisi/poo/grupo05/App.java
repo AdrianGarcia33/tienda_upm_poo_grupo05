@@ -258,7 +258,8 @@ public class App {
                     }
                 }
 
-                System.out.println("App Closed, have a nice day ");
+                System.out.println("Closing application.");
+                System.out.println("Goodbye!");
             } catch (FileNotFoundException e) {
                 System.out.println("File not found");
             }
