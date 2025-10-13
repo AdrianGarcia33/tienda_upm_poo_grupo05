@@ -135,7 +135,7 @@ public class ProductList {
     public boolean updateProduct(int id, String name, float price, Category category) {
         boolean resultado = false;
 
-            if (id < max_products && productMap.get(id) != null) {
+            if (productMap.get(id) != null) {
                 Product p = productMap.get(id);
 
                 if (name != null) {
