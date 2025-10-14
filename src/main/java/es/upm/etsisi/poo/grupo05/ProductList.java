@@ -116,11 +116,11 @@ public class ProductList {
             if (receipt != null) {
                 receipt.removeItem(id); // Remove from receipt as well
             }
-
+            number_products--;
         } else {
             System.out.println("Error: this product does not exist");
         }
-        number_products--;
+
         return resultado;
     }
 
