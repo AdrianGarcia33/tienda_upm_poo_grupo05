@@ -17,7 +17,7 @@ public class ProductMap {
     public ProductMap(int max_products){
         this.max_products = max_products;
         productMap = new HashMap<>();
-        int number_products = 0;
+        this.number_products = 0;
     }
 
     //Getters and Setters
