@@ -80,7 +80,7 @@ public class Receipt {
         boolean added = false;
         Product product = productList.getProduct(id);
 
-        if (numberItems < max_items) {
+        if (numberItems + quantity < max_items) {
             // If the product is already on the ticket
             if (product != null && quantity > 0) {
                 for(Product p : ticket){
