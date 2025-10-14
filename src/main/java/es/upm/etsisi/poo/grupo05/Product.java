@@ -27,6 +27,7 @@ public class Product {
         this.name = name;
         this.price = price;
         this.category = category;
+        this.quantity = quantity;
         switch (category) {
             case STATIONERY:
                 this.afterDiscount = 0.95f;

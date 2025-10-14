@@ -65,6 +65,7 @@ public class ProductList {
     public boolean addProduct (Product product) {
         boolean resultado = false;
         boolean problem = false;
+        if (product != null) {
         int id = product.getID();
         if (id <= 0) {
             System.out.println("Error: product ID is out of range");
@@ -84,7 +85,6 @@ public class ProductList {
         }
         if(problem){return resultado;}
 
-        if (product != null) {
             if (productMap.containsKey(id)) {
                 System.out.println("This type of product already exists, please try to use the update product command ");
             } else {
@@ -112,7 +112,7 @@ public class ProductList {
         if (productMap.get(id) != null) {
             productMap.remove(id);
             resultado = true;
-
+            number_products--;
             if (receipt != null) {
                 receipt.removeItem(id); // Remove from receipt as well
             }
@@ -120,7 +120,7 @@ public class ProductList {
         } else {
             System.out.println("Error: this product does not exist");
         }
-        number_products--;
+
         return resultado;
     }
 
@@ -143,7 +143,7 @@ public class ProductList {
                 }
 
                 if (price < 0) {
-                    System.out.println("Error: product prize cannot be negative");
+                    System.out.println("Error: product price cannot be negative");
                 } else {
                     p.setPrice(price);
                 }

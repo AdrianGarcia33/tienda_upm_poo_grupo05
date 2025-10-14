@@ -113,7 +113,7 @@ public class Receipt {
 
         boolean result = false;
         Iterator<Product> it = ticket.iterator();
-        while (it.hasNext()) {
+        while (it.hasNext() && !result) {
             Product p = it.next();
             if (p.getID() == id) {
                 numberItems -= p.getQuantity();
@@ -189,11 +189,8 @@ public class Receipt {
             }
             totalPrice += (price * quantity);
             finalPrice += p.getTotalPrice();
-            if (p.getDiscount()) {
-                totalDiscount = totalPrice-finalPrice;
-            }
-
         }
+        totalDiscount = totalPrice-finalPrice;
         sb.append("Total price: " + String.format(Locale.US,"%.1f", totalPrice) + "\n");
         sb.append("Total discount: " + String.format(Locale.US,"%.1f", totalDiscount)  + "\n");
         sb.append("Final price: " + String.format(Locale.US,"%.1f", finalPrice) + "\n");
