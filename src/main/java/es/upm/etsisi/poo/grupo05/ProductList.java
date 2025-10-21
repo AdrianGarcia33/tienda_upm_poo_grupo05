@@ -71,7 +71,7 @@ public class ProductList {
             System.out.println("Error: product ID is out of range");
             problem = true;
         }
-        if(product.getName()=="" || product.getName().length()>100){
+        if(product.getName().isEmpty() || product.getName().length()>100){
             System.out.println("Error: product NAME is out of range");
             problem = true;
         }
