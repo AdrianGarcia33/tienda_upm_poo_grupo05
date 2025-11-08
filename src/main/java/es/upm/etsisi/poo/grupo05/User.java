@@ -1,32 +1,26 @@
 package es.upm.etsisi.poo.grupo05;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class User {
-    private int id;
-    private boolean cashier;
+    private String id;
     private String email;
     private String Name;
+    private LinkedList<Receipt> receipts;
 
-
-    public User(int id, boolean cashier, String email, String Name) {
+    public User(String id, String email, String Name) {
         this.id = id;
-        this.cashier = cashier;
         this.email = email;
         this.Name = Name;
+        this.receipts = new LinkedList<>();
     }
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public boolean getCashier() {
-        return cashier;
-    }
-
-    public void setCashier(boolean cashier) {
-        this.cashier = cashier;
     }
 
     public String getEmail() {
@@ -45,4 +39,7 @@ public class User {
         Name = name;
     }
 
+    public LinkedList<Receipt> getReceipts() {
+        return receipts;
+    }
 }

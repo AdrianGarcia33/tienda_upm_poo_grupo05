@@ -10,7 +10,7 @@ public class AppTest {
     @Test
     public void testInputFromFile() throws Exception {
         InputStream originalIn = System.in;
-        try (FileInputStream fis = new FileInputStream("input.txt")) {
+        try (FileInputStream fis = new FileInputStream("input2.txt")) {
             System.setIn(fis);
             App.main(new String[]{});
         } finally {

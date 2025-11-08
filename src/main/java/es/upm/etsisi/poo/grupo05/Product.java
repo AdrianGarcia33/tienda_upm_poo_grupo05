@@ -28,23 +28,7 @@ public class Product {
         this.price = price;
         this.category = category;
         this.quantity = quantity;
-        switch (category) {
-            case STATIONERY:
-                this.afterDiscount = 0.95f;
-                break;
-            case CLOTHES:
-                this.afterDiscount = 0.93f;
-                break;
-            case BOOK:
-                this.afterDiscount = 0.9f;
-                break;
-            case ELECTRONICS:
-                this.afterDiscount = 0.97f;
-                break;
-            default:
-                this.afterDiscount = 1f;
-                break;
-        }
+        this.afterDiscount = category.getAfterDiscount();
     }
 
     /**
