@@ -2,6 +2,7 @@ package es.upm.etsisi.poo.grupo05;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
 
 public class Reuniones extends Events {
     private static final int PLANNING_TIME_HOURS = 12;
@@ -12,9 +13,9 @@ public class Reuniones extends Events {
     // TIENE UN ERROR
     @Override
     public boolean isTemporallyValid() {
-        LocalDate now = LocalDate.now();
-        LocalDateTime minimumDateTime = now.atStartOfDay().plusHours(PLANNING_TIME_HOURS);
-        return !this.expirationDate.isBefore(minimumDateTime);
+        LocalDateTime now = LocalDate.now().atStartOfDay();
+        LocalDateTime minimumDateTime = now.plusHours(PLANNING_TIME_HOURS);
+        return !this.expirationDate.isBefore(ChronoLocalDate.from(minimumDateTime));
 
     }
 
