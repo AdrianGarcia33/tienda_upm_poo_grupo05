@@ -3,7 +3,7 @@ package es.upm.etsisi.poo.grupo05;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class User {
+public abstract class User {
     private String id;
     private String email;
     private String Name;
@@ -42,4 +42,10 @@ public class User {
     public LinkedList<Receipt> getReceipts() {
         return receipts;
     }
+
+    public void setReceipts(LinkedList<Receipt> receipts) {
+        this.receipts = receipts;
+    }
+
+    public abstract String toString();
 }

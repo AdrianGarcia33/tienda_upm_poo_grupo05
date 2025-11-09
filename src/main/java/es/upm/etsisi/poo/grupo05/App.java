@@ -11,6 +11,7 @@ public class App {
     private static ProductList productList;
     private static Receipt receipt;
     private static Scanner scanner;
+    private static UserList userMap;
 
 
     /**
@@ -24,6 +25,12 @@ public class App {
             String parts[] = line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
             switch (parts[0]) {
+                case "client":
+                    handleClientCommand(parts);
+                    break;
+                case "cash":
+
+                    break;
                 case "prod":
                     handleProdCommand(parts);
                     break;
@@ -62,6 +69,33 @@ public class App {
      * Handles the commands from the prefix prod
      * @param parts
      */
+
+    private static void handleClientCommand(String[] parts) {
+        try{
+            switch (parts[1]){
+                case "add":
+                    String nombre = parts[2];
+                    String DNI = parts[3];
+                    String email = parts[4];
+                    Cashier cashier =(Cashier) userMap.getUserMap().get(parts[5]);
+                    checkSuccesful(userMap.addUser(new Client(DNI,nombre,email,cashier)), parts);
+
+                    break;
+                case "remove":
+                    DNI = parts[2];
+                    checkSuccesful(userMap.removeUser(userMap.getUserMap().get(DNI)), parts);
+                    break;
+
+                case "list":
+                    System.out.println(userMap.UserList(true));
+                    System.out.println("client list: ok");
+                    break;
+            }
+        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException exception) {
+            System.out.println("Incorrect Data");
+        }
+    }
     private static void handleProdCommand(String[] parts) {
         try {
             switch (parts[1]) {
@@ -222,6 +256,17 @@ public class App {
 
             System.out.print(menu);
         }
+    private String generateId() {
+            // This method must be called when no cashId is provided when called the command "cash add"
+            //if id==null llamamos a este metodo, llamamos hsta que el id random no esté en el hashmap
+        StringBuilder id = new StringBuilder("UW");
+        boolean contiene = true;
+        for (int i = 0; i < 7; i++) {
+            id.append((int) (Math.random()));
+        }
+        return String.valueOf(id);
+
+    }
 
 
     /**
@@ -232,6 +277,7 @@ public class App {
             int max_products = 200 ;
             productList = new ProductList(max_products);
             receipt = new Receipt(productList);
+            userMap= new UserList();
             try {
                 boolean imprimir_comando = false;
                 if (args.length > 0) {
