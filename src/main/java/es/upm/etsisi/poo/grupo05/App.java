@@ -1,5 +1,11 @@
 package es.upm.etsisi.poo.grupo05;
 
+import es.upm.etsisi.poo.grupo05.productpackage.Category;
+import es.upm.etsisi.poo.grupo05.productpackage.Product;
+import es.upm.etsisi.poo.grupo05.receiptpackage.Receipt;
+import es.upm.etsisi.poo.grupo05.userpackage.Cashier;
+import es.upm.etsisi.poo.grupo05.userpackage.Client;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -8,7 +14,7 @@ import java.util.*;
  * Main, whose purpose is to read and execute commands
  */
 public class App {
-    private static ProductList productList;
+    private static ProductMap productMap;
     private static Receipt receipt;
     private static Scanner scanner;
     private static UserList userMap;
@@ -110,33 +116,33 @@ public class App {
 
                     Product p = new Product(id, name, price, category, 0);
 
-                    checkSuccesful(productList.addProduct(p), parts);
+                    checkSuccesful(productMap.addProduct(p), parts);
                     break;
 
                 case "list":
-                    System.out.println(productList.printList());
+                    System.out.println(productMap.printList());
                     System.out.println("prod list: ok"); //regardless of what, it will print, so always succesful
                     break;
 
                 case "update":
                     id = Integer.parseInt(parts[2]);
-                    float originalprice = productList.getProduct(id).getPrice();
+                    float originalprice = productMap.getProduct(id).getPrice();
                     switch (parts[3].toUpperCase()) {
                         case "NAME":
                             String[] restofString = Arrays.copyOfRange(parts, 4, parts.length);
                             name = String.join(" ", restofString);
                             name = name.replace("\"", "");
-                            checkSuccesful(productList.updateProduct(id, name, originalprice, null ), parts);
+                            checkSuccesful(productMap.updateProduct(id, name, originalprice, null ), parts);
                             break;
 
                         case "PRICE":
                             price = Float.parseFloat(parts[4]);
-                            checkSuccesful(productList.updateProduct(id, null, price, null ), parts);
+                            checkSuccesful(productMap.updateProduct(id, null, price, null ), parts);
                             break;
 
                         case "CATEGORY":
                             category = Category.valueOf(parts[4].toUpperCase());
-                            checkSuccesful(productList.updateProduct(id, null, originalprice, category), parts);
+                            checkSuccesful(productMap.updateProduct(id, null, originalprice, category), parts);
                             break;
 
                         default:
@@ -148,8 +154,8 @@ public class App {
 
                 case "remove":
                     id = Integer.parseInt(parts[2]);
-                    System.out.println(productList.getProduct(id).toString());
-                    checkSuccesful(productList.removeProduct(id, receipt), parts);
+                    System.out.println(productMap.getProduct(id).toString());
+                    checkSuccesful(productMap.removeProduct(id, receipt), parts);
                     break;
 
                 default:
@@ -213,7 +219,7 @@ public class App {
                     default:
                         int id = Integer.parseInt(parts[2]);
                         if (check) {
-                            System.out.println(productList.getProduct(id).toString());
+                            System.out.println(productMap.getProduct(id).toString());
                             System.out.println(parts[0]+" "+parts[1]+": ok");
                             System.out.println("");
                         }
@@ -275,8 +281,8 @@ public class App {
      */
         public static void main (String[] args) {
             int max_products = 200 ;
-            productList = new ProductList(max_products);
-            receipt = new Receipt(productList);
+            productMap = new ProductMap(max_products);
+            receipt = new Receipt(productMap);
             userMap= new UserList();
             try {
                 boolean imprimir_comando = false;

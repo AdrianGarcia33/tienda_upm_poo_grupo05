@@ -1,4 +1,6 @@
 package es.upm.etsisi.poo.grupo05;
+import es.upm.etsisi.poo.grupo05.userpackage.User;
+
 import java.util.HashMap;
 
 public class UserList {
@@ -22,6 +24,7 @@ public class UserList {
         }
         return resultado;
     }
+
     public boolean removeUser(User user){
         boolean resultado = false;
         if(user!=null){
@@ -36,10 +39,13 @@ public class UserList {
         }
         return resultado;
     }
+
     public String UserList(boolean client){
         // Creo que tendriamos que hacer dos clases derivadas, una con cashList y otra con ClientList pero asi tampoco está mal
         //solo que me parece raro como he tenido que implementar este mtodo
         StringBuilder list = new StringBuilder();
+
+        //Añadir todos los elementos
         if(client){
             list.append("Client List:\n");
             for(User u : UserMap.values()){

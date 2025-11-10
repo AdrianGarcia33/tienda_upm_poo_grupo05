@@ -1,4 +1,11 @@
-package es.upm.etsisi.poo.grupo05;
+package es.upm.etsisi.poo.grupo05.receiptpackage;
+
+import es.upm.etsisi.poo.grupo05.userpackage.Cashier;
+import es.upm.etsisi.poo.grupo05.productpackage.Category;
+import es.upm.etsisi.poo.grupo05.userpackage.Client;
+import es.upm.etsisi.poo.grupo05.ProductMap;
+import es.upm.etsisi.poo.grupo05.productpackage.BasicProducts;
+import es.upm.etsisi.poo.grupo05.productpackage.Product;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +26,7 @@ public class Receipt {
     private List<Product> ticket;
     private int numberItems;
     private int max_items;
-    private ProductList productList;
+    private ProductMap productMap;
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm");
     private static final Random RANDOM = new Random();
@@ -27,9 +34,9 @@ public class Receipt {
 
     /**
      * Builder of this class
-     * @param productList
+     * @param productMap
      */
-    public Receipt(String id, Cashier cashier, Client client, ProductList productList) {
+    public Receipt(String id, Cashier cashier, Client client, ProductMap productMap) {
         this.openingDate = LocalDateTime.now();
 
         if(id == null){
@@ -43,7 +50,7 @@ public class Receipt {
 
         this.cashId = cashier.getId();
         this.clientId = client.getId();
-        this.productList = productList;
+        this.productMap = productMap;
 
         this.ticket = new LinkedList<>();
         this.numberItems = 0;
@@ -100,7 +107,7 @@ public class Receipt {
     public boolean addItem(int id, int quantity) {
         boolean result = false;
         boolean added = false;
-        Product product = productList.getProduct(id);
+        Product product = productMap.getProduct(id);
 
         if (numberItems + quantity < max_items) {
             // If the product is already on the ticket
@@ -115,7 +122,7 @@ public class Receipt {
                 }
                 // If there is not a product, we insert a copy of it
                 if (!added) {
-                    Product productCopy = new Product(product);
+                    BasicProducts productCopy = new BasicProducts((BasicProducts) product); //Por ahora lanza un classCastException, tenemos que asegurarnos de que funcione.
                     productCopy.setQuantity(quantity);
                     ticket.add(productCopy);
                     numberItems += quantity;

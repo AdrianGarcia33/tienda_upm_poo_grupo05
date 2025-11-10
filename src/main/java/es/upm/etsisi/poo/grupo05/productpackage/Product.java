@@ -1,21 +1,23 @@
-package es.upm.etsisi.poo.grupo05;
+package es.upm.etsisi.poo.grupo05.productpackage;
 
 public abstract class Product {
-    protected String id;
+    protected int id;
     protected String name;
     protected float basePrice;
 
-    public Product(String id, String name, float basePrice) {
+    public Product(int id, String name, float basePrice) {
         this.id = id;
         this.name = name;
         this.basePrice = basePrice;
+
     }
     // Getters and Setters
     // NO SE SI DEBERIAN SER PUBLICOS
-
-    public String getId() {
+    public int getId() {
         return id;
     }
+
+    public void setId(int id) {this.id = id;}
 
     public String getName() {
         return name;
@@ -25,6 +27,16 @@ public abstract class Product {
         this.name = name;
     }
 
+    public float getBasePrice() {
+        return this.basePrice;
+    }
+
+    public void setBasePrice(float basePrice) {
+        this.basePrice = basePrice;
+    }
+
+
+    //Metodos abstractos
     public abstract float getTotalPrice(int amount);
 
     public abstract boolean isTemporallyValid();

@@ -1,16 +1,20 @@
 package es.upm.etsisi.poo.grupo05;
+import es.upm.etsisi.poo.grupo05.productpackage.Category;
+import es.upm.etsisi.poo.grupo05.productpackage.Product;
+import es.upm.etsisi.poo.grupo05.receiptpackage.Receipt;
+
 import java.util.*;
 
 /**
  * Class made for storing all the data from our repertoire of products.
  */
-public class ProductList {
+public class ProductMap {
     private HashMap<Integer, Product> productMap;
     private int number_products;
     private int max_products;
 
     //Builder
-    public ProductList (int max_products){
+    public ProductMap(int max_products){
         this.max_products = max_products;
         productMap = new HashMap<>();
         int number_products = 0;

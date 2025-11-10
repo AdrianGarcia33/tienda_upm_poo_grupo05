@@ -1,18 +1,18 @@
-package es.upm.etsisi.poo.grupo05;
+package es.upm.etsisi.poo.grupo05.productpackage;
 
 import java.util.Locale;
 
 /**
  * Product Class, which comprises of the data for each objetct product
  */
-public class BasicProducts {
-    private int ID;
-    private String name;
-    private float price;
-    Category category;
-    private int quantity;
-    boolean discount;
-    float afterDiscount;
+public class BasicProducts extends Product{
+    protected Category category;
+    protected int quantity;
+    protected boolean discount;
+    protected float afterDiscount;
+    protected float discountedprice;
+
+
 
     /**
      * Builder of this class
@@ -23,40 +23,26 @@ public class BasicProducts {
      * @param quantity
      */
     public BasicProducts(int ID, String name, float price, Category category, int quantity) {
-
-        this.ID = ID;
-        this.name = name;
-        this.price = price;
+        super(ID, name, price);
         this.category = category;
         this.quantity = quantity;
         this.afterDiscount = category.getAfterDiscount();
+        this.discountedprice = basePrice * afterDiscount;
     }
 
     /**
      * Builder of the product class
      * @param other
      */
-    public BasicProducts(BasicProducts other) {
-        this.ID = other.ID;
-        this.name = other.name;
-        this.price = other.price;
+    public BasicProducts(BasicProducts other) { //esto es basicamente el clone de la clase Object creo
+        super(other.id, other.name, other.basePrice);
         this.category = other.category;
         this.quantity = other.quantity;
         this.discount = other.discount;
         this.afterDiscount = other.afterDiscount;
     }
 
-    public int getID() {
-        return ID;
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public float getPrice() {
-        return price;
-    }
 
     public Category getCategory() {
         return category;
@@ -72,18 +58,6 @@ public class BasicProducts {
 
     public float getAfterDiscount() {
         return afterDiscount;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
     }
 
     public void setCategory(Category category) {
@@ -107,12 +81,16 @@ public class BasicProducts {
      * Method that calculates the total price if the boolean discount is set to true
      * @return
      */
-    public float getTotalPrice() {
-        float total = price * quantity;
+    public float getTotalPrice(int quantity) {
+        float total = basePrice * quantity;
         if (discount == true) {
             total *= afterDiscount;
         }
         return total;
+    }
+
+    public boolean isTemporallyValid() {
+        return false;
     }
 
     /**
@@ -120,10 +98,12 @@ public class BasicProducts {
      * @return
      */
     public String toString(){
-        StringBuilder result = new StringBuilder("{class:Product, id:"+ID+", name:'"+name+"', category:"+category+", price:"+price+"}");
-                if(discount) {
-                    result.append(" **discount-").append(String.format(Locale.US,"%.1f", price * (1 - afterDiscount)));
-                }
-                return result.toString();
+        StringBuilder result = new StringBuilder("{class:Product, id:"+id+", name:'"+name+"', category:"+category+", price:"+basePrice+"}");
+
+        if(discount) {
+            result.append(" **discount-").append(String.format(Locale.US,"%.1f", basePrice * (1 - afterDiscount)));
+        }
+
+        return result.toString();
     }
 }

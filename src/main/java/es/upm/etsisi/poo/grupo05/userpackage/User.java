@@ -1,6 +1,7 @@
-package es.upm.etsisi.poo.grupo05;
+package es.upm.etsisi.poo.grupo05.userpackage;
 
-import java.util.ArrayList;
+import es.upm.etsisi.poo.grupo05.receiptpackage.Receipt;
+
 import java.util.LinkedList;
 
 public abstract class User {

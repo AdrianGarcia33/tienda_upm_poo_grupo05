@@ -1,11 +1,11 @@
-package es.upm.etsisi.poo.grupo05;
+package es.upm.etsisi.poo.grupo05.productpackage;
 
 import java.time.LocalDate;
 
 public class Comida extends Events {
     private static final int PLANNING_TIME_DAYS = 3;
 
-    public Comida(String id, String name, float basePrice, LocalDate expirationDate) {
+    public Comida(int id, String name, float basePrice, LocalDate expirationDate) {
         super(expirationDate, id, name, basePrice);
     }
 

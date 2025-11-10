@@ -1,6 +1,6 @@
-package es.upm.etsisi.poo.grupo05;
+package es.upm.etsisi.poo.grupo05.userpackage;
 
-import java.util.ArrayList;
+import es.upm.etsisi.poo.grupo05.receiptpackage.Receipt;
 
 public class Cashier extends User {
     public Cashier(String id, String name, String email) {
@@ -24,6 +24,7 @@ public class Cashier extends User {
         }
     return  String.valueOf(tickets);
     }
+
     public String toString(){
         return "Worker ID: "+super.getId()+", Name: "+super.getName()+", Email: "+super.getEmail();
     }
