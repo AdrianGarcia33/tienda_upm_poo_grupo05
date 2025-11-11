@@ -5,6 +5,7 @@ import es.upm.etsisi.poo.grupo05.productpackage.Product;
 import es.upm.etsisi.poo.grupo05.receiptpackage.Receipt;
 import es.upm.etsisi.poo.grupo05.userpackage.Cashier;
 import es.upm.etsisi.poo.grupo05.userpackage.Client;
+import es.upm.etsisi.poo.grupo05.userpackage.User;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -97,6 +98,40 @@ public class App {
                     System.out.println("client list: ok");
                     break;
             }
+        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException exception) {
+            System.out.println("Incorrect Data");
+        }
+    }
+    private static void handleCashCommand(String[] parts){
+        try{
+           switch(parts[1]){
+               case "add":
+                   if(parts.length==5){
+                    String id = parts[2];
+                    String name = parts[3];
+                    String email = parts[4];
+                    checkSuccesful(userMap.addUser(new Cashier(id,name,email)),parts);
+                   }else if(parts.length==4){
+                       String id = generateId();
+                       String name = parts[2];
+                       String email = parts[3];
+                       checkSuccesful(userMap.addUser(new Cashier(id,name,email)),parts);
+                   }
+                   break;
+               case "remove":
+                   String id = parts[2];
+                   checkSuccesful(userMap.removeUser(userMap.getUserMap().get(id)), parts);
+                   break;
+               case "list":
+                   System.out.println(userMap.UserList(false));
+                   break;
+               case "tickets":
+                    id=parts[2];
+                    Cashier cashier =(Cashier) userMap.getUserMap().get(id);
+                   System.out.println(cashier.tickets());
+                   break;
+           }
         } catch (NullPointerException e) {
         } catch (IllegalArgumentException exception) {
             System.out.println("Incorrect Data");
@@ -262,16 +297,23 @@ public class App {
 
             System.out.print(menu);
         }
-    private String generateId() {
+    private static String generateId() {
             // This method must be called when no cashId is provided when called the command "cash add"
             //if id==null llamamos a este metodo, llamamos hsta que el id random no esté en el hashmap
-        StringBuilder id = new StringBuilder("UW");
+        StringBuilder id= new StringBuilder();
         boolean contiene = true;
-        for (int i = 0; i < 7; i++) {
-            id.append((int) (Math.random()));
+        while(contiene) {
+            StringBuilder aux = new StringBuilder("UW");
+            for (int i = 0; i < 7; i++) {
+                aux.append((int) (Math.random()));
+            }
+            if(!userMap.getUserMap().containsKey(aux.toString())){
+                id=aux;
+                contiene = false;
+            }
         }
-        return String.valueOf(id);
 
+        return String.valueOf(id);
     }
 
 
