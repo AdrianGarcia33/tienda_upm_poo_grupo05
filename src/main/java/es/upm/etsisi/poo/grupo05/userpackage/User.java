@@ -49,4 +49,9 @@ public abstract class User {
     }
 
     public abstract String toString();
+
+    public boolean addReceipt(Receipt receipt) {
+        if(receipts!=null){
+        receipts.add(receipt);
+    }
 }
