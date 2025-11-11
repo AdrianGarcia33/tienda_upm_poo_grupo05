@@ -16,11 +16,6 @@ public class Client extends User{
     }
 
 
-    public void addReceipt(Receipt newreceipt){
-        LinkedList<Receipt> receipts = this.getReceipts();
-        receipts.add(newreceipt);
-        this.setReceipts(receipts);
-    }
     public String toString(){
         return "DNI: "+super.getId()+", Name: "+super.getName()+", Email: "+super.getEmail()+ ", Registered by: "+ creator.getId();
     }

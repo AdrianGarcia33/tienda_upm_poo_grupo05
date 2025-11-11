@@ -36,7 +36,7 @@ public class App {
                     handleClientCommand(parts);
                     break;
                 case "cash":
-
+                    handleCashCommand(parts);
                     break;
                 case "prod":
                     handleProdCommand(parts);
