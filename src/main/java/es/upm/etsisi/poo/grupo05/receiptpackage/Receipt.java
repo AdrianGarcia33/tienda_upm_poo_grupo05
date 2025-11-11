@@ -138,8 +138,7 @@ public class Receipt {
      * @param id
      * @return
      */
-    public boolean removeItem(Cashier cashier, int id) {
-        checkCashier(cashier);
+    public boolean removeItem(int id) {
 
         boolean result = false;
         Iterator<Product> it = ticket.iterator();
@@ -160,8 +159,7 @@ public class Receipt {
         return result;
     }
 
-    public void closeTicket(Cashier cashier) {
-        checkCashier(cashier);
+    public void closeTicket() {
         checkTicketClosed();
 
         closingDate = LocalDateTime.now();
@@ -214,8 +212,7 @@ public class Receipt {
      * Print the ticket
      * @return string with the ticket information
      */
-    public String print(Cashier cashier) {
-        checkCashier(cashier);
+    public String print() {
 
         if(ticketState == TicketState.BLANK){
             return "BLANK TICKET";
@@ -223,7 +220,7 @@ public class Receipt {
 
         if (ticketState == TicketState.ACTIVE) {
             //Hay que actualizar el id en el gestor
-            closeTicket(cashier);
+            closeTicket();
         }
 
         List<Product> ticketArray = new ArrayList<>(ticket);
@@ -258,12 +255,6 @@ public class Receipt {
 
 
         return sb.toString();
-    }
-
-    private void checkCashier(Cashier cashier) {
-        if (!cashId.equals(cashier.getId())) {
-            throw new IllegalArgumentException("Error: The cashier ID is not the one who created this ticket");
-        }
     }
 
     private void checkTicketClosed(){
