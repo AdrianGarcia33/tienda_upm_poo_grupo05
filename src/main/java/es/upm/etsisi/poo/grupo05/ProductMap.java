@@ -17,7 +17,7 @@ public class ProductMap {
     public ProductMap(int max_products){
         this.max_products = max_products;
         productMap = new HashMap<>();
-        int number_products = 0;
+        this.number_products = 0;
     }
 
     //Getters and Setters
@@ -70,7 +70,8 @@ public class ProductMap {
         boolean resultado = false;
         boolean problem = false;
         if (product != null) {
-        int id = product.getID();
+        int id = product.getId();
+
         if (id <= 0) {
             System.out.println("Error: product ID is out of range");
             problem = true;
@@ -79,7 +80,7 @@ public class ProductMap {
             System.out.println("Error: product NAME is out of range");
             problem = true;
         }
-        if(product.getPrice()<0){
+        if(product.getBasePrice()<0){
             System.out.println("Error: product PRICE is out of range");
             problem = true;
         }
@@ -110,7 +111,7 @@ public class ProductMap {
      * @param receipt We do this, so if we remove something from the catalog, it also dissapears from the current receipt
      * @return
      */
-    public boolean removeProduct (int id, Receipt receipt) {
+    public boolean removeProduct (int id, ReceiptMap receiptMap) {
         boolean resultado = false;
 
         if (productMap.get(id) != null) {
@@ -149,7 +150,7 @@ public class ProductMap {
                 if (price < 0) {
                     System.out.println("Error: product price cannot be negative");
                 } else {
-                    p.setPrice(price);
+                    p.setBasePrice(price);
                 }
 
                 if (category != null) {

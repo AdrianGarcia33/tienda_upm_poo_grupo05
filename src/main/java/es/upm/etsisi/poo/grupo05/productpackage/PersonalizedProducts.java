@@ -29,6 +29,15 @@ public class PersonalizedProducts extends BasicProducts{
     }
 
     @Override
+    public float getTotalPrice(int quantity) {
+        float total = (float)((basePrice * quantity)+(basePrice*0.1*num_personalization)) ;
+        if (discount == true) {
+            total *= afterDiscount;
+        }
+        return total;
+    }
+
+    @Override
     public String toString() { //como todavía no sabemos le formato, lo dejo así
         StringBuilder result = new StringBuilder(super.toString()+"\n");
 

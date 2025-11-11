@@ -90,7 +90,7 @@ public class BasicProducts extends Product{
     }
 
     public boolean isTemporallyValid() {
-        return false;
+        return true;
     }
 
     /**
