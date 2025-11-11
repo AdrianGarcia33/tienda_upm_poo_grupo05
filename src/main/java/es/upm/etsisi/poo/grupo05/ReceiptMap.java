@@ -1,7 +1,6 @@
 package es.upm.etsisi.poo.grupo05;
 
 import es.upm.etsisi.poo.grupo05.receiptpackage.Receipt;
-import es.upm.etsisi.poo.grupo05.receiptpackage.ReceiptState;
 
 import java.util.HashMap;
 

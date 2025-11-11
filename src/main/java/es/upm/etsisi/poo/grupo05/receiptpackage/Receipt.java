@@ -138,15 +138,17 @@ public class Receipt {
      * @param id
      * @return
      */
-    public boolean removeItem(Cashier cashier, String id) {
+    public boolean removeItem(Cashier cashier, int id) {
         checkCashier(cashier);
 
         boolean result = false;
         Iterator<Product> it = ticket.iterator();
         while (it.hasNext() && !result) {
             Product p = it.next();
-            if (p.getId().equals(id)) {
-                numberItems -= p.getQuantity();
+            if (p.getId() == id) {
+                if(p instanceof BasicProducts){
+                    numberItems -= ((BasicProducts) p).getQuantity();
+                }else {numberItems -= 1;}
                 it.remove();
                 result = true;
             }
@@ -182,20 +184,11 @@ public class Receipt {
         for (Category category : Category.values()) {
             int count = 0;
             for (Product p : ticket) {
-                if (p.getCategory() == category) {
-                    count += p.getQuantity();
-                }
-            }
-            if (count > 1) {
-                for (Product p : ticket) {
-                    if (p.getCategory() == category) {
-                        p.setDiscount(true);
-                    }
-                }
-            } else {
-                for (Product p : ticket) {
-                    if (p.getCategory() == category) {
-                        p.setDiscount(false);
+                if (p instanceof BasicProducts) {
+                    BasicProducts basicProduct = (BasicProducts) p;
+                    if (basicProduct.getCategory() == category) {
+                        count += basicProduct.getQuantity();
+                        basicProduct.setDiscount(count > 1);
                     }
                 }
             }
@@ -210,7 +203,7 @@ public class Receipt {
      */
     public Product getProduct(int id) {
         for (Product p : ticket) {
-            if (p.getID() == id) {
+            if (p.getId() == id) {
                 return p;
             }
         }
@@ -243,13 +236,20 @@ public class Receipt {
         double totalDiscount = 0.0;
         double finalPrice = 0.0;
         for(Product p : ticketArray){
-            int quantity = p.getQuantity();
-            float price = p.getPrice();
-            for (int i = 0; i < quantity; i++) {
-                sb.append(p.toString()+"\n");
+            float price = p.getBasePrice();
+            if(p instanceof BasicProducts) {
+                BasicProducts bp = (BasicProducts) p;
+                int quantity = bp.getQuantity();
+                for (int i = 0; i < quantity; i++) {
+                    sb.append(bp.toString() + "\n");
+                }
+                totalPrice += (price * quantity);
+                finalPrice += p.getTotalPrice(quantity);
+            }else {
+                sb.append(p.toString() + "\n");
+                totalPrice += price;
+                finalPrice += price;
             }
-            totalPrice += (price * quantity);
-            finalPrice += p.getTotalPrice();
         }
         totalDiscount = totalPrice-finalPrice;
         sb.append("Total price: " + String.format(Locale.US,"%.1f", totalPrice) + "\n");
