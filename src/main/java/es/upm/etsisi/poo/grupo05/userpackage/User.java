@@ -3,18 +3,17 @@ package es.upm.etsisi.poo.grupo05.userpackage;
 import es.upm.etsisi.poo.grupo05.receiptpackage.Receipt;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 
 public abstract class User {
     private String id;
     private String email;
-    private String Name;
+    private String name;
     private HashMap<String,Receipt> receipts;
 
-    public User(String id, String email, String Name) {
+    public User(String id, String name, String email) {
         this.id = id;
         this.email = email;
-        this.Name = Name;
+        this.name = name;
         this.receipts = new HashMap<>();
     }
     public String getId() {
@@ -34,11 +33,11 @@ public abstract class User {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public HashMap<String,Receipt> getReceipts() {

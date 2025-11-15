@@ -15,7 +15,7 @@ public class Client extends User{
         return creator;
     }
 
-
+    @Override
     public String toString(){
         return "DNI: "+super.getId()+", Name: "+super.getName()+", Email: "+super.getEmail()+ ", Registered by: "+ creator.getId();
     }

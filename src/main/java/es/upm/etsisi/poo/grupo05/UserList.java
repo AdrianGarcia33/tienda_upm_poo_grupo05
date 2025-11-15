@@ -1,4 +1,6 @@
 package es.upm.etsisi.poo.grupo05;
+import es.upm.etsisi.poo.grupo05.userpackage.Cashier;
+import es.upm.etsisi.poo.grupo05.userpackage.Client;
 import es.upm.etsisi.poo.grupo05.userpackage.User;
 
 import java.util.HashMap;
@@ -49,15 +51,15 @@ public class UserList {
         if(client){
             list.append("Client List:\n");
             for(User u : UserMap.values()){
-                if(!u.getId().contains("UW")) list.append(u.toString()+"\n");
+                if(u instanceof Client) list.append(u.toString()+"\n");
             }
         }else {
             list.append("Cashier List:\n");
             for (User u : UserMap.values()) {
-                if (u.getId().contains("UW")) list.append(u.toString() + "\n");
+                if (u instanceof Cashier) list.append(u.toString() + "\n");
             }
         }
-        return String.valueOf(list);
+        return list.toString();
     }
 
     public HashMap<String, User> getUserMap() {

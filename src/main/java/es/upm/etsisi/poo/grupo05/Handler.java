@@ -80,13 +80,14 @@ public class Handler {
 
     private void handleClientCommand(String[] parts) {
         try{
+            String name, DNI, email;
             switch (parts[1]){
                 case "add":
-                    String nombre = parts[2];
-                    String DNI = parts[3];
-                    String email = parts[4];
+                    name = parts[2];
+                    DNI = parts[3];
+                    email = parts[4];
                     Cashier cashier =(Cashier) userMap.getUserMap().get(parts[5]);
-                    checkSuccesful(userMap.addUser(new Client(DNI,nombre,email,cashier)), parts);
+                    checkSuccesful(userMap.addUser(new Client(DNI,name,email,cashier)), parts);
 
                     break;
                 case "remove":
@@ -106,22 +107,23 @@ public class Handler {
     }
     private void handleCashCommand(String[] parts){
         try{
+            String id, name,email;
             switch(parts[1]){
                 case "add":
                     if(parts.length==5){
-                        String id = parts[2];
-                        String name = parts[3];
-                        String email = parts[4];
-                        checkSuccesful(userMap.addUser(new Cashier(id,name,email)),parts);
+                        id = parts[2];
+                        name = parts[3];
+                        email = parts[4];
+                        if(cashIdAcceptable(id) && cashIdAcceptable(email)) checkSuccesful(userMap.addUser(new Cashier(id,name,email)),parts);
                     }else if(parts.length==4){
-                        String id = generateId();
-                        String name = parts[2];
-                        String email = parts[3];
-                        checkSuccesful(userMap.addUser(new Cashier(id,name,email)),parts);
+                        id = generateId();
+                        name = parts[2];
+                        email = parts[3];
+                        if(cashIdAcceptable(email)) checkSuccesful(userMap.addUser(new Cashier(id,name,email)),parts);
                     }
                     break;
                 case "remove":
-                    String id = parts[2];
+                    id = parts[2];
                     checkSuccesful(userMap.removeUser(userMap.getUserMap().get(id)), parts);
                     break;
                 case "list":
@@ -315,6 +317,22 @@ public class Handler {
         }
 
         return String.valueOf(id);
+    }
+    private boolean cashIdAcceptable(String id){
+        if(id.length()==9 && !userMap.getUserMap().containsKey(id) && id.startsWith("UW")){
+            return true;
+        }else{
+            System.out.println("Incorrect data");
+            return false;
+        }
+    }
+    private boolean cashEmailAcceptable(String email){
+        if(email.endsWith("@upm.es")){
+            return true;
+        }else{
+            System.out.println("Incorrect data");
+            return false;
+        }
     }
 
 }
