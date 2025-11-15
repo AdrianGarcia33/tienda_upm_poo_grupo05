@@ -55,8 +55,7 @@ public class ReceiptMap {
         String salida = "";
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
-            receipt.setTicketState(TicketState.CLOSED);
-            salida = receipt.toString();
+            salida = receipt.print();
         } else {
             System.out.println("Error: TicketNotFound");
         }

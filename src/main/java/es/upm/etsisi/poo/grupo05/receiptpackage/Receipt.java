@@ -1,11 +1,9 @@
 package es.upm.etsisi.poo.grupo05.receiptpackage;
 
+import es.upm.etsisi.poo.grupo05.productpackage.*;
 import es.upm.etsisi.poo.grupo05.userpackage.Cashier;
-import es.upm.etsisi.poo.grupo05.productpackage.Category;
 import es.upm.etsisi.poo.grupo05.userpackage.Client;
 import es.upm.etsisi.poo.grupo05.ProductMap;
-import es.upm.etsisi.poo.grupo05.productpackage.BasicProducts;
-import es.upm.etsisi.poo.grupo05.productpackage.Product;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +14,7 @@ import java.util.*;
  */
 public class Receipt {
     private String id;
-    private LocalDateTime openingDate;
+    private final LocalDateTime openingDate;
     private LocalDateTime closingDate;
     private TicketState ticketState;
 
@@ -36,7 +34,7 @@ public class Receipt {
      * Builder of this class
      * @param productMap
      */
-    public Receipt(String id, Cashier cashier, Client client, ProductMap productMap) {
+    public Receipt(String id, String cashId, String clientId, ProductMap productMap) {
         this.openingDate = LocalDateTime.now();
 
         if(id == null){
@@ -48,8 +46,8 @@ public class Receipt {
             this.id = id;
         }
 
-        this.cashId = cashier.getId();
-        this.clientId = client.getId();
+        this.cashId = cashId;
+        this.clientId = clientId;
         this.productMap = productMap;
 
         this.ticket = new LinkedList<>();
@@ -109,28 +107,38 @@ public class Receipt {
         boolean added = false;
         Product product = productMap.getProduct(id);
 
-        if (numberItems + quantity < max_items) {
-            // If the product is already on the ticket
-            if (product != null && quantity > 0) {
-                for(Product p : ticket){
-                    if (p.getID() == id) {
-                        p.setQuantity(p.getQuantity() + quantity);
+        // If the product is already on the ticket
+        if (product != null) {
+            for(Product p : ticket){
+                if (p.getId() == id) {
+                    if (p instanceof BasicProducts basicProducts) {
+                        basicProducts.setQuantity(basicProducts.getQuantity() + quantity);
                         numberItems += quantity;
                         result = true;
                         added = true;
+                    }else if (p instanceof Lunch) {
+                        throw new IllegalArgumentException("Lunch already exists");
+                    }else if (p instanceof Meeting){
+                        throw new IllegalArgumentException("Meeting already exists");
                     }
                 }
-                // If there is not a product, we insert a copy of it
-                if (!added) {
+            }
+            // If there is not a product, we insert a copy of it
+            if (!added) {
+                if (product instanceof BasicProducts) {
                     BasicProducts productCopy = new BasicProducts((BasicProducts) product); //Por ahora lanza un classCastException, tenemos que asegurarnos de que funcione.
                     productCopy.setQuantity(quantity);
                     ticket.add(productCopy);
                     numberItems += quantity;
                     result = true;
+                }else {
+                    ticket.add(product);
+                    result = true;
                 }
             }
         }
         checkDiscount();
+        if (result) {this.ticketState = TicketState.ACTIVE;}
         return result;
     }
 
@@ -234,16 +242,15 @@ public class Receipt {
         double finalPrice = 0.0;
         for(Product p : ticketArray){
             float price = p.getBasePrice();
-            if(p instanceof BasicProducts) {
-                BasicProducts bp = (BasicProducts) p;
+            if(p instanceof BasicProducts bp) {
                 int quantity = bp.getQuantity();
                 for (int i = 0; i < quantity; i++) {
-                    sb.append(bp.toString() + "\n");
+                    sb.append(bp.toString()).append("\n");
                 }
                 totalPrice += (price * quantity);
                 finalPrice += p.getTotalPrice(quantity);
             }else {
-                sb.append(p.toString() + "\n");
+                sb.append(p.toString()).append("\n");
                 totalPrice += price;
                 finalPrice += price;
             }
