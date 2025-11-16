@@ -1,17 +1,17 @@
-package es.upm.etsisi.poo.grupo05;
-import es.upm.etsisi.poo.grupo05.userpackage.Cashier;
-import es.upm.etsisi.poo.grupo05.userpackage.Client;
-import es.upm.etsisi.poo.grupo05.userpackage.User;
+package es.upm.etsisi.poo.grupo05.resourcespackage;
+import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Cashier;
+import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Client;
+import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.User;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-public class UserList {
+public class UserMap {
     private HashMap<String, User> UserMap;
 
-    public UserList(){
+    public UserMap(){
         UserMap = new HashMap<>();
     }
 

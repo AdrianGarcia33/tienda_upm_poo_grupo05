@@ -1,8 +1,4 @@
-package es.upm.etsisi.poo.grupo05.userpackage;
-
-import es.upm.etsisi.poo.grupo05.receiptpackage.Receipt;
-
-import java.util.LinkedList;
+package es.upm.etsisi.poo.grupo05.resourcespackage.userpackage;
 
 public class Client extends User{
     private Cashier creator;

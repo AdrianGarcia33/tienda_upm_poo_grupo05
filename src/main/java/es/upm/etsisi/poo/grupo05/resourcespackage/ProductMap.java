@@ -1,7 +1,6 @@
-package es.upm.etsisi.poo.grupo05;
-import es.upm.etsisi.poo.grupo05.productpackage.Category;
-import es.upm.etsisi.poo.grupo05.productpackage.Product;
-import es.upm.etsisi.poo.grupo05.receiptpackage.Receipt;
+package es.upm.etsisi.poo.grupo05.resourcespackage;
+import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Category;
+import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Product;
 
 import java.util.*;
 

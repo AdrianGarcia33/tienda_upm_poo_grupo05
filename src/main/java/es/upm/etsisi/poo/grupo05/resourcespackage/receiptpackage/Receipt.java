@@ -1,9 +1,7 @@
-package es.upm.etsisi.poo.grupo05.receiptpackage;
+package es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage;
 
-import es.upm.etsisi.poo.grupo05.productpackage.*;
-import es.upm.etsisi.poo.grupo05.userpackage.Cashier;
-import es.upm.etsisi.poo.grupo05.userpackage.Client;
-import es.upm.etsisi.poo.grupo05.ProductMap;
+import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.*;
+import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -63,6 +61,10 @@ public class Receipt {
 
     public TicketState getTicketState() {
         return ticketState;
+    }
+
+    public void setTicketState(TicketState ticketState) {
+        this.ticketState = ticketState;
     }
 
     public String getCashId() {

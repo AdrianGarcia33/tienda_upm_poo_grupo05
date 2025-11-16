@@ -1,6 +1,6 @@
-package es.upm.etsisi.poo.grupo05.userpackage;
+package es.upm.etsisi.poo.grupo05.resourcespackage.userpackage;
 
-import es.upm.etsisi.poo.grupo05.receiptpackage.Receipt;
+import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.Receipt;
 
 import java.util.HashMap;
 

@@ -1,4 +1,4 @@
-package es.upm.etsisi.poo.grupo05.productpackage;
+package es.upm.etsisi.poo.grupo05.resourcespackage.productpackage;
 
 public class PersonalizedProducts extends BasicProducts{
     private int maxPersonalizedTexts;

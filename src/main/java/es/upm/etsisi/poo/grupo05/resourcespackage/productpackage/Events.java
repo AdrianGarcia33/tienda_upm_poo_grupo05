@@ -1,4 +1,4 @@
-package es.upm.etsisi.poo.grupo05.productpackage;
+package es.upm.etsisi.poo.grupo05.resourcespackage.productpackage;
 
 import java.time.LocalDate;
 

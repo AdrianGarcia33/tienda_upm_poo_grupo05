@@ -1,4 +1,4 @@
-package es.upm.etsisi.poo.grupo05.productpackage;
+package es.upm.etsisi.poo.grupo05.resourcespackage.productpackage;
 
 public abstract class Product {
     protected int id;

@@ -4,31 +4,31 @@ import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Category;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Product;
-import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.Receipt;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Cashier;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Client;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
-/**
- * Main, whose purpose is to read and execute commands
- */
-public class App {
-    private static ProductMap productMap;
-    private static Receipt receipt;
-    private static Scanner scanner;
-    private static UserMap userMap;
+public class HandlerAntiguo {
+    private ProductMap productMap;
+    private UserMap userMap;
+    private Scanner scanner;
 
 
+    public HandlerAntiguo(ProductMap productMap, UserMap userMap, Scanner scanner) {
+        this.productMap = productMap;
+        this.userMap = userMap;
+        this.scanner = scanner;
+    }
     /**
      * Method whose job is to detect commands from an entry string in order to call subsequent functions. While
      * it doesn't detect exit, it will always return false
      *
      * @param line Entry Strig
      */
-    public static boolean detect(String line) {
+    public boolean detect(String line) {
         try {
             String parts[] = line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
@@ -37,7 +37,7 @@ public class App {
                     handleClientCommand(parts);
                     break;
                 case "cash":
-                    handleCashCommand(parts);
+
                     break;
                 case "prod":
                     handleProdCommand(parts);
@@ -78,15 +78,17 @@ public class App {
      * @param parts
      */
 
-    private static void handleClientCommand(String[] parts) {
+    private void handleClientCommand(String[] parts) {
         try{
+            String name, DNI, email;
             switch (parts[1]){
                 case "add":
-                    String nombre = parts[2];
-                    String DNI = parts[3];
-                    String email = parts[4];
-                    Cashier cashier =(Cashier) userMap.getUserMap().get(parts[5]);
-                    checkSuccesful(userMap.addUser(new Client(DNI,nombre,email,cashier)), parts);
+                    name = parts[2];
+                    DNI = parts[3];
+                    email = parts[4];
+                    Cashier cashier=null;
+                    if(userMap.getUserMap().containsKey(parts[5])) cashier=(Cashier) userMap.getUserMap().get(parts[5]);
+                    if(clientEmailAcceptable(email) && cashier!= null)checkSuccesful(userMap.addUser(new Client(DNI,name,email,cashier)), parts);
 
                     break;
                 case "remove":
@@ -104,41 +106,42 @@ public class App {
             System.out.println("Incorrect Data");
         }
     }
-    private static void handleCashCommand(String[] parts){
+    private void handleCashCommand(String[] parts){
         try{
-           switch(parts[1]){
-               case "add":
-                   if(parts.length==5){
-                    String id = parts[2];
-                    String name = parts[3];
-                    String email = parts[4];
-                    checkSuccesful(userMap.addUser(new Cashier(id,name,email)),parts);
-                   }else if(parts.length==4){
-                       String id = generateId();
-                       String name = parts[2];
-                       String email = parts[3];
-                       checkSuccesful(userMap.addUser(new Cashier(id,name,email)),parts);
-                   }
-                   break;
-               case "remove":
-                   String id = parts[2];
-                   checkSuccesful(userMap.removeUser(userMap.getUserMap().get(id)), parts);
-                   break;
-               case "list":
-                   System.out.println(userMap.UserList(false));
-                   break;
-               case "tickets":
+            String id, name,email;
+            switch(parts[1]){
+                case "add":
+                    if(parts.length==5){
+                        id = parts[2];
+                        name = parts[3];
+                        email = parts[4];
+                        if(cashIdAcceptable(id) && cashEmailAcceptable(email)) checkSuccesful(userMap.addUser(new Cashier(id,name,email)),parts);
+                    }else if(parts.length==4){
+                        id = generateId();
+                        name = parts[2];
+                        email = parts[3];
+                        if(cashEmailAcceptable(email)) checkSuccesful(userMap.addUser(new Cashier(id,name,email)),parts);
+                    }
+                    break;
+                case "remove":
+                    id = parts[2];
+                    checkSuccesful(userMap.removeUser(userMap.getUserMap().get(id)), parts);
+                    break;
+                case "list":
+                    System.out.println(userMap.UserList(false));
+                    break;
+                case "tickets":
                     id=parts[2];
                     Cashier cashier =(Cashier) userMap.getUserMap().get(id);
-                   System.out.println(cashier.tickets());
-                   break;
-           }
+                    System.out.println(cashier.tickets());
+                    break;
+            }
         } catch (NullPointerException e) {
         } catch (IllegalArgumentException exception) {
             System.out.println("Incorrect Data");
         }
     }
-    private static void handleProdCommand(String[] parts) {
+    private void handleProdCommand(String[] parts) {
         try {
             switch (parts[1]) {
 
@@ -162,7 +165,7 @@ public class App {
 
                 case "update":
                     id = Integer.parseInt(parts[2]);
-                    float originalprice = productMap.getProduct(id).getPrice();
+                    float originalprice = productMap.getProduct(id).getBasePrice();
                     switch (parts[3].toUpperCase()) {
                         case "NAME":
                             String[] restofString = Arrays.copyOfRange(parts, 4, parts.length);
@@ -209,7 +212,7 @@ public class App {
     /** Auxiliary method to handle the commands with ticket prefix
      * @param parts
      */
-    private static void handleTicketCommand(String[] parts) {
+    private void handleTicketCommand(String[] parts) {
         try {
             switch (parts[1]) {
                 case "new":
@@ -244,7 +247,7 @@ public class App {
      * @param check
      * @param parts
      */
-    public static void checkSuccesful(boolean check, String[] parts) {
+    public void checkSuccesful(boolean check, String[] parts) {
         switch (parts[0]) {
             case "prod":
                 switch (parts[1]) {
@@ -268,7 +271,7 @@ public class App {
                     System.out.println(parts[0]+" "+parts[1]+": ok");
                     System.out.println("");
                 }
-            break;
+                break;
 
         }
 
@@ -277,36 +280,36 @@ public class App {
     /**
      * Prints on screen a menu with the possible commands
      */
-        public static void help () {
-            StringBuilder menu = new StringBuilder();
+    public static void help () {
+        StringBuilder menu = new StringBuilder();
 
-            menu.append("Commands:\n");
-            menu.append("   prod add <id> \"<name>\" <category> <price>\n");
-            menu.append("   prod list\n");
-            menu.append("   prod update <id> NAME|CATEGORY|PRICE <value>\n");
-            menu.append("   prod remove <id>\n");
-            menu.append("   ticket new\n");
-            menu.append("   ticket add <prodId> <quantity>\n");
-            menu.append("   ticket remove <prodId>\n");
-            menu.append("   ticket print\n");
-            menu.append("   echo <texto>\n");
-            menu.append("   help\n");
-            menu.append("   exit\n\n");
-            menu.append("   Categories: MERCH, STATIONERY, CLOTHES, BOOK, ELECTRONICS\n");
-            menu.append("   Discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.\n");
-            menu.append("\n");
+        menu.append("Commands:\n");
+        menu.append("   prod add <id> \"<name>\" <category> <price>\n");
+        menu.append("   prod list\n");
+        menu.append("   prod update <id> NAME|CATEGORY|PRICE <value>\n");
+        menu.append("   prod remove <id>\n");
+        menu.append("   ticket new\n");
+        menu.append("   ticket add <prodId> <quantity>\n");
+        menu.append("   ticket remove <prodId>\n");
+        menu.append("   ticket print\n");
+        menu.append("   echo <texto>\n");
+        menu.append("   help\n");
+        menu.append("   exit\n\n");
+        menu.append("   Categories: MERCH, STATIONERY, CLOTHES, BOOK, ELECTRONICS\n");
+        menu.append("   Discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.\n");
+        menu.append("\n");
 
-            System.out.print(menu);
-        }
-    private static String generateId() {
-            // This method must be called when no cashId is provided when called the command "cash add"
-            //if id==null llamamos a este metodo, llamamos hsta que el id random no esté en el hashmap
+        System.out.print(menu);
+    }
+    private String generateId() {
+        // This method must be called when no cashId is provided when called the command "cash add"
+        //if id==null llamamos a este metodo, llamamos hsta que el id random no esté en el hashmap
         StringBuilder id= new StringBuilder();
         boolean contiene = true;
         while(contiene) {
             StringBuilder aux = new StringBuilder("UW");
             for (int i = 0; i < 7; i++) {
-                aux.append((int) (Math.random()));
+                aux.append((int) (Math.random()*10));
             }
             if(!userMap.getUserMap().containsKey(aux.toString())){
                 id=aux;
@@ -316,48 +319,29 @@ public class App {
 
         return String.valueOf(id);
     }
-
-
-    /**
-     * Runs the app, and if a file is provided as argument, reads commands from it
-     * @param args
-     */
-        public static void main (String[] args) {
-            int max_products = 200 ;
-            productMap = new ProductMap(max_products);
-            receipt = new Receipt(productMap);
-            userMap= new UserMap();
-            try {
-                boolean imprimir_comando = false;
-                if (args.length > 0) {
-                    scanner = new Scanner(new File(args[0]));
-                    imprimir_comando = true;
-                } else {
-                    scanner = new Scanner(System.in);
-                }
-
-                System.out.println("Welcome to the ticket module App");
-                System.out.println("Ticket module. Type 'help' to see commands.");
-                boolean stop = false;
-
-                while (!stop) {
-                    System.out.print("tUPM>");
-                    String line = scanner.nextLine();
-                    if (imprimir_comando) {
-                        System.out.println(line);
-                    }
-                    if (detect(line)) {
-                        stop = true;
-                    }
-                }
-
-                System.out.println("Closing application.");
-                System.out.println("Goodbye!");
-            } catch (FileNotFoundException e) {
-                System.out.println("File not found");
-            }
+    private boolean cashIdAcceptable(String id){
+        if(id.length()==9 && !userMap.getUserMap().containsKey(id) && id.startsWith("UW")){
+            return true;
+        }else{
+            System.out.println("Incorrect data");
+            return false;
         }
+    }
+    private boolean cashEmailAcceptable(String email){
+        if(email.endsWith("@upm.es")){
+            return true;
+        }else{
+            System.out.println("Incorrect data");
+            return false;
+        }
+    }
+    private boolean clientEmailAcceptable(String email){
+        if(!email.endsWith("@upm.es")){
+            return true;
+        }else{
+            System.out.println("Incorrect data");
+            return false;
+        }
+    }
+
 }
-
-
-

@@ -1,7 +1,6 @@
-package es.upm.etsisi.poo.grupo05;
+package es.upm.etsisi.poo.grupo05.resourcespackage;
 
-import es.upm.etsisi.poo.grupo05.receiptpackage.Receipt;
-import es.upm.etsisi.poo.grupo05.receiptpackage.TicketState;
+import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.Receipt;
 
 import java.util.ArrayList;
 import java.util.Comparator;
