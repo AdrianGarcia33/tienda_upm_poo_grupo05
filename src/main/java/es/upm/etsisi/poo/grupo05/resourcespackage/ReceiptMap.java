@@ -26,6 +26,10 @@ public class ReceiptMap {
         }
     }
 
+    public boolean contains(String id) {
+        return receiptmap.containsKey(id);
+    }
+
     public boolean addItemtoReceipt(String receipt_id, int prod_id, int quantity) {
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
@@ -59,6 +63,13 @@ public class ReceiptMap {
             System.out.println("Error: TicketNotFound");
         }
         return salida;
+    }
+
+    public boolean removeItemsFromAllReceipts(int prod_id) {
+        for (Receipt receipt : receiptmap.values()) {
+            receipt.removeItem(prod_id);
+        }
+        return true;
     }
 
 

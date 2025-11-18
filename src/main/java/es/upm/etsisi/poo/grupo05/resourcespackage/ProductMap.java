@@ -59,6 +59,10 @@ public class ProductMap {
         }
     }
 
+    public boolean hasProduct (int id) {
+        return productMap.containsKey(id);
+    }
+
 
     /**
      * Method made to add a product into our catalog
@@ -110,16 +114,12 @@ public class ProductMap {
      * @param receipt We do this, so if we remove something from the catalog, it also dissapears from the current receipt
      * @return
      */
-    public boolean removeProduct (int id, ReceiptMap receiptMap) {
+    public boolean removeProduct (int id) {
         boolean resultado = false;
 
         if (productMap.get(id) != null) {
             productMap.remove(id);
             resultado = true;
-            number_products--;
-            if (receipt != null) {
-                receipt.removeItem(id); // Remove from receipt as well
-            }
             number_products--;
         } else {
             System.out.println("Error: this product does not exist");

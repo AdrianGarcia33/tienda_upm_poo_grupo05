@@ -1,5 +1,6 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage.userpackage;
 
+import es.upm.etsisi.poo.grupo05.resourcespackage.ReceiptMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.Receipt;
 
 import java.util.HashMap;
@@ -8,13 +9,13 @@ public abstract class User {
     private String id;
     private String email;
     private String name;
-    private HashMap<String,Receipt> receipts;
+    private ReceiptMap receiptMap;
 
     public User(String id, String name, String email) {
         this.id = id;
         this.email = email;
         this.name = name;
-        this.receipts = new HashMap<>();
+        this.receiptMap = new ReceiptMap();
     }
     public String getId() {
         return id;
@@ -40,24 +41,24 @@ public abstract class User {
         this.name = name;
     }
 
-    public HashMap<String,Receipt> getReceipts() {
-        return receipts;
+    public ReceiptMap getReceiptMap() {
+        return receiptMap;
     }
 
-    public void setReceipts(HashMap<String, Receipt> receipts) {
-        this.receipts = receipts;
+    public void setReceipts(ReceiptMap receiptMap) {
+        this.receiptMap = receiptMap;
     }
 
     public abstract String toString();
 
     public boolean addReceipt(Receipt receipt) {
         boolean result = false;
-        if(receipts!=null){
-            if(receipts.containsKey(receipt.getId())){
+        if(receiptMap!=null){
+            if(receiptMap.contains(id)){
                 System.out.println("Error: receipt already added");
             }else{
                 result=true;
-                receipts.put(receipt.getId(), receipt);
+                receiptMap.newReceipt(receipt);
             }
         }
         return result;

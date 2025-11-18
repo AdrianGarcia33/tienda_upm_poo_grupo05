@@ -13,6 +13,7 @@ import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.commandpackage.ProdCommands.ProdCommand;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -43,7 +44,7 @@ public class Handler {
         ExitCommand exitCommand = new ExitCommand("exit");
 
         //Inializamos los commandos que necesiten algun map
-        prodCommand.initialize(this.productmap);
+        prodCommand.initialize(this.productmap, this.usermap);
         ticketCommand.initialize(this.usermap);
         clientCommand.initialize(this.usermap);
         cashCommand.initialize(this.usermap);

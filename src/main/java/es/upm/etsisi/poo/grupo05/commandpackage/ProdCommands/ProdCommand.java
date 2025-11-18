@@ -3,6 +3,8 @@ package es.upm.etsisi.poo.grupo05.commandpackage.ProdCommands;
 import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.commandpackage.ProdCommands.Subcommands.*;
+import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
+import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.User;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -16,12 +18,12 @@ public class ProdCommand extends Command {
         this.subcommands = new LinkedList<>();
     }
 
-    public void initialize(ProductMap productmap) {
+    public void initialize(ProductMap productmap, UserMap userMap) {
         ProdAddCommand prodAdd = new ProdAddCommand("add", productmap);
         ProdAddFoodCommand prodAddFood = new ProdAddFoodCommand("addFood", productmap);
         ProdAddMeetingCommand prodAddMeeting = new ProdAddMeetingCommand("addMeeting", productmap);
         ProdListCommand prodList = new ProdListCommand("list", productmap);
-        ProdRemoveCommand prodRemove = new ProdRemoveCommand("remove", productmap);
+        ProdRemoveCommand prodRemove = new ProdRemoveCommand("remove", productmap, userMap);
         ProdUpdateCommand prodUpdate = new ProdUpdateCommand("update", productmap);
 
         subcommands.add(prodAdd);
