@@ -5,8 +5,8 @@ import java.time.LocalDate;
 public class Lunch extends Events {
     private static final int PLANNING_TIME_DAYS = 3;
 
-    public Lunch(int id, String name, float basePrice, LocalDate expirationDate) {
-        super(expirationDate, id, name, basePrice);
+    public Lunch(int id, String name, float basePrice, LocalDate expirationDate, int maxParticipants) {
+        super(expirationDate, id, name, basePrice, maxParticipants);
     }
 
     @Override
@@ -21,6 +21,6 @@ public class Lunch extends Events {
         return "{class:Comida, id:" + id + ", name:'" + name +
                 "', pricePerPerson:" + basePrice +
                 ", expiration:" + expirationDate +
-                ", maxParticipants:" + MAX_PARTICIPANTS + "}";
+                ", maxParticipants:" + maxParticipants + "}";
     }
 }
