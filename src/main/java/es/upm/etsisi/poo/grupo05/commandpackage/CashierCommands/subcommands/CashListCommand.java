@@ -14,12 +14,9 @@ public class CashListCommand extends Command {
     @Override
     public boolean apply(String[] args) { //solo nos queda los datos que necesitamos
         String line = args.toString();
-
-        //matcher and pattern type shit
-
-
-
-
+        try {
+            System.out.println(userMap.UserList(false));
+        }catch(Exception e){}
         return false;
     }
 }

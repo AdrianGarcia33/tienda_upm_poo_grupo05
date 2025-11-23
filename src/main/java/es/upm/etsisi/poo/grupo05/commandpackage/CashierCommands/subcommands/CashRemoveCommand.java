@@ -14,12 +14,10 @@ public class CashRemoveCommand extends Command {
     @Override
     public boolean apply(String[] args) { //solo nos queda los datos que necesitamos
         String line = args.toString();
-
-        //matcher and pattern type shit
-
-
-
-
+        try{
+            String id = args[0];
+            userMap.removeUser(userMap.getUserMap().get(id));
+        }catch(Exception e){}
         return false;
     }
 }

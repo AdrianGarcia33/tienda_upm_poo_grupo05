@@ -12,12 +12,10 @@ public class ClientListCommand extends Command {
     @Override
     public boolean apply(String[] args) { //solo nos queda los datos que necesitamos
         String line = args.toString();
-
-        //matcher and pattern type shit
-
-
-
-
+        try {
+            System.out.println(userMap.UserList(true));
+            System.out.println("client list: ok");
+        }catch(Exception e){}
         return false;
     }
 }
