@@ -15,6 +15,14 @@ public class ReceiptMap {
         this.num_receipt = 0;
     }
 
+    public HashMap<String, Receipt> getReceiptmap() {
+        return receiptmap;
+    }
+
+    public void setReceiptmap(HashMap<String, Receipt> receiptmap) {
+        this.receiptmap = receiptmap;
+    }
+
     public boolean newReceipt(Receipt receipt) {
         String id = receipt.getId();
         if (!receiptmap.containsKey(id)) {

@@ -10,7 +10,7 @@ public class Cashier extends User {
     public String tickets(){
     StringBuilder tickets = new StringBuilder();
     tickets.append(super.getId()+"'s tickets: \n");
-        for(Receipt r : super.getReceiptMap().values()){
+        for(Receipt r : super.getReceiptMap().getReceiptmap().values()){
             tickets.append(r.toString()+"\n");
         }
     return  tickets.toString();
