@@ -63,9 +63,9 @@ public class ProdAddFoodCommand extends Command {
         } catch (DateTimeParseException e) {
             System.out.println("Error: Formato de fecha inválido (use yyyy-MM-dd).");
         } catch (Exception e) {
-            System.out.println(ExceptionHandler.getNullPointerExceptionMessage()); // O un mensaje genérico
+            System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
         }
 
-        return true;
+        return false;
     }
 }

@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 public class Meeting extends Events {
     private static final int PLANNING_TIME_HOURS = 12;
 
-    public Meeting(int id, String name, float basePrice, LocalDate expirationDate){
-        super(expirationDate, id, name, basePrice);
+    public Meeting(int id, String name, float basePrice, LocalDate expirationDate, int maxParticipants) {
+        super(expirationDate, id, name, basePrice, maxParticipants);
     }
     @Override
     public boolean isTemporallyValid() {
@@ -23,6 +23,6 @@ public class Meeting extends Events {
         return "{class:Reuniones, id:" + id + ", name:'" + name +
                 "', pricePerPerson:" + basePrice +
                 ", expiration:" + expirationDate +
-                ", maxParticipants:" + MAX_PARTICIPANTS + "}";
+                ", maxParticipants:" + maxParticipants + "}";
     }
 }
