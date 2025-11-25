@@ -9,6 +9,9 @@ public class Meeting extends Events {
     public Meeting(int id, String name, float basePrice, LocalDate expirationDate, int maxParticipants) {
         super(expirationDate, id, name, basePrice, maxParticipants);
     }
+    public Meeting(Meeting other){
+        super(other.expirationDate, other.id, other.name, other.basePrice, other.maxParticipants);
+    }
     @Override
     public boolean isTemporallyValid() {
         LocalDateTime now = LocalDateTime.now();

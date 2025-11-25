@@ -9,6 +9,10 @@ public class Lunch extends Events {
         super(expirationDate, id, name, basePrice, maxParticipants);
     }
 
+    public Lunch(Lunch other){
+        super(other.expirationDate, other.id, other.name, other.basePrice, other.maxParticipants);
+    }
+
     @Override
     public boolean isTemporallyValid() {
         LocalDate now = LocalDate.now();

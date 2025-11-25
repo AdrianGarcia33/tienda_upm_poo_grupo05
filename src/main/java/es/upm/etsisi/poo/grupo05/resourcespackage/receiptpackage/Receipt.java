@@ -133,7 +133,8 @@ public class Receipt {
                     ticket.add(productCopy);
                     numberItems += quantity;
                     result = true;
-                }else {
+                }else if (product instanceof Lunch) {
+                    Lunch productCopy = new Lunch((Lunch) product);
                     ticket.add(product);
                     result = true;
                 }
