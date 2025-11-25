@@ -27,7 +27,7 @@ public class ProdAddCommand extends Command {
             String line = String.join(" ", args).trim();
             line = line.replaceAll("\"{2,}", "\"");
 
-            Pattern p = Pattern.compile("^\\[(\\d+)\\]\\s*\"([^\"]+)\"\\s+(\\S+)\\s+(\\d+(?:\\.\\d+)?)\\s*(?:\\[(\\d+)\\])?$");
+            Pattern p = Pattern.compile("^(\\d+)\\s+\"([^\"]+)\"\\s+(\\S+)\\s+(\\d+(?:\\.\\d+)?)\\s*(?:\\[(\\d+)\\])?$");
             Matcher m = p.matcher(line);
 
             if (!m.find()) {
