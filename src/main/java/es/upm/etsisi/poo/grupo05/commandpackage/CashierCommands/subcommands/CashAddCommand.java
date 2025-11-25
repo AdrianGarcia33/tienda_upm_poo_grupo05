@@ -27,7 +27,11 @@ public class CashAddCommand extends Command {
                 email = args[2];
                 if (cashIdAcceptable(id) && cashEmailAcceptable(email)){
                     userMap.addUser(new Cashier(id, name, email));
-                    System.out.println("Cashier ("+ id+ ") has been added");}
+                    System.out.println("Cashier ("+ id+ ") has been added");
+                }else {
+                    if (!cashIdAcceptable(id)) System.out.println("Cashier (" + id + ") is not acceptable");
+                    if (!cashEmailAcceptable(email)) System.out.println("Cashier email (" + email + ") is not acceptable");
+                }
             }else if (args.length == 2) {
                 id = generateId();
                 name = args[0];
@@ -65,9 +69,13 @@ public class CashAddCommand extends Command {
     private boolean cashIdAcceptable(String id){
         // TENGO QUE HACER QUE CONTROLE QUE SEAN 7 NUMEROS Y NO LETRAS
         if(id.length()==9 && !userMap.getUserMap().containsKey(id) && id.startsWith("UW")){
+
+            for (int i = 2; i< id.length();i++ ) {
+                if (!Character.isDigit(id.charAt(i))){
+                    return false;}
+            }
             return true;
         }else{
-            System.out.println("Cashier("+id+") alerady added");
             return false;
         }
     }
@@ -75,7 +83,6 @@ public class CashAddCommand extends Command {
         if(email.endsWith("@upm.es")){
             return true;
         }else{
-            System.out.println("the email does not end with \"@upm.es\"");
             return false;
         }
     }
