@@ -322,7 +322,7 @@ public class HandlerAntiguo {
 //    private boolean cashIdAcceptable(String id){
 //        if(id.length()==9 && !userMap.getUserMap().containsKey(id) && id.startsWith("UW")){
 //            return true;
-//        }else{
+//        }else{+
 //            System.out.println("Incorrect data");
 //            return false;
 //        }
