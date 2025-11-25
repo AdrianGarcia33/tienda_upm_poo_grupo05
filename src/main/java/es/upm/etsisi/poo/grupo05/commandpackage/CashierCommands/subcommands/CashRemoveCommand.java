@@ -1,5 +1,6 @@
 package es.upm.etsisi.poo.grupo05.commandpackage.CashierCommands.subcommands;
 
+import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 
@@ -17,7 +18,11 @@ public class CashRemoveCommand extends Command {
         try{
             String id = args[0];
             userMap.removeUser(userMap.getUserMap().get(id));
-        }catch(Exception e){}
+        } catch (IllegalArgumentException e) {
+            System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
+        } catch (NullPointerException e) {
+            System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
+        }
         return false;
     }
 }

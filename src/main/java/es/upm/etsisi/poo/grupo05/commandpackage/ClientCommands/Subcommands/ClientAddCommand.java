@@ -1,5 +1,6 @@
 package es.upm.etsisi.poo.grupo05.commandpackage.ClientCommands.Subcommands;
 
+import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Cashier;
@@ -21,7 +22,11 @@ public class ClientAddCommand extends Command {
         Cashier cashier=null;
         if(userMap.getUserMap().containsKey(args[5])) cashier=(Cashier) userMap.getUserMap().get(args[5]);
         if(clientEmailAcceptable(email) && cashier!= null) userMap.addUser(new Client(DNI,name,email,cashier));
-    }catch(Exception e){}
+    } catch (IllegalArgumentException e) {
+        System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
+    } catch (NullPointerException e) {
+        System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
+    }
 
         return false;
     }
