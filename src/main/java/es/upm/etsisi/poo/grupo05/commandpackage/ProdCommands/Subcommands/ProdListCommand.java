@@ -15,11 +15,7 @@ public class ProdListCommand extends Command {
     //El metodo como tal
     @Override
     public boolean apply(String[] args) { //solo nos queda los datos que necesitamos
-        //Aqui no usaremos el args pq estara vacio pero lo dejamos asi
-
-
-
-        //Aqui al final se pondra un systemoutprint el string builder
+        System.out.println(productMap.printList());
         return false;
     }
 }
