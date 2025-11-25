@@ -5,10 +5,9 @@ import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Events;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Lunch;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ProdAddFoodCommand extends Command {
     private ProductMap productMap;
@@ -20,39 +19,53 @@ public class ProdAddFoodCommand extends Command {
 
     @Override
     public boolean apply(String[] args) {
-        try {
-            String line = String.join(" ", args).trim();
-            // ID has to go between []
-            Pattern p = Pattern.compile("^\\[(\\d+)\\]\\s*\"([^\"]+)\"\\s+(\\d+(?:\\.\\d+)?)\\s+(\\d{4}-\\d{2}-\\d{2})\\s+(\\d+)$");
-            Matcher m = p.matcher(line);
+        String line = String.join(" ", args).trim();
+        String[] parts = line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
-            if (!m.find()) {
-                return false; // Formato no reconocido
+        try {
+            int id;
+            String name;
+            float price;
+            LocalDate expirationDate;
+            int maxPeople;
+            boolean idProvided = false;
+
+            if (parts.length == 5) {
+                id = Integer.parseInt(parts[0]);
+                name = parts[1].replace("\"", "");
+                price = Float.parseFloat(parts[2]);
+                expirationDate = LocalDate.parse(parts[3]);
+                maxPeople = Integer.parseInt(parts[4]);
+
+                if (productMap.hasProduct(id)) {
+                    System.out.println(ExceptionHandler.getIdOfProductsExists());
+                    return false;
+                }
+
+            }
+            else if (parts.length == 4) {
+                id = productMap.generateId();
+                name = parts[0].replace("\"", "");
+                price = Float.parseFloat(parts[1]);
+                expirationDate = LocalDate.parse(parts[2]);
+                maxPeople = Integer.parseInt(parts[3]);
+
+            } else {
+                return false;
             }
 
-            String idStr = m.group(1);
-            String name = m.group(2);
-            String priceStr = m.group(3);
-            String dateStr = m.group(4);
-            String maxPeopleStr = m.group(5);
+            if (price >= 0 && maxPeople > 0 && maxPeople <= Events.getLimitParticipants() && id >= 0) {
 
-            int id = Integer.parseInt(idStr);
-            float price = Float.parseFloat(priceStr);
-            LocalDate expirationDate = LocalDate.parse(dateStr);
-            int maxPeople = Integer.parseInt(maxPeopleStr);
+                Lunch food = new Lunch(id, name, price, expirationDate, maxPeople);
 
-            if (productMap.hasProduct(id)) {
-                System.out.println(ExceptionHandler.getIdOfProductsExists());
+                if (food.isTemporallyValid()) {
+                    productMap.addProduct(food);
+                } else {
+                    System.out.println("Error: La comida debe planificarse con al menos 3 días de antelación.");
+                }
             } else {
-                if (price >= 0 && maxPeople > 0 && maxPeople <= Events.getLimitParticipants() && id >= 0) {
-
-                    Lunch food = new Lunch(id, name, price, expirationDate, maxPeople);
-
-                    if (food.isTemporallyValid()) {
-                        productMap.addProduct(food);
-                    } else {
-                        System.out.println("Error: La comida debe planificarse con al menos 3 días de antelación.");
-                    }
+                if (maxPeople > Events.getLimitParticipants()) {
+                    System.out.println("Error: El número máximo de participantes permitido es " + Events.getLimitParticipants());
                 } else {
                     System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
                 }

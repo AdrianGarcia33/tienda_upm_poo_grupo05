@@ -112,7 +112,6 @@ public class ProductMap {
     /**
      * Method to remove said product from said id
      * @param id
-     * @param receipt We do this, so if we remove something from the catalog, it also dissapears from the current receipt
      * @return
      */
     public boolean removeProduct (int id) {
@@ -183,6 +182,18 @@ public class ProductMap {
             catalog.delete(lastLine, catalog.length());
         }
         return catalog.toString();
+    }
+
+    /**
+     * Genera un ID entero aleatorio que no exista actualmente en el mapa.
+     * Usamos un numero de 6 cifras como estandar
+     */
+    public int generateId() {
+        int newId;
+        do {
+            newId = (int) (Math.random() * 100000) + 1;
+        } while (this.hasProduct(newId));
+        return newId;
     }
 
 
