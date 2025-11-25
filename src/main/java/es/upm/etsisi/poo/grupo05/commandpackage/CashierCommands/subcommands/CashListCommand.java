@@ -1,5 +1,6 @@
 package es.upm.etsisi.poo.grupo05.commandpackage.CashierCommands.subcommands;
 
+import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 
@@ -16,7 +17,11 @@ public class CashListCommand extends Command {
         String line = args.toString();
         try {
             System.out.println(userMap.UserList(false));
-        }catch(Exception e){}
+        } catch (IllegalArgumentException e) {
+            System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
+        } catch (NullPointerException e) {
+            System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
+        }
         return false;
     }
 }

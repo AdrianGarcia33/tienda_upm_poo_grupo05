@@ -1,5 +1,6 @@
 package es.upm.etsisi.poo.grupo05.commandpackage.CashierCommands.subcommands;
 
+import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Category;
@@ -32,7 +33,11 @@ public class CashAddCommand extends Command {
                 email = args[2];
                 if (cashEmailAcceptable(email)) userMap.addUser(new Cashier(id, name, email));
             }
-        }catch(Exception e){}
+        } catch (IllegalArgumentException e) {
+            System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
+        } catch (NullPointerException e) {
+            System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
+        }
         return false;
     }
     private String generateId() {

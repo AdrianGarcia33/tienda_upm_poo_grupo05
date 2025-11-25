@@ -17,8 +17,10 @@ public class ClientRemoveCommand extends Command {
         try {
             String DNI = args[0];
             userMap.removeUser(userMap.getUserMap().get(DNI));
-        }catch(Exception e){
-            System.out.println();
+        } catch (IllegalArgumentException e) {
+            System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
+        } catch (NullPointerException e) {
+            System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
         }
         return false;
     }

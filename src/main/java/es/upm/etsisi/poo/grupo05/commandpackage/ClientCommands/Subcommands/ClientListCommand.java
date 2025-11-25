@@ -1,5 +1,6 @@
 package es.upm.etsisi.poo.grupo05.commandpackage.ClientCommands.Subcommands;
 
+import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 
@@ -15,7 +16,11 @@ public class ClientListCommand extends Command {
         try {
             System.out.println(userMap.UserList(true));
             System.out.println("client list: ok");
-        }catch(Exception e){}
+        } catch (IllegalArgumentException e) {
+            System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
+        } catch (NullPointerException e) {
+            System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
+        }
         return false;
     }
 }

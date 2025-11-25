@@ -1,4 +1,5 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage;
+import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.BasicProducts;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Category;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Product;
 
@@ -140,7 +141,7 @@ public class ProductMap {
         boolean resultado = false;
 
             if (productMap.get(id) != null) {
-                Product p = productMap.get(id);
+                BasicProducts p = (BasicProducts) productMap.get(id);
 
                 if (name != null) {
                     p.setName(name);

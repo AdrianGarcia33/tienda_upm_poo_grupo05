@@ -43,7 +43,7 @@ public class ProdCommand extends Command {
         while (iterator.hasNext()) {
             Command subcommand = (Command) iterator.next();
             if (subcommand.getName().equals(part)) {
-                //Encuentra el comando, eso si aunque encuentra el comando este bucle va a seguir hasta el final,
+                // Encuentra el comando, eso si aunque encuentra el comando este bucle va a seguir hasta el final,
                 // solamente que no encontrará mas recurrencias (por ahora). Si en un futuro existiera dos prod add diferentes creo que habria un problema,
                 // aunque posiblemente se filtrase en en un nivel mas bajo  como si fueran dos subcomandos de prodadd (POR AHORA NO HAY PROBLEMA)
 
