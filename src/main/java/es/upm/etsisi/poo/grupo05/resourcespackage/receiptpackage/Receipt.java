@@ -278,4 +278,42 @@ public class Receipt {
             throw new IllegalArgumentException("Error: This ticket is already closed");
         }
     }
+
+    public String provisionalPrice() {
+        if(ticketState == TicketState.BLANK){
+            return "BLANK TICKET";
+        }
+
+        List<Product> ticketArray = new ArrayList<>(ticket);
+        ticketArray.sort(Comparator.comparing(Product::getName));
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("--- TICKET BILL ---\n");
+
+        double totalPrice = 0.0;
+        double totalDiscount = 0.0;
+        double finalPrice = 0.0;
+
+        for(Product p : ticketArray){
+            float price = p.getBasePrice();
+            if(p instanceof BasicProducts bp) {
+                int quantity = bp.getQuantity();
+                for (int i = 0; i < quantity; i++) {
+                    sb.append(bp.toString()).append("\n");
+                }
+                totalPrice += (price * quantity);
+                finalPrice += p.getTotalPrice(quantity);
+            }else {
+                sb.append(p.toString()).append("\n");
+                totalPrice += price;
+                finalPrice += price;
+            }
+        }
+        totalDiscount = totalPrice-finalPrice;
+        sb.append("Total price: " + String.format(Locale.US,"%.1f", totalPrice) + "\n");
+        sb.append("Total discount: " + String.format(Locale.US,"%.1f", totalDiscount)  + "\n");
+        sb.append("Final price: " + String.format(Locale.US,"%.1f", finalPrice) + "\n");
+
+        return sb.toString();
+    }
 }
