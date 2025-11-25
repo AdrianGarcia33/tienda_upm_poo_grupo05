@@ -136,6 +136,12 @@ public class Receipt {
                 }else if (product instanceof Lunch) {
                     Lunch productCopy = new Lunch((Lunch) product);
                     ticket.add(product);
+                    numberItems += quantity;
+                    result = true;
+                }else{
+                    Meeting productCopy = new Meeting((Meeting) product);
+                    ticket.add(product);
+                    numberItems += quantity;
                     result = true;
                 }
             }
