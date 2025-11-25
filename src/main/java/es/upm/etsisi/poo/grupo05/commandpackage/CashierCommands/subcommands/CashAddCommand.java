@@ -17,8 +17,8 @@ public class CashAddCommand extends Command {
 
     @Override
     public boolean apply(String[] args) { //solo nos queda los datos que necesitamos
-        String line = args.toString();
-
+        String line = String.join(" ", args).trim();
+        args= line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
         String id, name,email;
         try {
             if (args.length == 3) {
@@ -30,8 +30,11 @@ public class CashAddCommand extends Command {
             }else if (args.length == 2) {
                 id = generateId();
                 name = args[0];
-                email = args[2];
-                if (cashEmailAcceptable(email)) userMap.addUser(new Cashier(id, name, email));
+                email = args[1];
+                if (cashEmailAcceptable(email)){
+                    userMap.addUser(new Cashier(id, name, email));
+                    System.out.println("Cashier: "+ id+ " has been added");}
+                else System.out.println(ExceptionHandler.getEmailUnacceptable());
             }
         } catch (IllegalArgumentException e) {
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());

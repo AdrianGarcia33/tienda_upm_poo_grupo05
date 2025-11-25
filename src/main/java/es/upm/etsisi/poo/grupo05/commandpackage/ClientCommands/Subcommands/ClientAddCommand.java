@@ -16,12 +16,18 @@ public class ClientAddCommand extends Command {
 
     @Override
     public boolean apply(String[] args) { //solo nos queda los datos que necesitamos
-        String line = args.toString();
+        String line = String.join(" ", args).trim();
+        args= line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
     try{
         String name = args[0],DNI = args[1],email = args[2];
         Cashier cashier=null;
-        if(userMap.getUserMap().containsKey(args[5])) cashier=(Cashier) userMap.getUserMap().get(args[5]);
-        if(clientEmailAcceptable(email) && cashier!= null) userMap.addUser(new Client(DNI,name,email,cashier));
+        if(userMap.getUserMap().containsKey(args[3])){
+            cashier=(Cashier) userMap.getUserMap().get(args[3]);
+            System.out.println("cash nor null");
+        }
+        if(DNIAcceptable(DNI) && cashier!= null){
+            userMap.addUser(new Client(DNI,name,email,cashier));
+            System.out.println("Client: "+ name+ " has been added");}
     } catch (IllegalArgumentException e) {
         System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
     } catch (NullPointerException e) {
@@ -30,12 +36,16 @@ public class ClientAddCommand extends Command {
 
         return false;
     }
-    private boolean clientEmailAcceptable(String email){
-        if(!email.endsWith("@upm.es")){
-            return true;
-        }else{
-            System.out.println("Incorrect data");
+    private boolean DNIAcceptable(String DNI){
+        if(userMap.getUserMap().containsKey(DNI)){
+            System.out.println(" DNI: "+ DNI+" is already added");
             return false;
+        }else{
+            if(DNI.length()==9 && DNI.matches(".*[a-zA-Z]$"))return true;
+            else{
+                System.out.println(" DNI: "+ DNI+" is not valid");
+                return false;
+            }
         }
     }
 }
