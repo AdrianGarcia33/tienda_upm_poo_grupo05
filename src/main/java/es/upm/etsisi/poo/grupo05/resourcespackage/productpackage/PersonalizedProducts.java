@@ -40,11 +40,11 @@ public class PersonalizedProducts extends BasicProducts{
     @Override
     public String toString() { //como todavía no sabemos le formato, lo dejo así
         StringBuilder result = new StringBuilder(super.toString()+"\n");
-
         for (String personalization : personalizations) {
-            result.append("- "+personalization+"\n");
+            if (personalization != null) {
+                result.append("- "+personalization+"\n");
+            }
         }
-
         return result.toString();
     }
 }

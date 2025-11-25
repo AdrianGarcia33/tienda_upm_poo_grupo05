@@ -172,12 +172,10 @@ public class ProductMap {
     public String printList() {
         StringBuilder catalog = new StringBuilder();
         catalog.append("Catalog: \n");
-        for (Map.Entry<Integer, Product> entry : productMap.entrySet()) {
-            catalog.append(" "+entry.getValue().toString()+"\n");
-            /* Slight Explanation
-            Entry = set of <key, value>. Here, value is our objects of the class Product.
-            when one does entry.getvalue, it tkaes that. Entryset is all pairs of <key, value> of our hash
-            */
+        for (Product product : productMap.values()) {
+            if (product != null) {
+                catalog.append(" "+product.toString()+"\n");
+            }
         }
 
         int lastLine = catalog.lastIndexOf("\n");
