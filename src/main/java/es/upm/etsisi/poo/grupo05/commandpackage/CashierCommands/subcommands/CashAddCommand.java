@@ -25,15 +25,16 @@ public class CashAddCommand extends Command {
                 id = args[0];
                 name = args[1];
                 email = args[2];
-                if (cashIdAcceptable(id) && cashEmailAcceptable(email))
+                if (cashIdAcceptable(id) && cashEmailAcceptable(email)){
                     userMap.addUser(new Cashier(id, name, email));
+                    System.out.println("Cashier ("+ id+ ") has been added");}
             }else if (args.length == 2) {
                 id = generateId();
                 name = args[0];
                 email = args[1];
                 if (cashEmailAcceptable(email)){
                     userMap.addUser(new Cashier(id, name, email));
-                    System.out.println("Cashier: "+ id+ " has been added");}
+                    System.out.println("Cashier ("+ id+ ") has been added");}
                 else System.out.println(ExceptionHandler.getEmailUnacceptable());
             }
         } catch (IllegalArgumentException e) {
@@ -62,10 +63,11 @@ public class CashAddCommand extends Command {
         return String.valueOf(id);
     }
     private boolean cashIdAcceptable(String id){
+        // TENGO QUE HACER QUE CONTROLE QUE SEAN 7 NUMEROS Y NO LETRAS
         if(id.length()==9 && !userMap.getUserMap().containsKey(id) && id.startsWith("UW")){
             return true;
         }else{
-            System.out.println("Incorrect data");
+            System.out.println("Cashier("+id+") alerady added");
             return false;
         }
     }
@@ -73,7 +75,7 @@ public class CashAddCommand extends Command {
         if(email.endsWith("@upm.es")){
             return true;
         }else{
-            System.out.println("Incorrect data");
+            System.out.println("the email does not end with \"@upm.es\"");
             return false;
         }
     }

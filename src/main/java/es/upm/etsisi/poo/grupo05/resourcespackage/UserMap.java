@@ -40,7 +40,7 @@ public class UserMap {
                 System.out.println("Error: Client ("+user.getId()+") not added");
             }
         }else{
-            System.out.println("Error: Client is null");
+            System.out.println("Error: User does not exisit");
         }
         return resultado;
     }
