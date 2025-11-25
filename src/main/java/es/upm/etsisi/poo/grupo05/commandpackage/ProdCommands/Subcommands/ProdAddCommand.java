@@ -25,10 +25,13 @@ public class ProdAddCommand extends Command {
     public boolean apply(String[] args) {//solo nos queda los datos que necesitamos
         try {
             String line = String.join(" ", args).trim();
+            line = line.replaceAll("\"{2,}", "\"");
+
             Pattern p = Pattern.compile("^\\[(\\d+)\\]\\s*\"([^\"]+)\"\\s+(\\S+)\\s+(\\d+(?:\\.\\d+)?)\\s*(?:\\[(\\d+)\\])?$");
             Matcher m = p.matcher(line);
 
             if (!m.find()) {
+
                 return false; // formato no reconocido
             }
 

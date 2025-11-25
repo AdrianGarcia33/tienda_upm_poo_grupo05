@@ -81,7 +81,7 @@ public class Handler {
                 if (imprimir_comando) {
                     System.out.println(line);
                 }
-                String[] prompt = line.split("");
+                String[] prompt = line.split(" ");
 
                 stop = startCommand(prompt);
             }
