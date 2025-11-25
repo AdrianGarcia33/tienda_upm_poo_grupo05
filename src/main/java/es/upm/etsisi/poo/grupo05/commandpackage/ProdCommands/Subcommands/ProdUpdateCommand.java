@@ -21,10 +21,11 @@ public class ProdUpdateCommand extends Command {
             int id = Integer.parseInt(args[0]);
             String type = args[1];
             String value = args[2];
+            value = value.replaceAll("\"", "");
 
             BasicProducts p = (BasicProducts) productMap.getProduct(id);
 
-            switch (value) {
+            switch (type.toUpperCase()) {
                 case "NAME":
                     productMap.updateProduct(id, value, p.getBasePrice(), null);
                     break;

@@ -1,10 +1,20 @@
 package es.upm.etsisi.poo.grupo05.commandpackage.TicketCommands.Subcommands;
 
-import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
+import es.upm.etsisi.poo.grupo05.ExceptionHandler;
+import es.upm.etsisi.poo.grupo05.resourcespackage.ReceiptMap;
+import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
+import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.Receipt;
+import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.TicketState;
+import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Cashier;
+import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.User;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TicketRemoveCommand extends Command {
     private UserMap userMap;
+
     public TicketRemoveCommand(String name, UserMap userMap) {
         super(name);
         this.userMap = userMap;
@@ -12,15 +22,53 @@ public class TicketRemoveCommand extends Command {
 
     @Override
     public boolean apply(String[] args) {
+        try {
+            String line = String.join(" ", args).trim();
 
+            Pattern p = Pattern.compile("^(\\S+)\\s+(\\S+)\\s+(\\d+)$");
+            Matcher m = p.matcher(line);
 
+            if (!m.find()) {
+                return false; // Formato no reconocido
+            }
 
+            String ticketId = m.group(1);
+            String cashId = m.group(2);
+            int prodId = Integer.parseInt(m.group(3));
 
+            if (!userMap.getUserMap().containsKey(cashId)) {
+                System.out.println("Error: El cajero " + cashId + " no existe.");
+                return false;
+            }
 
+            User user = userMap.getUserMap().get(cashId);
+            if (!(user instanceof Cashier)) {
+                System.out.println("Error: El usuario " + cashId + " no es un cajero.");
+                return false;
+            }
 
+            Cashier cashier = (Cashier) user;
 
+            if (cashier.getReceiptMap().contains(ticketId)) {
+                Receipt receipt = cashier.getReceiptMap().getReceiptmap().get(ticketId);
 
+                if (receipt.removeItem(prodId)) {
+                    System.out.println(receipt.provisionalPrice());
+                } else {
+                    System.out.println("Error: El producto con ID " + prodId + " no existe en el ticket.");
+                }
+
+            } else {
+                System.out.println("Error: El ticket " + ticketId + " no pertenece al cajero " + cashId + ".");
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
+        } catch (Exception e) {
+            System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
+        }
 
         return false;
     }
 }
+
