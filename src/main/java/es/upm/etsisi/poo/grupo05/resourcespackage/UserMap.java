@@ -53,16 +53,19 @@ public class UserMap {
         users.sort(Comparator.comparing(User::getName));
         //Añadir todos los elementos
         if(client){
-            list.append("Client List:\n");
+            list.append("Client:\n");
             for(User u : users){
                 if(u instanceof Client) list.append(u.toString()+"\n");
             }
+            list.append("client list: ok\n");
         }else {
-            list.append("Cashier List:\n");
+            list.append("Cash:\n");
             for (User u : users) {
                 if (u instanceof Cashier) list.append(u.toString() + "\n");
             }
+            list.append("cash list: ok\n");
         }
+
         return list.toString();
     }
 

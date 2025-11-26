@@ -13,7 +13,8 @@ public class Client extends User{
 
     @Override
     public String toString(){
-        return "DNI: "+super.getId()+", Name: "+super.getName()+", Email: "+super.getEmail()+ ", Registered by: "+ creator.getId();
+        return "Client{identifier='"+super.getId()+"', name='"+super.getName()+"', email='"+super.getEmail()+"', cash="+creator.getId()+"}";
     }
 
 }
+

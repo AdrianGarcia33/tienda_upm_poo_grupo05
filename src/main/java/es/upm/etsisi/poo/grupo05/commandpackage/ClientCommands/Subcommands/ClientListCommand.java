@@ -15,7 +15,6 @@ public class ClientListCommand extends Command {
         String line = args.toString();
         try {
             System.out.println(userMap.UserList(true));
-            System.out.println("client list: ok");
         } catch (IllegalArgumentException e) {
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
         } catch (NullPointerException e) {

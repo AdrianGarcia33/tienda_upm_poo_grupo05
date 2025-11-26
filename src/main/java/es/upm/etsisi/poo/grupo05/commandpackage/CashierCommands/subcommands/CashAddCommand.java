@@ -3,8 +3,6 @@ package es.upm.etsisi.poo.grupo05.commandpackage.CashierCommands.subcommands;
 import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
-import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Category;
-import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Product;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Cashier;
 
 public class CashAddCommand extends Command {
@@ -26,20 +24,24 @@ public class CashAddCommand extends Command {
                 name = args[1];
                 email = args[2];
                 if (cashIdAcceptable(id) && cashEmailAcceptable(email)){
-                    userMap.addUser(new Cashier(id, name, email));
-                    System.out.println("Cashier ("+ id+ ") has been added");
+                    Cashier cashier = new Cashier(id, name, email);
+                    userMap.addUser(cashier);
+                    System.out.println(cashier);
+                    System.out.println("cash add: ok\n");
                 }else {
-                    if (!cashIdAcceptable(id)) System.out.println("Cashier (" + id + ") is not acceptable");
-                    if (!cashEmailAcceptable(email)) System.out.println("Cashier email (" + email + ") is not acceptable");
+                    if (!cashIdAcceptable(id)) System.out.println("ERROR: ID (" + id + ") is not acceptable");
+                    if (!cashEmailAcceptable(email)) System.out.println("EEROR: email (" + email + ") is not acceptable");
                 }
             }else if (args.length == 2) {
                 id = generateId();
                 name = args[0];
                 email = args[1];
                 if (cashEmailAcceptable(email)){
-                    userMap.addUser(new Cashier(id, name, email));
-                    System.out.println("Cashier ("+ id+ ") has been added");}
-                else System.out.println(ExceptionHandler.getEmailUnacceptable());
+                    Cashier cashier = new Cashier(id, name, email);
+                    userMap.addUser(cashier);
+                    System.out.println(cashier);
+                    System.out.println("cash add: ok\n");
+                }else System.out.println(ExceptionHandler.getEmailUnacceptable());
             }
         } catch (IllegalArgumentException e) {
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());

@@ -76,7 +76,7 @@ public class Handler {
             boolean stop = false;
 
             while (!stop) {
-                System.out.print("tUPM>");
+                System.out.print("tUPM> ");
                 String line = scanner.nextLine();
                 if (imprimir_comando) {
                     System.out.println(line);

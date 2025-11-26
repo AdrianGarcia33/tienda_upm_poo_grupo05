@@ -16,7 +16,7 @@ public class ClientRemoveCommand extends Command {
         String line = args.toString();
         try {
             String DNI = args[0];
-            if(userMap.removeUser(userMap.getUserMap().get(DNI))) System.out.println("Client ("+DNI+ ") has been removed succesfuly");
+            if(userMap.removeUser(userMap.getUserMap().get(DNI))) System.out.println("client remove: ok\n");
         } catch (IllegalArgumentException e) {
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
         } catch (NullPointerException e) {

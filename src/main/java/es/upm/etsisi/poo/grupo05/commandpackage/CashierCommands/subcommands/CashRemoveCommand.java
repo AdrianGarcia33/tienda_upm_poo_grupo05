@@ -17,7 +17,7 @@ public class CashRemoveCommand extends Command {
         String line = args.toString();
         try{
             String id = args[0];
-            if(userMap.removeUser(userMap.getUserMap().get(id))) System.out.println("Cashier ("+id+ ") has been removed succesfuly");
+            if(userMap.removeUser(userMap.getUserMap().get(id))) System.out.println("cash remove: ok\n");
         } catch (IllegalArgumentException e) {
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
         } catch (NullPointerException e) {

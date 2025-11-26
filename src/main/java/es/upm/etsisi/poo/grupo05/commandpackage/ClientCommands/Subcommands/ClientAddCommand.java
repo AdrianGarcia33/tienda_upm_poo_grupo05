@@ -24,9 +24,12 @@ public class ClientAddCommand extends Command {
         if(userMap.getUserMap().containsKey(args[3])){
             cashier=(Cashier) userMap.getUserMap().get(args[3]);
         }
-        if(DNIAcceptable(DNI) && cashier!= null){
-            userMap.addUser(new Client(DNI,name,email,cashier));
-            System.out.println("Client ("+ DNI+ ") has been added");}
+        if(DNIAcceptable(DNI) && cashier!= null) {
+            Client client= new Client(DNI, name, email, cashier);
+            userMap.addUser(client);
+            System.out.println(client);
+            System.out.println("client add: ok\n");
+        }
     } catch (IllegalArgumentException e) {
         System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
     } catch (NullPointerException e) {
@@ -37,12 +40,12 @@ public class ClientAddCommand extends Command {
     }
     private boolean DNIAcceptable(String DNI){
         if(userMap.getUserMap().containsKey(DNI)){
-            System.out.println("Client ("+ DNI+") is already added");
+            System.out.println("ERROR: Client ("+ DNI+") is already added");
             return false;
         }else{
             if(DNI.length()==9 && DNI.matches(".*[a-zA-Z]$"))return true;
             else{
-                System.out.println("Client ("+ DNI+") is not valid");
+                System.out.println("ERROR: Client ("+ DNI+") is not valid");
                 return false;
             }
         }
