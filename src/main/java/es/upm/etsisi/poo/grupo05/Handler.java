@@ -45,7 +45,7 @@ public class Handler {
 
         //Inializamos los commandos que necesiten algun map
         prodCommand.initialize(this.productmap, this.usermap);
-        ticketCommand.initialize(this.usermap);
+        ticketCommand.initialize(this.productmap,this.usermap);
         clientCommand.initialize(this.usermap);
         cashCommand.initialize(this.usermap);
 

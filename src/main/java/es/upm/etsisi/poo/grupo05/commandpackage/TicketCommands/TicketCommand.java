@@ -1,5 +1,6 @@
 package es.upm.etsisi.poo.grupo05.commandpackage.TicketCommands;
 
+import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.commandpackage.TicketCommands.Subcommands.*;
@@ -17,8 +18,8 @@ public class TicketCommand extends Command {
         this.subcommands = new LinkedList<>();
     }
 
-    public void initialize(UserMap userMap) {
-        TicketNewCommand ticketNewCommand = new TicketNewCommand("new", userMap);
+    public void initialize(ProductMap productMap, UserMap userMap) {
+        TicketNewCommand ticketNewCommand = new TicketNewCommand("new", userMap, productMap);
         TicketAddCommand ticketAddCommand = new TicketAddCommand("add", userMap);
         TicketListCommand ticketListCommand = new TicketListCommand("list", userMap);
         TicketPrintCommand ticketPrintCommand = new TicketPrintCommand("print", userMap);
