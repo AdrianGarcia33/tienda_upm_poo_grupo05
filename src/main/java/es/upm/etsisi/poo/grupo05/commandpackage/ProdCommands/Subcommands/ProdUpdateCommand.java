@@ -20,7 +20,7 @@ public class ProdUpdateCommand extends Command {
         try {
             int id = Integer.parseInt(args[0]);
             String type = args[1];
-            String value = args[2];
+            String value = String.join(" ", java.util.Arrays.copyOfRange(args, 2, args.length));
             value = value.replaceAll("\"", "");
 
             BasicProducts p = (BasicProducts) productMap.getProduct(id);
@@ -36,6 +36,9 @@ public class ProdUpdateCommand extends Command {
                     productMap.updateProduct(id, null, p.getBasePrice(), Category.valueOf(value));
                     break;
             }
+
+            System.out.println(p.toString());
+            System.out.println("prod update: ok");
 
         } catch (ClassCastException e) {
             System.out.println(ExceptionHandler.getClassCastExceptionMessage());

@@ -77,10 +77,7 @@ public class BasicProducts extends Product{
     }
 
 
-    /**
-     * Method that calculates the total price if the boolean discount is set to true
-     * @return
-     */
+
     public float getTotalPrice(int quantity) {
         float total = basePrice * quantity;
         if (discount == true) {
@@ -93,10 +90,7 @@ public class BasicProducts extends Product{
         return true;
     }
 
-    /**
-     * Prints on screen a visualization of an object from this class
-     * @return
-     */
+
     public String toString(){
         StringBuilder result = new StringBuilder("{class:Product, id:"+id+", name:'"+name+"', category:"+category+", price:"+basePrice+"}");
 

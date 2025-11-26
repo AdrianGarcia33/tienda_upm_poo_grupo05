@@ -70,10 +70,14 @@ public class ProdAddCommand extends Command {
                 if ((id > 0) && (price >= 0) && (category != null) && (name != null && !name.isEmpty())) {
                     if (maxPers == 0) {
                         BasicProducts product = new BasicProducts(id, name, price, category, 0);
+                        System.out.println(product.toString());
                         productMap.addProduct(product);
+                        System.out.println("prod add: ok");
                     } else {
                         PersonalizedProducts product = new PersonalizedProducts(id, name, price, category, 0, maxPers);
+                        System.out.println(product.toString());
                         productMap.addProduct(product);
+                        System.out.println("prod add: ok");
                     }
                 } else {
                     System.out.println(ExceptionHandler.getNullArgument());

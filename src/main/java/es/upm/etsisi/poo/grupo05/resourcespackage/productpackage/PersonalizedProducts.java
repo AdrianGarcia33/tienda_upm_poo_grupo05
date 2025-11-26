@@ -14,6 +14,11 @@ public class PersonalizedProducts extends BasicProducts{
         this.num_personalization = 0;
     }
 
+    /**
+     * Methods to add personalizations, in will not exceed the maximum
+     * @param personalizations
+     * @return
+     */
     public boolean addPersonalizations(String[] personalizations) {
         //creo que hay que meter un NullPointerException aqui
         if (personalizations.length > this.personalizations.length) {
