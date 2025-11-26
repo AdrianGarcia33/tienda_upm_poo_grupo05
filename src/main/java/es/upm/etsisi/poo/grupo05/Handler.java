@@ -21,18 +21,31 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+/**
+ * The 'Handler' class is responsible for managing the application's commands and user interactions.
+ * It initializes the available commands, processes user input, and executes the corresponding commands.
+ */
 public class Handler {
     private ProductMap productmap;
     private UserMap usermap;
     private Scanner scanner;
     private LinkedList<Command> commands;
 
+    /**
+     * Constructor for the 'Handler' class.
+     *
+     * @param max_products The maximum number of products allowed in the product map.
+     */
     public Handler(int max_products) {
         this.productmap = new ProductMap(max_products);
         this.usermap = new UserMap();
         this.commands = new LinkedList<>();
     }
 
+    /**
+     * Initializes the commands and their dependencies.
+     * This method sets up the available commands and links them to the required maps.
+     */
     public void initialize() {
         //Creamos las clase con el nombre correspondiente
         ProdCommand prodCommand = new ProdCommand("prod");
@@ -45,7 +58,7 @@ public class Handler {
 
         //Inializamos los commandos que necesiten algun map
         prodCommand.initialize(this.productmap, this.usermap);
-        ticketCommand.initialize(this.usermap);
+        ticketCommand.initialize(this.productmap,this.usermap);
         clientCommand.initialize(this.usermap);
         cashCommand.initialize(this.usermap);
 
@@ -60,7 +73,12 @@ public class Handler {
 
     }
 
-
+    /**
+     * Starts the application and processes user input.
+     *
+     * @param args Command-line arguments. If a file path is provided as the first argument,
+     *             input will be read from the file; otherwise, input will be read from the terminal.
+     */
     public void start (String[] args) { //En el main de app, llamamos a este metodo metiendo el String[] args de main
         try {
             boolean imprimir_comando = false;
@@ -84,6 +102,7 @@ public class Handler {
                 String[] prompt = line.split(" ");
 
                 stop = startCommand(prompt);
+                System.out.println();
             }
 
             System.out.println("Closing application.");
@@ -93,6 +112,12 @@ public class Handler {
         }
     }
 
+    /**
+     * Processes a single command based on user input.
+     *
+     * @param prompt The user input split into an array of strings.
+     * @return 'true' if the application should stop, 'false' otherwise.
+     */
     private boolean startCommand(String[] prompt) {
         Iterator iterator = commands.iterator();
         boolean stop = false;
@@ -107,6 +132,7 @@ public class Handler {
                 String[] sentprompt = Arrays.copyOfRange(prompt, 1, prompt.length);
                 //Como ya hemos detectado el prod,
                 // ticket etc. no hace falta que lo mandemos al siguiente paso de deteccion
+
                 stop = command.apply(sentprompt);
                 //Si detecta que el atributo de la subclase a la que esta llamando (ProdCommand, Receipt Command etc
                 // corresponde entoces llama el apply de tal clase;

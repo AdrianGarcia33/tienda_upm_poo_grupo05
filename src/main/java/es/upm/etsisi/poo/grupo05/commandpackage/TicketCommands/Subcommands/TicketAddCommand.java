@@ -21,7 +21,9 @@ public class TicketAddCommand extends Command {
     public boolean apply(String[] args) {
         try{
             String line = String.join(" ", args).trim();
-            Pattern p = Pattern.compile("^\\[(\\d+)\\]\\s*\"([^\"]+)\"\\s+(\\S+)\\s+(\\d+(?:\\.\\d+)?)\\s*(?:\\[(\\d+)\\])?$");
+            line = line.replaceAll("\"{2,}", "\"");
+
+            Pattern p = Pattern.compile("^(\\d+)\\s+\"([^\"]+)\"\\s+(\\S+)\\s+(\\d+(?:\\.\\d+)?)\\s*(?:\\[(\\d+)\\])?$");
             Matcher m = p.matcher(line);
 
             if (!m.find()) {

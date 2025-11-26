@@ -73,7 +73,7 @@ public class ProdAddMeetingCommand extends Command {
         } catch (NumberFormatException e) {
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
         } catch (DateTimeParseException e) {
-            System.out.println("Error: Formato de fecha inválido (use yyyy-MM-dd).");
+            System.out.println(ExceptionHandler.getDateTimeParseException());
         } catch (Exception e) {
             System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
         }
