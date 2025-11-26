@@ -1,3 +1,4 @@
+// java
 package es.upm.etsisi.poo.grupo05.commandpackage.ProdCommands.Subcommands;
 import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
@@ -13,41 +14,42 @@ import java.util.regex.Pattern;
 public class ProdAddCommand extends Command {
     private ProductMap productMap;
 
-
     public ProdAddCommand(String name, ProductMap productmap) {
         super(name);
         this.productMap = productmap;
     }
 
-
-    //El metodo como tal
     @Override
-    public boolean apply(String[] args) {//solo nos queda los datos que necesitamos
+    public boolean apply(String[] args) {
         try {
             String line = String.join(" ", args).trim();
+            // Colapsar comillas duplicadas \"\"... -> \"
             line = line.replaceAll("\"{2,}", "\"");
 
-            Pattern p = Pattern.compile("^(\\d+)\\s+\"([^\"]+)\"\\s+(\\S+)\\s+(\\d+(?:\\.\\d+)?)\\s*(?:\\[(\\d+)\\])?$");
+            // id opcional al inicio, nombre entre " ", categoria, precio, maxPers opcional entre [ ]
+            Pattern p = Pattern.compile("^(?:\\s*(\\d+)\\s+)?\"([^\"]+)\"\\s+(\\S+)\\s+(\\d+(?:\\.\\d+)?)(?:\\s*\\[(\\d+)\\])?\\s*$");
             Matcher m = p.matcher(line);
 
             if (!m.find()) {
-
-                return false; // formato no reconocido
+                // formato no reconocido
+                return false;
             }
 
-            String idStr = m.group(1);
+            String idStr = m.group(1);           // puede ser null
             String name = m.group(2);
             String categoryStr = m.group(3);
             String priceStr = m.group(4);
-            String maxPersStr = m.group(5); //Este es opcional
+            String maxPersStr = m.group(5);      // opcional
 
-            int id = -1;
+            int id;
             float price = -1;
             Category category = null;
             int maxPers = 0;
 
             if (idStr != null) {
                 id = Integer.parseInt(idStr);
+            } else {
+                id = productMap.generateId();
             }
 
             if (priceStr != null) {
@@ -62,12 +64,11 @@ public class ProdAddCommand extends Command {
                 maxPers = Integer.parseInt(maxPersStr);
             }
 
-
             if (productMap.hasProduct(id)) {
                 System.out.println(ExceptionHandler.getIdOfProductsExists());
             } else {
-                if ((id != -1) && (price != -1) && (category != null)) {
-                    if (maxPers == 0) { //Producto sin personalizaciones
+                if ((id > 0) && (price >= 0) && (category != null) && (name != null && !name.isEmpty())) {
+                    if (maxPers == 0) {
                         BasicProducts product = new BasicProducts(id, name, price, category, 0);
                         productMap.addProduct(product);
                     } else {
@@ -77,10 +78,7 @@ public class ProdAddCommand extends Command {
                 } else {
                     System.out.println(ExceptionHandler.getNullArgument());
                 }
-
             }
-
-
         } catch (IllegalArgumentException e) {
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
         } catch (NullPointerException e) {
