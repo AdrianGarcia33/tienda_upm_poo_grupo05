@@ -9,12 +9,27 @@ import java.util.HashMap;
 import java.util.List;
 
 public class UserMap {
+    /**
+     * Class responsible for managing the storage and operations of system users.
+     * It stores both Clients and Cashiers in a common data structure (HashMap).
+     */
     private HashMap<String, User> UserMap;
 
+
+    /**
+     * Constructor of the class. Initializes the empty user map.
+     */
     public UserMap(){
         UserMap = new HashMap<>();
     }
 
+    /**
+     * Adds a new user (Client or Cashier) to the system.
+     * Checks that the user is not null and that a user with the same ID does not already exist.
+     *
+     * @param user The user object to add.
+     * @return true if the user was successfully added, false otherwise.
+     */
     public boolean addUser(User user){
         boolean resultado = false;
         if(user!=null){
@@ -30,6 +45,12 @@ public class UserMap {
         return resultado;
     }
 
+    /**
+     * Removes an existing user from the system.
+     *
+     * @param user The user object to remove.
+     * @return true if the user was successfully removed, false if the user did not exist or was null.
+     */
     public boolean removeUser(User user){
         boolean resultado = false;
         if(user!=null){
@@ -45,6 +66,12 @@ public class UserMap {
         return resultado;
     }
 
+    /**
+     * Generates a list of users filtered by type (Client or Cashier) and sorted alphabetically by name.
+     *
+     * @param client boolean indicating the type of user to list: true for Clients, false for Cashiers.
+     * @return A formatted String containing the list of the requested users.
+     */
     public String UserList(boolean client){
         // Creo que tendriamos que hacer dos clases derivadas, una con cashList y otra con ClientList pero asi tampoco está mal
         //solo que me parece raro como he tenido que implementar este mtodo
@@ -69,6 +96,11 @@ public class UserMap {
         return list.toString();
     }
 
+    /**
+     * Retrieves the complete map of stored users.
+     *
+     * @return The HashMap containing all registered users.
+     */
     public HashMap<String, User> getUserMap() {
         return UserMap;
     }

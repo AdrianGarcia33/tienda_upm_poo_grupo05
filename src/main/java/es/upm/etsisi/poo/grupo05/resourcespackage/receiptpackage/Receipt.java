@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
- * Class which records the items a client wants to purchase
+ * Represents a purchase receipt (ticket) containing a list of products and transaction details.
  */
 public class Receipt {
     private String id;
@@ -29,8 +29,11 @@ public class Receipt {
     private static final Set<String> idsGenerated = new HashSet<>();
 
     /**
-     * Builder of this class
-     * @param productMap
+     * Constructs a new Receipt. Generates a unique ID if null is provided.
+     * @param id Unique identifier (can be null).
+     * @param cashId ID of the cashier creating the ticket.
+     * @param clientId ID of the client associated with the ticket.
+     * @param productMap Reference to the global product catalog.
      */
     public Receipt(String id, String cashId, String clientId, ProductMap productMap) {
         this.openingDate = LocalDateTime.now();
@@ -54,7 +57,9 @@ public class Receipt {
         this.ticketState = TicketState.BLANK;
     }
 
-    //Getters and Setters
+    /**
+     * Getters and Setters.
+     */
     public String getId() {
         return id;
     }
@@ -75,7 +80,12 @@ public class Receipt {
         return ticket;
     }
 
-    //Methods
+
+    /**
+     * Generates and ID for the receipt
+     * @param openingDate Date used for the ID
+     * @return random ticket ID
+     */
     private static String generateId(LocalDateTime openingDate) {
         String prefix = openingDate.format(FORMATTER) + "-";
         String fullId;
@@ -89,8 +99,8 @@ public class Receipt {
     }
 
     /**
-     * As the name suggests, it resets the ticket
-     * @return true if it was succesful
+     * Resets the receipt, clearing all items.
+     * @return true if successful.
      */
     public boolean reset(){
         this.ticket = new LinkedList<>();
@@ -99,10 +109,10 @@ public class Receipt {
     }
 
     /**
-     * Adds an item from the catalog to the ticket
-     * @param id key of the product being added
-     * @param quantity amount
-     * @return true if succesful
+     * Adds a product to the receipt. Handles quantity updates for basic products and restrictions for events.
+     * @param id Product ID.
+     * @param quantity Amount to add.
+     * @return true if successful.
      */
     public boolean addItem(int id, int quantity) {
         boolean result = false;
@@ -151,6 +161,13 @@ public class Receipt {
         return result;
     }
 
+    /**
+     * Adds a personalized product with custom texts to the receipt.
+     * @param id Product ID.
+     * @param quantity Amount to add.
+     * @param personalizations Array of custom text strings.
+     * @return true if successful.
+     */
     public boolean addPersonalizedItem(int id, int quantity, String[] personalizations){
         boolean result = false;
         Product product = productMap.getProduct(id);
@@ -172,9 +189,10 @@ public class Receipt {
         return result;
     }
 
-    /** It removes the item from
-     * @param id
-     * @return
+    /**
+     * Removes a product from the receipt by its ID.
+     * @param id Product ID.
+     * @return true if successful.
      */
     public boolean removeItem(int id) {
 
@@ -197,6 +215,9 @@ public class Receipt {
         return result;
     }
 
+    /**
+     * Finalizes the receipt, updates its state to CLOSED, and appends the closing timestamp to the ID.
+     */
     public void closeTicket() {
         checkTicketClosed();
 
@@ -213,8 +234,7 @@ public class Receipt {
     }
 
     /**
-     * Iterative methods which goes through the list 5 times and checks if there are more than one
-     * product of the same category. If so, sets the boolean discount to true. Complexity O(n)
+     * Checks and applies discounts based on product categories.
      */
     private void checkDiscount() {
         for (Category category : Category.values()) {
@@ -233,9 +253,9 @@ public class Receipt {
 
 
     /**
-     * Searches for a product by its id
-     * @param id
-     * @return the searched product or null if not found
+     * Searches for a product in the ticket by its ID.
+     * @param id Product ID.
+     * @return The product or null if not found.
      */
     public Product getProduct(int id) {
         for (Product p : ticket) {
@@ -247,8 +267,8 @@ public class Receipt {
     }
 
     /**
-     * Print the ticket
-     * @return string with the ticket information
+     * Closes the ticket and generates the final bill string with totals.
+     * @return The formatted ticket string.
      */
     public String print() {
         if (ticketState == TicketState.ACTIVE ||  ticketState == TicketState.BLANK) {
@@ -295,6 +315,10 @@ public class Receipt {
         }
     }
 
+    /**
+     * Generates a provisional bill string without closing the ticket.
+     * @return The formatted provisional ticket string.
+     */
     public String provisionalPrice() {
 
         List<Product> ticketArray = new ArrayList<>(ticket);

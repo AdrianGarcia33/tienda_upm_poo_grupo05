@@ -60,6 +60,7 @@ public class ProdAddFoodCommand extends Command {
 
                 if (food.isTemporallyValid()) {
                     productMap.addProduct(food);
+                    System.out.println("prod addFood: ok");
                 } else {
                     System.out.println("Error: La comida debe planificarse con al menos 3 días de antelación.");
                 }

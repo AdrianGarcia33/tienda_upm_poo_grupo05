@@ -54,6 +54,7 @@ public class TicketRemoveCommand extends Command {
 
                 if (receipt.removeItem(prodId)) {
                     System.out.println(receipt.provisionalPrice());
+                    System.out.println("ticket remove: ok");
                 } else {
                     System.out.println("Error: El producto con ID " + prodId + " no existe en el ticket.");
                 }

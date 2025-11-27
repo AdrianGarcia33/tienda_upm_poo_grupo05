@@ -1,10 +1,20 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage.productpackage;
 
+/**
+ * Abstract base class representing a generic product in the system.
+ * It serves as a parent for BasicProducts, PersonalizedProducts, and Events.
+ */
 public abstract class Product {
     protected int id;
     protected String name;
     protected float basePrice;
 
+    /**
+     * Constructs a new Product.
+     * @param id Unique identifier.
+     * @param name Product name.
+     * @param basePrice Base price per unit or per person.
+     */
     public Product(int id, String name, float basePrice) {
         this.id = id;
         this.name = name;
@@ -12,6 +22,9 @@ public abstract class Product {
 
     }
 
+    /**
+     * Getters and Setters
+     */
     public int getId() {
         return id;
     }

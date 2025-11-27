@@ -3,7 +3,8 @@ package es.upm.etsisi.poo.grupo05.resourcespackage.productpackage;
 import java.util.Locale;
 
 /**
- * Product Class, which comprises of the data for each objetct product
+ * Represents standard products (e.g., Books, Clothes) that belong to a specific category.
+ * These products can have discounts applied based on the quantity purchased.
  */
 public class BasicProducts extends Product{
     protected Category category;
@@ -15,12 +16,12 @@ public class BasicProducts extends Product{
 
 
     /**
-     * Builder of this class
-     * @param ID
-     * @param name
-     * @param price
-     * @param category
-     * @param quantity
+     * Constructs a new BasicProduct.
+     * @param ID Unique identifier.
+     * @param name Product name.
+     * @param price Unit price.
+     * @param category Product category.
+     * @param quantity Initial quantity.
      */
     public BasicProducts(int ID, String name, float price, Category category, int quantity) {
         super(ID, name, price);
@@ -31,8 +32,8 @@ public class BasicProducts extends Product{
     }
 
     /**
-     * Builder of the product class
-     * @param other
+     * Copy constructor. Creates a new BasicProducts instance from an existing one.
+     * @param other The product object to copy.
      */
     public BasicProducts(BasicProducts other) { //esto es basicamente el clone de la clase Object creo
         super(other.id, other.name, other.basePrice);
@@ -44,6 +45,9 @@ public class BasicProducts extends Product{
 
 
 
+    /**
+     * Getters and Setters
+     */
     public Category getCategory() {
         return category;
     }
@@ -78,6 +82,12 @@ public class BasicProducts extends Product{
 
 
 
+    /**
+     * Calculates the total price for a given quantity.
+     * Applies the category discount.
+     * @param quantity The quantity of items.
+     * @return The total price.
+     */
     public float getTotalPrice(int quantity) {
         float total = basePrice * quantity;
         if (discount == true) {
@@ -86,11 +96,18 @@ public class BasicProducts extends Product{
         return total;
     }
 
+    /**
+     * Checks temporal validity.
+     * @return Always true for basic products as they do not expire.
+     */
     public boolean isTemporallyValid() {
         return true;
     }
 
 
+    /**
+     * Returns the string representation of the product
+     */
     public String toString(){
         StringBuilder result = new StringBuilder("{class:Product, id:"+id+", name:'"+name+"', category:"+category+", price:"+basePrice+"}");
 

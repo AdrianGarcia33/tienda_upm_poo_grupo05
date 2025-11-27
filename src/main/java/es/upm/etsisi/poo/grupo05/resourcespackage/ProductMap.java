@@ -185,8 +185,8 @@ public class ProductMap {
     }
 
     /**
-     * Genera un ID entero aleatorio que no exista actualmente en el mapa.
-     * Usamos un numero de 6 cifras como estandar
+     * Generates an ID random that doesn't exists yet.
+     * We use 6 digits as standard
      */
     public int generateId() {
         int newId;

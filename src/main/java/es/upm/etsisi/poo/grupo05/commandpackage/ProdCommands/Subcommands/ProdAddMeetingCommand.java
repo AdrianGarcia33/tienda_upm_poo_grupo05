@@ -59,6 +59,8 @@ public class ProdAddMeetingCommand extends Command {
 
                 if (meeting.isTemporallyValid()) {
                     productMap.addProduct(meeting);
+                    System.out.println("prod addMeeting: ok");
+
                 } else {
                     System.out.println("Error: La reunión requiere al menos 12 horas de planificación.");
                 }

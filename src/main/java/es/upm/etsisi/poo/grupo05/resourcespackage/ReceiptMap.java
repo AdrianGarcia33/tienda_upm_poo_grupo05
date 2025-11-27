@@ -6,23 +6,46 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 
+/**
+ * Class responsible for managing the collection of receipts (tickets) in the system.
+ * It allows adding, removing, and modifying receipts, as well as managing items within them.
+ */
 public class ReceiptMap {
     private HashMap<String, Receipt> receiptmap;
     private int num_receipt;
 
+    /**
+     * Constructor of the class.
+     */
     public ReceiptMap () {
         this.receiptmap = new HashMap<>();
         this.num_receipt = 0;
     }
 
+    /**
+     * Retrieves the complete map of stored receipts.
+     *
+     * @return The HashMap containing all receipts.
+     */
     public HashMap<String, Receipt> getReceiptmap() {
         return receiptmap;
     }
 
+    /**
+     * Sets the map of receipts.
+     *
+     * @param receiptmap The new HashMap of receipts.
+     */
     public void setReceiptmap(HashMap<String, Receipt> receiptmap) {
         this.receiptmap = receiptmap;
     }
 
+    /**
+     * Adds a new receipt to the map if its ID does not already exist.
+     *
+     * @param receipt The receipt object to add.
+     * @return true if the receipt was successfully added, false otherwise.
+     */
     public boolean newReceipt(Receipt receipt) {
         String id = receipt.getId();
         if (!receiptmap.containsKey(id)) {
@@ -34,10 +57,25 @@ public class ReceiptMap {
         }
     }
 
+    /**
+     * Checks if a receipt with the given ID exists in the map.
+     *
+     * @param id The ID of the receipt to check.
+     * @return true if the receipt exists, false otherwise.
+     */
     public boolean contains(String id) {
         return receiptmap.containsKey(id);
     }
 
+    /**
+     * Adds a specific quantity of a standard product to a specific receipt.
+     * If successful, it prints the provisional price of the receipt.
+     *
+     * @param receipt_id The ID of the receipt.
+     * @param prod_id    The ID of the product to add.
+     * @param quantity   The amount of the product to add.
+     * @return true if the item was added successfully, false if the receipt was not found.
+     */
     public boolean addItemtoReceipt(String receipt_id, int prod_id, int quantity) {
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
@@ -51,6 +89,16 @@ public class ReceiptMap {
         return false;
     }
 
+    /**
+     * Adds a personalized product with custom texts to a specific receipt.
+     * If successful, it prints the provisional price of the receipt.
+     *
+     * @param receipt_id       The ID of the receipt.
+     * @param prod_id          The ID of the product to add.
+     * @param quantity         The amount of the product to add.
+     * @param personalizations Array of strings containing the customizations.
+     * @return true if the item was added successfully, false if the receipt was not found.
+     */
     public boolean addPersonalizedItemtoReceipt(String receipt_id, int prod_id, int quantity, String[] personalizations) {
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
@@ -64,6 +112,13 @@ public class ReceiptMap {
         return false;
     }
 
+    /**
+     * Removes a specific product from a specific receipt.
+     *
+     * @param receipt_id The ID of the receipt.
+     * @param prod_id    The ID of the product to remove.
+     * @return true if the removal was successful, false if the receipt was not found.
+     */
     public boolean removeItemFromReceipt(String receipt_id, int prod_id) {
         if (receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
@@ -76,6 +131,12 @@ public class ReceiptMap {
         return false;
     }
 
+    /**
+     * Generates the printable string (invoice) for a specific receipt.
+     *
+     * @param receipt_id The ID of the receipt to print.
+     * @return The string representation of the receipt, or an empty string if not found.
+     */
     public String print(String receipt_id) {
         String salida = "";
         if(receiptmap.containsKey(receipt_id)) {
@@ -87,6 +148,12 @@ public class ReceiptMap {
         return salida;
     }
 
+    /**
+     * Removes a specific product from all existing receipts in the map.
+     *
+     * @param prod_id The ID of the product to remove globally.
+     * @return true after iterating through all receipts.
+     */
     public boolean removeItemsFromAllReceipts(int prod_id) {
         for (Receipt receipt : receiptmap.values()) {
             receipt.removeItem(prod_id);
@@ -95,6 +162,12 @@ public class ReceiptMap {
     }
 
 
+    /**
+     * Generates a list of all receipts currently in the map,
+     * sorted by the Cashier ID associated with the receipt.
+     *
+     * @return A formatted String containing the list of receipts (ID and State).
+     */
     public String list() {
         ArrayList<Receipt> receiptlist = new ArrayList<>(num_receipt);
         StringBuilder result = new StringBuilder();
