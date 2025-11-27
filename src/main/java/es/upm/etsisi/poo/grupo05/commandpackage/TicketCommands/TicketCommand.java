@@ -20,7 +20,7 @@ public class TicketCommand extends Command {
 
     public void initialize(ProductMap productMap, UserMap userMap) {
         TicketNewCommand ticketNewCommand = new TicketNewCommand("new", userMap, productMap);
-        TicketAddCommand ticketAddCommand = new TicketAddCommand("add", userMap);
+        TicketAddCommand ticketAddCommand = new TicketAddCommand("add", userMap, productMap);
         TicketListCommand ticketListCommand = new TicketListCommand("list", userMap);
         TicketPrintCommand ticketPrintCommand = new TicketPrintCommand("print", userMap);
         TicketRemoveCommand ticketRemoveCommand = new TicketRemoveCommand("remove", userMap);

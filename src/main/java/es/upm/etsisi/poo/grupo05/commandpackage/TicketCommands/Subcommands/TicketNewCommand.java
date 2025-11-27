@@ -19,40 +19,40 @@ public class TicketNewCommand extends Command {
 
     @Override
     public boolean apply(String[] args) {
+        String line = String.join(" ", args).trim();
+        args= line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
         try{
             if (args.length == 2) {
                 String cashId = args[0];
                 String userId = args[1];
                 User cashier = userMap.getUserMap().get(cashId);
+                Receipt receipt = new Receipt(null, cashId, userId, productMap);
                 if (!(cashier instanceof Cashier)) {
                     System.out.println("No such cashier with this ID ");
                     return false;
                 }
-                cashier.getReceiptMap().newReceipt(new Receipt(null, cashId, userId, productMap));
+                cashier.getReceiptMap().newReceipt(receipt);
+                System.out.println(receipt.provisionalPrice());
+                System.out.println("ticket new: ok\n");
             } else  if (args.length == 3) {
                 String receiptId = args[0];
                 String cashId = args[1];
                 String userId = args[2];
                 User cashier = userMap.getUserMap().get(cashId);
+                Receipt receipt = new Receipt(receiptId, cashId, userId, productMap);
                 if (!(cashier instanceof Cashier)) {
                     System.out.println("No such cashier with this ID ");
                     return false;
                 }
-                cashier.getReceiptMap().newReceipt(new Receipt(receiptId, cashId, userId, productMap));
+                cashier.getReceiptMap().newReceipt(receipt);
+                System.out.println(receipt.provisionalPrice());
+                System.out.println("ticket new: ok\n");
             }
         }catch(IllegalArgumentException e){
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
         }catch (NullPointerException e){
             System.out.println(ExceptionHandler.getNullArgument());
         }
-
-
-
-
-
-
-
-
         return false;
     }
 }

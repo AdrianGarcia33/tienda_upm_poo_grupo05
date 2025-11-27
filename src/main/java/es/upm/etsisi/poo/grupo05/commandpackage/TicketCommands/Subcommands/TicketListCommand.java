@@ -20,9 +20,11 @@ public class TicketListCommand extends Command {
         }else  {
             for (User cashier : userMap.getUserMap().values()) {
                if (cashier instanceof Cashier) {
-                   cashier.getReceiptMap().list();
+                   String result = cashier.getReceiptMap().list();
+                   System.out.println(result);
                }
             }
+            System.out.println("ticket new: ok\n");
         }
         return false;
     }

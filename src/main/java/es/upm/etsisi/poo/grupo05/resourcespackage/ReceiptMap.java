@@ -42,6 +42,20 @@ public class ReceiptMap {
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
             if (receipt.addItem(prod_id, quantity)) {
+                System.out.println(receipt.provisionalPrice());
+                return true;
+            }
+        } else {
+            System.out.println("Error: TicketNotFound");
+        }
+        return false;
+    }
+
+    public boolean addPersonalizedItemtoReceipt(String receipt_id, int prod_id, int quantity, String[] personalizations) {
+        if(receiptmap.containsKey(receipt_id)) {
+            Receipt receipt = receiptmap.get(receipt_id);
+            if (receipt.addPersonalizedItem(prod_id, quantity, personalizations)) {
+                System.out.println(receipt.provisionalPrice());
                 return true;
             }
         } else {
@@ -88,8 +102,9 @@ public class ReceiptMap {
             receiptlist.add(receipt);
         }
         receiptlist.sort(Comparator.comparing(Receipt::getCashId));
+        result.append("Ticket List:\n");
         for (int i = 0; i < receiptlist.size(); i++) {
-            result.append(receiptlist.get(i).getId()+"\n");
+            result.append("\t").append(receiptlist.get(i).getId()).append(" - ").append(receiptlist.get(i).getTicketState()).append("\n");
         }
         return result.toString();
     }

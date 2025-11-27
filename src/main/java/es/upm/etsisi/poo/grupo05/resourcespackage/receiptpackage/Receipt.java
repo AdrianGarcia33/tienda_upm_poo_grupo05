@@ -135,12 +135,12 @@ public class Receipt {
                     result = true;
                 }else if (product instanceof Lunch) {
                     Lunch productCopy = new Lunch((Lunch) product);
-                    ticket.add(product);
+                    ticket.add(productCopy);
                     numberItems += quantity;
                     result = true;
                 }else{
                     Meeting productCopy = new Meeting((Meeting) product);
-                    ticket.add(product);
+                    ticket.add(productCopy);
                     numberItems += quantity;
                     result = true;
                 }
@@ -148,6 +148,27 @@ public class Receipt {
         }
         checkDiscount();
         if (result) {this.ticketState = TicketState.ACTIVE;}
+        return result;
+    }
+
+    public boolean addPersonalizedItem(int id, int quantity, String[] personalizations){
+        boolean result = false;
+        Product product = productMap.getProduct(id);
+
+        if(product instanceof PersonalizedProducts productCopy){
+
+            PersonalizedProducts copy = new PersonalizedProducts(productCopy.getId(),productCopy.getName(),productCopy.getBasePrice(),productCopy.getCategory()
+            ,productCopy.getQuantity(),personalizations.length);
+
+            if(copy.addPersonalizations(personalizations)){
+                ticket.add(copy);
+                numberItems += quantity;
+                ticketState = TicketState.ACTIVE;
+                checkDiscount();
+                result = true;
+                return result;
+            }
+        }
         return result;
     }
 
@@ -230,12 +251,7 @@ public class Receipt {
      * @return string with the ticket information
      */
     public String print() {
-
-        if(ticketState == TicketState.BLANK){
-            return "BLANK TICKET";
-        }
-
-        if (ticketState == TicketState.ACTIVE) {
+        if (ticketState == TicketState.ACTIVE ||  ticketState == TicketState.BLANK) {
             //Hay que actualizar el id en el gestor
             closeTicket();
         }
@@ -244,7 +260,7 @@ public class Receipt {
         ticketArray.sort(Comparator.comparing(Product::getName));
 
         StringBuilder sb = new StringBuilder();
-        sb.append("--- TICKET BILL ---\n");
+        sb.append("ticket: ").append(id).append("\n");
 
         double totalPrice = 0.0;
         double totalDiscount = 0.0;
@@ -254,20 +270,20 @@ public class Receipt {
             if(p instanceof BasicProducts bp) {
                 int quantity = bp.getQuantity();
                 for (int i = 0; i < quantity; i++) {
-                    sb.append(bp.toString()).append("\n");
+                    sb.append("\t").append(bp.toString()).append("\n");
                 }
                 totalPrice += (price * quantity);
                 finalPrice += p.getTotalPrice(quantity);
             }else {
-                sb.append(p.toString()).append("\n");
+                sb.append("\t").append(p.toString()).append("\n");
                 totalPrice += price;
                 finalPrice += price;
             }
         }
         totalDiscount = totalPrice-finalPrice;
-        sb.append("Total price: " + String.format(Locale.US,"%.1f", totalPrice) + "\n");
-        sb.append("Total discount: " + String.format(Locale.US,"%.1f", totalDiscount)  + "\n");
-        sb.append("Final price: " + String.format(Locale.US,"%.1f", finalPrice) + "\n");
+        sb.append("\tTotal price: " + String.format(Locale.US,"%.1f", totalPrice) + "\n");
+        sb.append("\tTotal discount: " + String.format(Locale.US,"%.1f", totalDiscount)  + "\n");
+        sb.append("\tFinal price: " + String.format(Locale.US,"%.1f", finalPrice) + "\n");
 
 
         return sb.toString();
@@ -280,15 +296,12 @@ public class Receipt {
     }
 
     public String provisionalPrice() {
-        if(ticketState == TicketState.BLANK){
-            return "BLANK TICKET";
-        }
 
         List<Product> ticketArray = new ArrayList<>(ticket);
         ticketArray.sort(Comparator.comparing(Product::getName));
 
         StringBuilder sb = new StringBuilder();
-        sb.append("--- TICKET BILL ---\n");
+        sb.append("ticket: ").append(id).append("\n");
 
         double totalPrice = 0.0;
         double totalDiscount = 0.0;
@@ -299,20 +312,20 @@ public class Receipt {
             if(p instanceof BasicProducts bp) {
                 int quantity = bp.getQuantity();
                 for (int i = 0; i < quantity; i++) {
-                    sb.append(bp.toString()).append("\n");
+                    sb.append("\t").append(bp.toString()).append("\n");
                 }
                 totalPrice += (price * quantity);
                 finalPrice += p.getTotalPrice(quantity);
             }else {
-                sb.append(p.toString()).append("\n");
+                sb.append("\t").append(p.toString()).append("\n");
                 totalPrice += price;
                 finalPrice += price;
             }
         }
         totalDiscount = totalPrice-finalPrice;
-        sb.append("Total price: " + String.format(Locale.US,"%.1f", totalPrice) + "\n");
-        sb.append("Total discount: " + String.format(Locale.US,"%.1f", totalDiscount)  + "\n");
-        sb.append("Final price: " + String.format(Locale.US,"%.1f", finalPrice) + "\n");
+        sb.append("\tTotal price: " + String.format(Locale.US,"%.1f", totalPrice) + "\n");
+        sb.append("\tTotal discount: " + String.format(Locale.US,"%.1f", totalDiscount)  + "\n");
+        sb.append("\tFinal price: " + String.format(Locale.US,"%.1f", finalPrice) + "\n");
 
         return sb.toString();
     }
