@@ -19,7 +19,8 @@ public class CashTicketsCommand extends Command {
     try{
         String id=args[0];
         Cashier cashier =(Cashier) userMap.getUserMap().get(id);
-        System.out.println(cashier.tickets());
+        System.out.println(cashier.getReceiptMap().list());
+        System.out.println("cash tickets: ok");
     } catch (IllegalArgumentException e) {
         System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
     } catch (NullPointerException e) {

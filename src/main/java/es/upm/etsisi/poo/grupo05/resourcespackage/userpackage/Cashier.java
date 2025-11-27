@@ -7,15 +7,13 @@ public class Cashier extends User {
         super(id, name, email);
     }
 
-    public String tickets(){
-    StringBuilder tickets = new StringBuilder();
-    tickets.append("Tickets: \n");
-        for(Receipt r : super.getReceiptMap().getReceiptmap().values()){
-            tickets.append(r.toString()+"\n");
-        }
-        tickets.append("cash tickets: ok\n");
-    return  tickets.toString();
-    }
+//    public String tickets(){
+//    StringBuilder tickets = new StringBuilder();
+//    tickets.append("Tickets: \n");
+//        tickets.append(super.getReceiptMap().toString());
+//        tickets.append("cash tickets: ok\n");
+//    return  tickets.toString();
+//    }
     @Override
     public String toString(){
         return "Cash{identifier='" + super.getId() + "', name='" + super.getName() + "', email='" + super.getEmail() + "'}";
