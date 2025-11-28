@@ -48,21 +48,7 @@ public class PersonalizedProducts extends BasicProducts{
         }
     }
 
-    /**
-     * Calculates the total price, applying a 10% surcharge per personalized text added.
-     * The surcharge is applied to each unit.
-     * @param quantity The quantity of the product.
-     * @return The final total price including surcharges and category discounts.
-     */
-    @Override
-    public float getTotalPrice(int quantity) {
-        float personalizedUnitPrice = basePrice * (1 + 0.1f * num_personalization);
-        float total = personalizedUnitPrice * quantity;
-        if (discount) {
-            total *= afterDiscount;
-        }
-        return total;
-    }
+
 
     /**
      * Returns the string representation of the product, listing all added custom texts.
