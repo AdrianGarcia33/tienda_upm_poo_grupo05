@@ -239,13 +239,24 @@ public class Receipt {
      */
     private void checkDiscount() {
         for (Category category : Category.values()) {
+            // Step 1: Count all products of this category
             int count = 0;
             for (Product p : ticket) {
                 if (p instanceof BasicProducts) {
                     BasicProducts basicProduct = (BasicProducts) p;
                     if (basicProduct.getCategory() == category) {
                         count += basicProduct.getQuantity();
-                        basicProduct.setDiscount(count > 1);
+                    }
+                }
+            }
+
+            // Step 2: Apply or remove discount based on the total count
+            boolean applyDiscount = count > 1;
+            for (Product p : ticket) {
+                if (p instanceof BasicProducts) {
+                    BasicProducts basicProduct = (BasicProducts) p;
+                    if (basicProduct.getCategory() == category) {
+                        basicProduct.setDiscount(applyDiscount);
                     }
                 }
             }

@@ -1,5 +1,7 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage.productpackage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -29,6 +31,9 @@ public class PersonalizedProducts extends BasicProducts{
         this.num_personalization = 0;
     }
 
+
+
+
     /**
      * Methods to add personalizations, in will not exceed the maximum
      * @param personalizations
@@ -55,16 +60,25 @@ public class PersonalizedProducts extends BasicProducts{
      */
     @Override
     public String toString() { //como todavía no sabemos le formato, lo dejo así
-        StringBuilder result = new StringBuilder("{class:PersonalizedProduct, id:"+id+", name:'"+name+"', category:"+category+", price:"+basePrice+"}");
-        if(discount) {
-            result.append(" **discount-").append(String.format(Locale.US,"%.1f", basePrice * (1 - afterDiscount)));
-            result.append("\n");
-        }
-        for (String personalization : personalizations) {
-            if (personalization != null) {
-                result.append("  - "+personalization+"\n");
+        StringBuilder result = new StringBuilder("{class:PersonalizedProduct, id:"+id+", name:'"+name+"', category:"+category+", price:"+basePrice+", maxPersonal:"+maxPersonalizedTexts);
+        if (num_personalization != 0) {
+            result.append(", personalizationList:[");
+
+            List<String> StringPersonalizations = new ArrayList<>();
+            for (String p : personalizations) {
+                if (p != null) {
+                    StringPersonalizations.add(p);
+                }
             }
+            result.append(String.join(", ", StringPersonalizations));
+
+            result.append("]");
         }
+        result.append("}");
+        if(discount) {
+            result.append(" **discount-").append(String.format(Locale.US,"%.3f", basePrice * (1 - afterDiscount)));
+        }
+
         return result.toString();
     }
 }

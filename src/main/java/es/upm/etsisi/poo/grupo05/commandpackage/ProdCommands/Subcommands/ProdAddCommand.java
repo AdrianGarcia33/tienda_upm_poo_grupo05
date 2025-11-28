@@ -26,10 +26,9 @@ public class ProdAddCommand extends Command {
     public boolean apply(String[] args) {
         try {
             String line = String.join(" ", args).trim();
-            // Colapsar comillas duplicadas \"\"... -> \"
+
             line = line.replaceAll("\"{2,}", "\"");
 
-            // id opcional al inicio, nombre entre " ", categoria, precio, maxPers opcional
             Pattern p = Pattern.compile("^(?:\\s*(\\d+)\\s+)?\"([^\"]+)\"\\s+(\\S+)\\s+(\\d+(?:\\.\\d+)?)(?:\\s+(\\d+))?\\s*$");
             Matcher m = p.matcher(line);
 
