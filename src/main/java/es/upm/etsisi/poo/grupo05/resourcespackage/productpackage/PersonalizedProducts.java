@@ -1,5 +1,7 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage.productpackage;
 
+import java.util.Locale;
+
 /**
  * Represents a product that can be customized with specific texts.
  * Extends BasicProducts to include a list of custom strings and specific pricing logic.
@@ -47,14 +49,16 @@ public class PersonalizedProducts extends BasicProducts{
     }
 
     /**
-     * [cite_start]Calculates the total price, applying a 10% surcharge per personalized text added[cite: 17].
+     * Calculates the total price, applying a 10% surcharge per personalized text added.
+     * The surcharge is applied to each unit.
      * @param quantity The quantity of the product.
      * @return The final total price including surcharges and category discounts.
      */
     @Override
     public float getTotalPrice(int quantity) {
-        float total = (float)((basePrice * quantity)+(basePrice*0.1*num_personalization)) ;
-        if (discount == true) {
+        float personalizedUnitPrice = basePrice * (1 + 0.1f * num_personalization);
+        float total = personalizedUnitPrice * quantity;
+        if (discount) {
             total *= afterDiscount;
         }
         return total;
@@ -65,10 +69,14 @@ public class PersonalizedProducts extends BasicProducts{
      */
     @Override
     public String toString() { //como todavía no sabemos le formato, lo dejo así
-        StringBuilder result = new StringBuilder(super.toString()+"\n");
+        StringBuilder result = new StringBuilder("{class:PersonalizedProduct, id:"+id+", name:'"+name+"', category:"+category+", price:"+basePrice+"}");
+        if(discount) {
+            result.append(" **discount-").append(String.format(Locale.US,"%.1f", basePrice * (1 - afterDiscount)));
+            result.append("\n");
+        }
         for (String personalization : personalizations) {
             if (personalization != null) {
-                result.append("- "+personalization+"\n");
+                result.append("  - "+personalization+"\n");
             }
         }
         return result.toString();

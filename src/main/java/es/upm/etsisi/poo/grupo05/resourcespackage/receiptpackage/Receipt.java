@@ -175,9 +175,10 @@ public class Receipt {
         if(product instanceof PersonalizedProducts productCopy){
 
             PersonalizedProducts copy = new PersonalizedProducts(productCopy.getId(),productCopy.getName(),productCopy.getBasePrice(),productCopy.getCategory()
-            ,productCopy.getQuantity(),personalizations.length);
+            ,quantity,personalizations.length);
 
             if(copy.addPersonalizations(personalizations)){
+                copy.setBasePrice(copy.getBasePrice()*(1+0.1f*personalizations.length));
                 ticket.add(copy);
                 numberItems += quantity;
                 ticketState = TicketState.ACTIVE;
@@ -283,7 +284,6 @@ public class Receipt {
         sb.append("ticket: ").append(id).append("\n");
 
         double totalPrice = 0.0;
-        double totalDiscount = 0.0;
         double finalPrice = 0.0;
         for(Product p : ticketArray){
             float price = p.getBasePrice();
@@ -300,7 +300,7 @@ public class Receipt {
                 finalPrice += price;
             }
         }
-        totalDiscount = totalPrice-finalPrice;
+        double totalDiscount = totalPrice - finalPrice;
         sb.append("\tTotal price: " + String.format(Locale.US,"%.1f", totalPrice) + "\n");
         sb.append("\tTotal discount: " + String.format(Locale.US,"%.1f", totalDiscount)  + "\n");
         sb.append("\tFinal price: " + String.format(Locale.US,"%.1f", finalPrice) + "\n");
@@ -328,7 +328,6 @@ public class Receipt {
         sb.append("ticket: ").append(id).append("\n");
 
         double totalPrice = 0.0;
-        double totalDiscount = 0.0;
         double finalPrice = 0.0;
 
         for(Product p : ticketArray){
@@ -346,7 +345,7 @@ public class Receipt {
                 finalPrice += price;
             }
         }
-        totalDiscount = totalPrice-finalPrice;
+        double totalDiscount = totalPrice - finalPrice;
         sb.append("\tTotal price: " + String.format(Locale.US,"%.1f", totalPrice) + "\n");
         sb.append("\tTotal discount: " + String.format(Locale.US,"%.1f", totalDiscount)  + "\n");
         sb.append("\tFinal price: " + String.format(Locale.US,"%.1f", finalPrice) + "\n");
