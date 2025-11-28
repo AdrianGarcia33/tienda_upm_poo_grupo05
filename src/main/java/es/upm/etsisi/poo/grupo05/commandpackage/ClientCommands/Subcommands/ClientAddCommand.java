@@ -5,7 +5,9 @@ import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Cashier;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Client;
-
+/**
+ * Class made for client add command, it detects the correct arguments and adds it to the userMap
+ */
 public class ClientAddCommand extends Command {
     private UserMap userMap;
 

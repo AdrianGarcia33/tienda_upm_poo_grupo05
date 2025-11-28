@@ -4,7 +4,9 @@ import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Cashier;
-
+/**
+ * Class made for the cashier list command, as its name suggests, it will print all the tickets asigned to the cashier provided
+ */
 public class CashTicketsCommand extends Command {
     private UserMap userMap;
 

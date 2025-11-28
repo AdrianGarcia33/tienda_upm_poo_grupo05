@@ -4,7 +4,9 @@ import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Cashier;
-
+/**
+ * Class made for cash add command, it detects the correct arguments and adds it to the userMap
+ */
 public class CashAddCommand extends Command {
     private UserMap userMap;
 
@@ -50,6 +52,12 @@ public class CashAddCommand extends Command {
         }
         return false;
     }
+    /**
+     * Auxiliary method that generates a unique cashier ID.
+     *
+     * @return a new valid ID
+     */
+
     private String generateId() {
         // This method must be called when no cashId is provided when called the command "cash add"
         //if id==null llamamos a este metodo, llamamos hsta que el id random no esté en el hashmap
@@ -68,8 +76,12 @@ public class CashAddCommand extends Command {
 
         return String.valueOf(id);
     }
+    /**
+     * Auxiliary method that checks whether the given ID is valid.
+     *
+     * @param id the ID to verify
+     */
     private boolean cashIdAcceptable(String id){
-        // TENGO QUE HACER QUE CONTROLE QUE SEAN 7 NUMEROS Y NO LETRAS
         if(id.length()==9 && !userMap.getUserMap().containsKey(id) && id.startsWith("UW")){
 
             for (int i = 2; i< id.length();i++ ) {
@@ -81,6 +93,11 @@ public class CashAddCommand extends Command {
             return false;
         }
     }
+    /**
+     * Auxiliary method to check whether the given email is valid.
+     *
+     * @param email the email to verify
+     */
     private boolean cashEmailAcceptable(String email){
         if(email.endsWith("@upm.es")){
             return true;

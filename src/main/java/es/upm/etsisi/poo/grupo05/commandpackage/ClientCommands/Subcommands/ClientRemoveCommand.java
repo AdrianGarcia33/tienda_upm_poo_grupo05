@@ -3,7 +3,9 @@ package es.upm.etsisi.poo.grupo05.commandpackage.ClientCommands.Subcommands;
 import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
-
+/**
+ * Class that responds to the client remove command,if the ID provided is on the userMap it will remove said client from the userMap
+ */
 public class ClientRemoveCommand extends Command {
     private UserMap userMap;
     public ClientRemoveCommand (String name, UserMap userMap) {

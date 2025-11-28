@@ -3,7 +3,9 @@ package es.upm.etsisi.poo.grupo05.commandpackage.ClientCommands.Subcommands;
 import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
-
+/**
+ * Class made for client list command, calling the apply method will printout the clients on the userMap
+ */
 public class ClientListCommand extends Command {
     private UserMap userMap;
     public ClientListCommand (String name, UserMap userMap) {

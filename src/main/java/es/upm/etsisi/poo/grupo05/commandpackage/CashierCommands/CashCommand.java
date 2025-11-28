@@ -10,7 +10,10 @@ import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
-
+/**
+ * Superclass which inherits from Command. It groups all the cash subcommand, and enables the search and calls for a specific one. Also it
+ * is meant to initialize each of them.
+ */
 public class CashCommand extends Command {
     private LinkedList<Command> subcommands;
 
