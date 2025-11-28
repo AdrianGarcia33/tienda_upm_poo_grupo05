@@ -120,7 +120,7 @@ public class Receipt {
         Product product = productMap.getProduct(id);
 
         // If the product is already on the ticket
-        if (product != null) {
+        if (product != null && numberItems <= max_items) {
             for(Product p : ticket){
                 if (p.getId() == id) {
                     if (p instanceof BasicProducts basicProducts) {
@@ -138,11 +138,20 @@ public class Receipt {
             // If there is not a product, we insert a copy of it
             if (!added) {
                 if (product instanceof BasicProducts) {
-                    BasicProducts productCopy = new BasicProducts((BasicProducts) product); //Por ahora lanza un classCastException, tenemos que asegurarnos de que funcione.
+                    if (product instanceof PersonalizedProducts) {
+                        PersonalizedProducts personalizedProducts = (PersonalizedProducts) product;
+                        personalizedProducts.setQuantity(quantity);
+                        ticket.add(personalizedProducts);
+                        numberItems += quantity;
+                        result = true;
+                        return result;
+                    }
+                    BasicProducts productCopy = new BasicProducts((BasicProducts) product);//Por ahora lanza un classCastException, tenemos que asegurarnos de que funcione.
                     productCopy.setQuantity(quantity);
                     ticket.add(productCopy);
                     numberItems += quantity;
                     result = true;
+
                 }else if (product instanceof Lunch) {
                     Lunch productCopy = new Lunch((Lunch) product);
                     ticket.add(productCopy);
@@ -155,7 +164,7 @@ public class Receipt {
                     result = true;
                 }
             }
-        }
+        }else System.out.println("Error: you have reached the maximum number of items");
         checkDiscount();
         if (result) {this.ticketState = TicketState.ACTIVE;}
         return result;
@@ -172,7 +181,7 @@ public class Receipt {
         boolean result = false;
         Product product = productMap.getProduct(id);
 
-        if(product instanceof PersonalizedProducts productCopy){
+        if(product instanceof PersonalizedProducts productCopy && numberItems <= max_items){
 
             PersonalizedProducts copy = new PersonalizedProducts(productCopy.getId(),productCopy.getName(),productCopy.getBasePrice(),productCopy.getCategory()
             ,quantity,personalizations.length);
@@ -186,7 +195,7 @@ public class Receipt {
                 result = true;
                 return result;
             }
-        }
+        }else System.out.println("Error: you have reached the maximum number of items");
         return result;
     }
 
