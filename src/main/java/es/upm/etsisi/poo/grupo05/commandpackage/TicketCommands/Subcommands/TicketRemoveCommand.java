@@ -12,6 +12,9 @@ import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.User;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class for the ticket remove command, it will remove a product from the ticket
+ */
 public class TicketRemoveCommand extends Command {
     private UserMap userMap;
 

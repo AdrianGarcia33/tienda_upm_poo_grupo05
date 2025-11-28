@@ -10,8 +10,10 @@ import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+/**
+ * Class made for ticket add command, it will add the specified product to the ticket
+ */
 
 public class TicketAddCommand extends Command {
     private UserMap userMap;
@@ -43,7 +45,7 @@ public class TicketAddCommand extends Command {
             if (args.length == 4){
                 cashier.getReceiptMap().addItemtoReceipt(receiptId, productId, amount);
                 System.out.println("ticket add: ok");
-            }else{
+            }else {
                 if(productMap.getProduct(productId) instanceof PersonalizedProducts){
                     List<String> personalizationsList = new ArrayList<>();
 

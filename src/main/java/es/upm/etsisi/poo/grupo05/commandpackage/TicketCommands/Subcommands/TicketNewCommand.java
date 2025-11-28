@@ -8,6 +8,9 @@ import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.Receipt;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Cashier;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.User;
 
+/**
+ * Class for the ticket new command, it will create a new ticket
+ */
 public class TicketNewCommand extends Command {
     private UserMap userMap;
     private ProductMap productMap;
