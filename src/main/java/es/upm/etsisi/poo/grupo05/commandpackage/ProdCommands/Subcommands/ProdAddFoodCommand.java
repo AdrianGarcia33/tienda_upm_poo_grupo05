@@ -9,6 +9,9 @@ import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Lunch;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class made for prod addFood command.
+ */
 public class ProdAddFoodCommand extends Command {
     private ProductMap productMap;
 

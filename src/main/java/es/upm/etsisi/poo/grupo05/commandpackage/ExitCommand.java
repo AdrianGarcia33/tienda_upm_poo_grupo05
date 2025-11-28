@@ -1,5 +1,8 @@
 package es.upm.etsisi.poo.grupo05.commandpackage;
 
+/**
+ * The class made to exit the loop of commands
+ */
 public class ExitCommand extends Command{
 
     public ExitCommand(String name) {

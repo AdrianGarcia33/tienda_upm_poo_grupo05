@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 /**
- * Main, whose purpose is to read and execute commands
+ * Main, whose purpose is to initialize handler and connect it to the possible input file.
  */
 public class App {
     public static void main(String[] args) {

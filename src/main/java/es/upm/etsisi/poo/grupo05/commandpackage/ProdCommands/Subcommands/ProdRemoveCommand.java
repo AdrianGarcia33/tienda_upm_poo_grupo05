@@ -10,6 +10,9 @@ import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.User;
 
 import java.util.HashMap;
 
+/**
+ * Class that responds to the prod remove command, as its name suggests, it will remove said item from both the catalog and all existing receipts / tickets
+ */
 public class ProdRemoveCommand extends Command {
     private ProductMap productMap;
     private UserMap userMap; //Cuando eliminamos un producto, tenemos que eliminarlo tambien de todos los tickets

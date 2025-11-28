@@ -10,6 +10,10 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+/**
+ * Superclass which inherits from Command. It groups all the prod subcommand, and enables the search and calls for a specific one. Also it
+ * is meant to initialize each of them.
+ */
 public class ProdCommand extends Command {
     private LinkedList<Command> subcommands;
 

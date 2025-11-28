@@ -6,6 +6,9 @@ import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.BasicProducts;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Category;
 
+/**
+ * Class which function is to update certain values of a product. It responds to the prod update command line.
+ */
 public class ProdUpdateCommand extends Command {
     private ProductMap productMap;
 

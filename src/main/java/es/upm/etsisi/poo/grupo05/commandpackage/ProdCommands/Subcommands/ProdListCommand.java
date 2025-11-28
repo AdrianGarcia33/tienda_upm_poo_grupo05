@@ -3,6 +3,9 @@ package es.upm.etsisi.poo.grupo05.commandpackage.ProdCommands.Subcommands;
 import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 
+/**
+ * Class for the prodlist command, calling the apply method will printout the catalog
+ */
 public class ProdListCommand extends Command {
     private ProductMap productMap;
 

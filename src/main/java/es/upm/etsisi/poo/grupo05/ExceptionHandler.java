@@ -1,7 +1,7 @@
 package es.upm.etsisi.poo.grupo05;
 
 /**
- * Class for unifying all exception messages to make the code less redundant
+ * Class for unifying all exception messages to make the code less redundant. Said methods will be static, so as to be accesed anywhere.
  */
 public class ExceptionHandler {
     private static final String NULL_POINTER_EXCEPTION_MESSAGE = "Error: Inexistent Object";

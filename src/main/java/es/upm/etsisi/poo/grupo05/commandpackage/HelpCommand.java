@@ -1,5 +1,8 @@
 package es.upm.etsisi.poo.grupo05.commandpackage;
 
+/**
+ * Class made for printing out and options menu for the user
+ */
 public class HelpCommand extends Command {
 
     public HelpCommand(String name) {

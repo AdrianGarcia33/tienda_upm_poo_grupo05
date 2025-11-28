@@ -11,6 +11,9 @@ import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Product;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class made for prod add command, it detects the correct arguments and adds it to the catalog
+ */
 public class ProdAddCommand extends Command {
     private ProductMap productMap;
 

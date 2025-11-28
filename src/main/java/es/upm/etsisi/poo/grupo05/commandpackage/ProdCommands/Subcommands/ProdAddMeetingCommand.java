@@ -9,6 +9,9 @@ import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Meeting;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class made for the prodAddMeeting command.
+ */
 public class ProdAddMeetingCommand extends Command {
     private ProductMap productMap;
 

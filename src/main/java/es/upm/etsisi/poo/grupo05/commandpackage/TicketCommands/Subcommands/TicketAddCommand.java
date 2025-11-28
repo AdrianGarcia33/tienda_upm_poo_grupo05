@@ -56,6 +56,7 @@ public class TicketAddCommand extends Command {
                     String[] personalizations = personalizationsList.toArray(new String[0]);
 
                     cashier.getReceiptMap().addPersonalizedItemtoReceipt(receiptId, productId, amount, personalizations);
+                    System.out.println("ticket add: ok");
                 }
             }
 
