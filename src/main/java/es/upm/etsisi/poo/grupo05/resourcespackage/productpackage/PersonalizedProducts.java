@@ -60,7 +60,7 @@ public class PersonalizedProducts extends BasicProducts{
      */
     @Override
     public String toString() { //como todavía no sabemos le formato, lo dejo así
-        StringBuilder result = new StringBuilder("{class:PersonalizedProduct, id:"+id+", name:'"+name+"', category:"+category+", price:"+basePrice+", maxPersonal:"+maxPersonalizedTexts);
+        StringBuilder result = new StringBuilder("{class:ProductPersonalized, id:"+id+", name:'"+name+"', category:"+category+", price:"+basePrice+", maxPersonal:"+maxPersonalizedTexts);
         if (num_personalization != 0) {
             result.append(", personalizationList:[");
 
