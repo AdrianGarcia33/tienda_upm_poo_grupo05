@@ -170,7 +170,7 @@ public class ProductMap {
      */
     public String printList() {
         StringBuilder catalog = new StringBuilder();
-        catalog.append("Catalog: \n");
+        catalog.append("Catalog: ");
         for (Product product : productMap.values()) {
             if (product != null) {
                 catalog.append(" "+product.toString()+"\n");

@@ -76,7 +76,7 @@ public class PersonalizedProducts extends BasicProducts{
         }
         result.append("}");
         if(discount) {
-            result.append(" **discount-").append(String.format(Locale.US,"%.3f", basePrice * (1 - afterDiscount)));
+            result.append(" **discount -").append(String.format(Locale.US,"%.3f", basePrice * (1 - afterDiscount)));
         }
 
         return result.toString();

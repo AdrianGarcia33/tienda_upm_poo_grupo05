@@ -21,7 +21,7 @@ public class ClientAddCommand extends Command {
         String line = String.join(" ", args).trim();
         args= line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
     try{
-        String name = args[0],DNI = args[1],email = args[2];
+        String name = args[0].replace("\"", ""),DNI = args[1],email = args[2];
         Cashier cashier=null;
         if(userMap.getUserMap().containsKey(args[3])){
             cashier=(Cashier) userMap.getUserMap().get(args[3]);

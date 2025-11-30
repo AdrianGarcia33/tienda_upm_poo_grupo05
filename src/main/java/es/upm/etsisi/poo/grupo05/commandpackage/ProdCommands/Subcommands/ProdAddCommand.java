@@ -85,6 +85,7 @@ public class ProdAddCommand extends Command {
                     System.out.println(ExceptionHandler.getNullArgument());
                 }
             }
+
         } catch (IllegalArgumentException e) {
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
         } catch (NullPointerException e) {

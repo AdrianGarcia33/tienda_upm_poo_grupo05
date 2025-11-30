@@ -171,14 +171,18 @@ public class ReceiptMap {
     public String list() {
         ArrayList<Receipt> receiptlist = new ArrayList<>(num_receipt);
         StringBuilder result = new StringBuilder();
+
         for (Receipt receipt : receiptmap.values()) {
             receiptlist.add(receipt);
         }
+
         receiptlist.sort(Comparator.comparing(Receipt::getCashId));
         result.append("Ticket List:\n");
+
         for (int i = 0; i < receiptlist.size(); i++) {
             result.append("\t").append(receiptlist.get(i).getId()).append(" - ").append(receiptlist.get(i).getTicketState()).append("\n");
         }
+
         return result.toString();
     }
 

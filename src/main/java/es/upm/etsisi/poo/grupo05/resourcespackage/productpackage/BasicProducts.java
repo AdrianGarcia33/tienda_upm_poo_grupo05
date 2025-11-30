@@ -112,7 +112,7 @@ public class BasicProducts extends Product{
         StringBuilder result = new StringBuilder("{class:Product, id:"+id+", name:'"+name+"', category:"+category+", price:"+basePrice+"}");
 
         if(discount) {
-            result.append(" **discount-").append(String.format(Locale.US,"%.2f", basePrice * (1 - afterDiscount)));
+            result.append(" **discount -").append(String.format(Locale.US,"%.2f", basePrice * (1 - afterDiscount)));
         }
 
         return result.toString();

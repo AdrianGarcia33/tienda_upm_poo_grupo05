@@ -23,7 +23,7 @@ public class CashAddCommand extends Command {
         try {
             if (args.length == 3) {
                 id = args[0];
-                name = args[1];
+                name = args[1].replace("\"", "");
                 email = args[2];
                 if (cashIdAcceptable(id) && cashEmailAcceptable(email)){
                     Cashier cashier = new Cashier(id, name, email);
@@ -36,7 +36,7 @@ public class CashAddCommand extends Command {
                 }
             }else if (args.length == 2) {
                 id = generateId();
-                name = args[0];
+                name = args[0].replace("\"", "");
                 email = args[1];
                 if (cashEmailAcceptable(email)){
                     Cashier cashier = new Cashier(id, name, email);
