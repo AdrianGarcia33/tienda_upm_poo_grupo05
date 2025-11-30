@@ -48,9 +48,6 @@ public class Meeting extends Events {
      */
     @Override
     public String toString(){
-        return "{class:Reuniones, id:" + id + ", name:'" + name +
-                "', pricePerPerson:" + basePrice +
-                ", expiration:" + expirationDate +
-                ", maxParticipants:" + maxParticipants + "}";
+        return "{class:Meeting" + super.getEventDetails();
     }
 }

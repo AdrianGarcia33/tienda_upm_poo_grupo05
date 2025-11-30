@@ -62,6 +62,7 @@ public class ProdAddMeetingCommand extends Command {
 
                 if (meeting.isTemporallyValid()) {
                     productMap.addProduct(meeting);
+                    System.out.println(meeting.toString());
                     System.out.println("prod addMeeting: ok");
 
                 } else {

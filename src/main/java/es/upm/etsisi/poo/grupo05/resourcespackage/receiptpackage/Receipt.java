@@ -158,13 +158,15 @@ public class Receipt {
 
                 } else if (product instanceof Lunch) {
                     Lunch productCopy = new Lunch((Lunch) product);
+                    productCopy.setActualParticipants(quantity);
                     ticket.add(productCopy);
-                    numberItems += quantity;
+                    numberItems += 1;
                     result = true;
                 } else {
                     Meeting productCopy = new Meeting((Meeting) product);
+                    productCopy.setActualParticipants(quantity);
                     ticket.add(productCopy);
-                    numberItems += quantity;
+                    numberItems += 1;
                     result = true;
                 }
             }
@@ -308,37 +310,7 @@ public class Receipt {
             //Hay que actualizar el id en el gestor
             closeTicket();
         }
-
-        List<Product> ticketArray = new ArrayList<>(ticket);
-        ticketArray.sort(Comparator.comparing(Product::getName));
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("ticket: ").append(id).append("\n");
-
-        double totalPrice = 0.0;
-        double finalPrice = 0.0;
-        for (Product p : ticketArray) {
-            float price = p.getBasePrice();
-            if (p instanceof BasicProducts bp) {
-                int quantity = bp.getQuantity();
-                for (int i = 0; i < quantity; i++) {
-                    sb.append("\t").append(bp.toString()).append("\n");
-                }
-                totalPrice += (price * quantity);
-                finalPrice += p.getTotalPrice(quantity);
-            } else {
-                sb.append("\t").append(p.toString()).append("\n");
-                totalPrice += price;
-                finalPrice += price;
-            }
-        }
-        double totalDiscount = totalPrice - finalPrice;
-        sb.append("\tTotal price: " + String.format(Locale.US, "%.3f", totalPrice) + "\n");
-        sb.append("\tTotal discount: " + String.format(Locale.US, "%.6f", totalDiscount) + "\n");
-        sb.append("\tFinal price: " + String.format(Locale.US, "%.3f", finalPrice) + "\n");
-
-
-        return sb.toString();
+        return generateBillString();
     }
 
     private void checkTicketClosed() {
@@ -353,12 +325,18 @@ public class Receipt {
      * @return The formatted provisional ticket string.
      */
     public String provisionalPrice() {
+        return generateBillString();
+    }
 
+    /**
+     * Private helper to generate the formatted bill string to avoid code duplication.
+     */
+    private String generateBillString() {
         List<Product> ticketArray = new ArrayList<>(ticket);
         ticketArray.sort(Comparator.comparing(Product::getName));
 
         StringBuilder sb = new StringBuilder();
-        sb.append("ticket: ").append(id).append("\n");
+        sb.append("Ticket : ").append(id).append("\n");
 
         double totalPrice = 0.0;
         double finalPrice = 0.0;
@@ -374,15 +352,56 @@ public class Receipt {
                 finalPrice += p.getTotalPrice(quantity);
             } else {
                 sb.append("\t").append(p.toString()).append("\n");
-                totalPrice += price;
-                finalPrice += price;
+
+                // Calculate price based on actual participants
+                int participants = ((Events)p).getActualParticipants();
+                float eventTotal = p.getTotalPrice(participants);
+
+                totalPrice += eventTotal;
+                finalPrice += eventTotal;
             }
         }
         double totalDiscount = totalPrice - finalPrice;
+
         sb.append("\tTotal price: " + String.format(Locale.US, "%.3f", totalPrice) + "\n");
         sb.append("\tTotal discount: " + String.format(Locale.US, "%.6f", totalDiscount) + "\n");
         sb.append("\tFinal price: " + String.format(Locale.US, "%.3f", finalPrice) + "\n");
 
         return sb.toString();
     }
+
+    /**
+     *
+     * TOSTRING ANTIGUO
+     *
+     *
+     * List<Product> ticketArray = new ArrayList<>(ticket);
+     *         ticketArray.sort(Comparator.comparing(Product::getName));
+     *
+     *         StringBuilder sb = new StringBuilder();
+     *         sb.append("ticket: ").append(id).append("\n");
+     *
+     *         double totalPrice = 0.0;
+     *         double finalPrice = 0.0;
+     *
+     *         for (Product p : ticketArray) {
+     *             float price = p.getBasePrice();
+     *             if (p instanceof BasicProducts bp) {
+     *                 int quantity = bp.getQuantity();
+     *                 for (int i = 0; i < quantity; i++) {
+     *                     sb.append("\t").append(bp.toString()).append("\n");
+     *                 }
+     *                 totalPrice += (price * quantity);
+     *                 finalPrice += p.getTotalPrice(quantity);
+     *             } else {
+     *                 sb.append("\t").append(p.toString()).append("\n");
+     *                 totalPrice += price;
+     *                 finalPrice += price;
+     *             }
+     *         }
+     *         double totalDiscount = totalPrice - finalPrice;
+     *         sb.append("\tTotal price: " + String.format(Locale.US, "%.3f", totalPrice) + "\n");
+     *         sb.append("\tTotal discount: " + String.format(Locale.US, "%.6f", totalDiscount) + "\n");
+     *         sb.append("\tFinal price: " + String.format(Locale.US, "%.3f", finalPrice) + "\n");
+     */
 }

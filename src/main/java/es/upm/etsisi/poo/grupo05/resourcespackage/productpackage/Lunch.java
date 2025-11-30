@@ -45,9 +45,6 @@ public class Lunch extends Events {
      */
     @Override
     public String toString() {
-        return "{class:Comida, id:" + id + ", name:'" + name +
-                "', pricePerPerson:" + basePrice +
-                ", expiration:" + expirationDate +
-                ", maxParticipants:" + maxParticipants + "}";
+        return "{class:Food" + super.getEventDetails();
     }
 }

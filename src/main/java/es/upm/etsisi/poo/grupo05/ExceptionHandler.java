@@ -14,7 +14,7 @@ public class ExceptionHandler {
     private static final String ID_OF_PRODUCTS_EXISTS = "Error: A product of the same id already exits";
     private static final String ID_OF_PRODUCTS_NOT_EXISTS = "Error: The product of said id was not found";
     private static final String NULL_ARGUMENT = "Error: Some data for creating the object is incorrect";
-    private static final String DATE_TIME_PARSE_EXCEPTION = "DateTimeParseException";
+    private static final String DATE_TIME_PARSE_EXCEPTION = "DateTimeParseException (yyyy-MM-dd)";
 
     public static String getNullPointerExceptionMessage() {
         return NULL_POINTER_EXCEPTION_MESSAGE;
