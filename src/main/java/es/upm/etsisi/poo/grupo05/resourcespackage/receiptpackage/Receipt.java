@@ -172,7 +172,7 @@ public class Receipt {
                         result = true;
                     }
                 }
-            }else System.out.println("Error: you have reached the maximum number of items");
+            } else System.out.println("Error: you have reached the maximum number of items");
         }
         checkDiscount();
         if (result) {
@@ -208,7 +208,7 @@ public class Receipt {
                     result = true;
                     return result;
                 }
-            }else System.out.println("Error: you have reached the maximum number of items");
+            } else System.out.println("Error: you have reached the maximum number of items");
         }
         return result;
     }
@@ -374,39 +374,4 @@ public class Receipt {
 
         return sb.toString();
     }
-
-    /**
-     *
-     * TOSTRING ANTIGUO
-     *
-     *
-     * List<Product> ticketArray = new ArrayList<>(ticket);
-     *         ticketArray.sort(Comparator.comparing(Product::getName));
-     *
-     *         StringBuilder sb = new StringBuilder();
-     *         sb.append("ticket: ").append(id).append("\n");
-     *
-     *         double totalPrice = 0.0;
-     *         double finalPrice = 0.0;
-     *
-     *         for (Product p : ticketArray) {
-     *             float price = p.getBasePrice();
-     *             if (p instanceof BasicProducts bp) {
-     *                 int quantity = bp.getQuantity();
-     *                 for (int i = 0; i < quantity; i++) {
-     *                     sb.append("\t").append(bp.toString()).append("\n");
-     *                 }
-     *                 totalPrice += (price * quantity);
-     *                 finalPrice += p.getTotalPrice(quantity);
-     *             } else {
-     *                 sb.append("\t").append(p.toString()).append("\n");
-     *                 totalPrice += price;
-     *                 finalPrice += price;
-     *             }
-     *         }
-     *         double totalDiscount = totalPrice - finalPrice;
-     *         sb.append("\tTotal price: " + String.format(Locale.US, "%.3f", totalPrice) + "\n");
-     *         sb.append("\tTotal discount: " + String.format(Locale.US, "%.6f", totalDiscount) + "\n");
-     *         sb.append("\tFinal price: " + String.format(Locale.US, "%.3f", finalPrice) + "\n");
-     */
 }
