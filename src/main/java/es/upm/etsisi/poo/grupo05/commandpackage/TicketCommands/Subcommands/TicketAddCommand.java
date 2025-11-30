@@ -43,8 +43,9 @@ public class TicketAddCommand extends Command {
             }
 
             if (args.length == 4){
-                cashier.getReceiptMap().addItemtoReceipt(receiptId, productId, amount);
-                System.out.println("ticket add: ok");
+                if(cashier.getReceiptMap().addItemtoReceipt(receiptId, productId, amount)) {
+                    System.out.println("ticket add: ok");
+                }
             }else {
                 if(productMap.getProduct(productId) instanceof PersonalizedProducts){
                     List<String> personalizationsList = new ArrayList<>();
@@ -57,8 +58,9 @@ public class TicketAddCommand extends Command {
 
                     String[] personalizations = personalizationsList.toArray(new String[0]);
 
-                    cashier.getReceiptMap().addPersonalizedItemtoReceipt(receiptId, productId, amount, personalizations);
-                    System.out.println("ticket add: ok");
+                    if(cashier.getReceiptMap().addPersonalizedItemtoReceipt(receiptId, productId, amount, personalizations)) {
+                        System.out.println("ticket add: ok");
+                    }
                 }
             }
 

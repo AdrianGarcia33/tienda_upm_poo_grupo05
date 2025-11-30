@@ -34,9 +34,10 @@ public class TicketNewCommand extends Command {
                     System.out.println("No such cashier with this ID ");
                     return false;
                 }
-                cashier.getReceiptMap().newReceipt(receipt);
-                System.out.println(receipt.provisionalPrice());
-                System.out.println("ticket new: ok\n");
+                if(cashier.getReceiptMap().newReceipt(receipt)) {
+                    System.out.println(receipt.provisionalPrice());
+                    System.out.println("ticket new: ok\n");
+                }
             } else  if (args.length == 3) {
                 String receiptId = args[0];
                 String cashId = args[1];
@@ -47,9 +48,10 @@ public class TicketNewCommand extends Command {
                     System.out.println("No such cashier with this ID ");
                     return false;
                 }
-                cashier.getReceiptMap().newReceipt(receipt);
-                System.out.println(receipt.provisionalPrice());
-                System.out.println("ticket new: ok\n");
+                if(cashier.getReceiptMap().newReceipt(receipt)) {
+                    System.out.println(receipt.provisionalPrice());
+                    System.out.println("ticket new: ok\n");
+                }
             }
         }catch(IllegalArgumentException e){
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());

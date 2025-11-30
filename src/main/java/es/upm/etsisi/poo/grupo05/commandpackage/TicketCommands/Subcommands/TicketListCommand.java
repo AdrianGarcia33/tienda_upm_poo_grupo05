@@ -21,10 +21,11 @@ public class TicketListCommand extends Command {
         if (args.length != 0) {
             System.out.println(ExceptionHandler.getNullArgument());
         }else  {
-            String result = "";
+            StringBuilder result = new StringBuilder();
+            result.append("Ticket List:\n");
             for (User cashier : userMap.getUserMap().values()) {
                if (cashier instanceof Cashier) {
-                   result = cashier.getReceiptMap().list();
+                   result.append(cashier.getReceiptMap().list());
                }
             }
             System.out.println(result);

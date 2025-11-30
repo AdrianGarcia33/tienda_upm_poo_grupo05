@@ -177,7 +177,6 @@ public class ReceiptMap {
         }
 
         receiptlist.sort(Comparator.comparing(Receipt::getCashId));
-        result.append("Ticket List:\n");
 
         for (int i = 0; i < receiptlist.size(); i++) {
             result.append("\t").append(receiptlist.get(i).getId()).append(" - ").append(receiptlist.get(i).getTicketState()).append("\n");
