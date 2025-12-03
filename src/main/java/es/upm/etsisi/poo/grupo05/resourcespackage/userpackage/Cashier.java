@@ -17,13 +17,6 @@ public class Cashier extends User {
         super(id, name, email);
     }
 
-//    public String tickets(){
-//    StringBuilder tickets = new StringBuilder();
-//    tickets.append("Tickets: \n");
-//        tickets.append(super.getReceiptMap().toString());
-//        tickets.append("cash tickets: ok\n");
-//    return  tickets.toString();
-//    }
 
     /**
      * Returns the string representation of the cashier.
