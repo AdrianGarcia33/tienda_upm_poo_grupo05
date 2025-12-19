@@ -45,6 +45,10 @@ public class ProductMap {
         this.max_products = max_products;
     }
 
+    public HashMap<Integer, Product> getProductMap() {
+        return this.productMap;
+    }
+
     /**
      * As the name suggests, it returns a Product given a certain id.
      * @param id An integer which identifies an object in the list
@@ -195,6 +199,8 @@ public class ProductMap {
         } while (this.hasProduct(newId));
         return newId;
     }
+
+
 
 
 

@@ -1,5 +1,6 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage.productpackage;
 
+import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -82,6 +83,8 @@ public class BasicProducts extends Product{
 
 
 
+
+
     /**
      * Calculates the total price for a given quantity.
      * Applies the category discount.
@@ -117,4 +120,6 @@ public class BasicProducts extends Product{
 
         return result.toString();
     }
+
+
 }

@@ -3,11 +3,11 @@ package es.upm.etsisi.poo.grupo05;
 
 import es.upm.etsisi.poo.grupo05.commandpackage.CashierCommands.CashCommand;
 import es.upm.etsisi.poo.grupo05.commandpackage.ClientCommands.ClientCommand;
-import es.upm.etsisi.poo.grupo05.commandpackage.ClientCommands.Subcommands.ClientAddCommand;
 import es.upm.etsisi.poo.grupo05.commandpackage.EchoCommand;
 import es.upm.etsisi.poo.grupo05.commandpackage.ExitCommand;
 import es.upm.etsisi.poo.grupo05.commandpackage.HelpCommand;
 import es.upm.etsisi.poo.grupo05.commandpackage.TicketCommands.TicketCommand;
+import es.upm.etsisi.poo.grupo05.persistencepackage.PersistenceHandler;
 import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
@@ -30,6 +30,7 @@ public class Handler {
     private UserMap usermap;
     private Scanner scanner;
     private LinkedList<Command> commands;
+    private PersistenceHandler persistenceHandler;
 
     /**
      * Constructor for the 'Handler' class.
@@ -40,6 +41,7 @@ public class Handler {
         this.productmap = new ProductMap(max_products);
         this.usermap = new UserMap();
         this.commands = new LinkedList<>();
+        this.persistenceHandler = new PersistenceHandler();
     }
 
     /**
@@ -137,6 +139,9 @@ public class Handler {
                 //Si detecta que el atributo de la subclase a la que esta llamando (ProdCommand, Receipt Command etc
                 // corresponde entoces llama el apply de tal clase;
                 //exit es el unico que cambiara stop a true entonces saldremos de este bucle
+
+                persistenceHandler.updatePersistenceForProducts(productmap);
+                persistenceHandler.updatePersistenceForUsers(usermap);
             }
 
         }
