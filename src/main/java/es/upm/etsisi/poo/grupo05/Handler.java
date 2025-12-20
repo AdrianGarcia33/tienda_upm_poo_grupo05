@@ -83,7 +83,7 @@ public class Handler {
      */
     public void start (String[] args) { //En el main de app, llamamos a este metodo metiendo el String[] args de main
         try {
-            boolean imprimir_comando = false;
+            boolean imprimir_comando = true;
             if (args.length > 0) {
                 scanner = new Scanner(new File(args[0]));
                 imprimir_comando = true;

@@ -1,6 +1,5 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage;
 
-import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.*;
 import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
 
@@ -19,15 +18,19 @@ public class Receipt {
 
     private final String cashId;
     private final String clientId;
+    private final boolean isNIF;
 
     private List<Product> ticket;
     private int numberItems;
     private int max_items;
     private ProductMap productMap;
+    private final TicketType ticketType;
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm");
     private static final Random RANDOM = new Random();
     private static final Set<String> idsGenerated = new HashSet<>();
+
+
 
     /**
      * Constructs a new Receipt. Generates a unique ID if null is provided.
@@ -37,9 +40,9 @@ public class Receipt {
      * @param clientId   ID of the client associated with the ticket.
      * @param productMap Reference to the global product catalog.
      */
-    public Receipt(String id, String cashId, String clientId, ProductMap productMap) {
+    public Receipt(String id, String cashId, String clientId, TicketType ticketType,ProductMap productMap) {
         this.openingDate = LocalDateTime.now();
-
+        this.ticketType = ticketType;
         if (id == null) {
             this.id = generateId(openingDate);
         } else {
@@ -51,12 +54,16 @@ public class Receipt {
 
         this.cashId = cashId;
         this.clientId = clientId;
+
+        if(checkNIF(clientId)) isNIF = true;
+        else isNIF = false;
+
         this.productMap = productMap;
 
         this.ticket = new LinkedList<>();
         this.numberItems = 0;
         this.max_items = 100;
-        this.ticketState = TicketState.BLANK;
+        this.ticketState = TicketState.EMPTY;
     }
 
     /**
@@ -124,59 +131,62 @@ public class Receipt {
         boolean added = false;
         Product product = productMap.getProduct(id);
 
-        // If the product is already on the ticket
-        if (product != null) {
-            if ((numberItems + quantity) <= max_items) {
-                for (Product p : ticket) {
-                    if (p.getId() == id) {
-                        if (p instanceof BasicProducts basicProducts) {
-                            basicProducts.setQuantity(basicProducts.getQuantity() + quantity);
-                            numberItems += quantity;
-                            result = true;
-                            added = true;
-                        } else if (p instanceof Lunch) {
-                            throw new IllegalArgumentException("Lunch already exists");
-                        } else if (p instanceof Meeting) {
-                            throw new IllegalArgumentException("Meeting already exists");
+        //If the ticket type allows us to add a product
+        if(ticketType!= TicketType.SERVICE) {
+            // If the product is already on the ticket
+            if (product != null) {
+                if ((numberItems + quantity) <= max_items) {
+                    for (Product p : ticket) {
+                        if (p.getId() == id) {
+                            if (p instanceof BasicProducts basicProducts) {
+                                basicProducts.setQuantity(basicProducts.getQuantity() + quantity);
+                                numberItems += quantity;
+                                result = true;
+                                added = true;
+                            } else if (p instanceof Lunch) {
+                                throw new IllegalArgumentException("Lunch already exists");
+                            } else if (p instanceof Meeting) {
+                                throw new IllegalArgumentException("Meeting already exists");
+                            }
                         }
                     }
-                }
-                // If there is not a product, we insert a copy of it
-                if (!added) {
-                    if (product instanceof BasicProducts) {
-                        if (product instanceof PersonalizedProducts) {
-                            PersonalizedProducts personalizedProducts = (PersonalizedProducts) product;
-                            personalizedProducts.setQuantity(quantity);
-                            ticket.add(personalizedProducts);
+                    // If there is not a product, we insert a copy of it
+                    if (!added) {
+                        if (product instanceof BasicProducts) {
+                            if (product instanceof PersonalizedProducts) {
+                                PersonalizedProducts personalizedProducts = (PersonalizedProducts) product;
+                                personalizedProducts.setQuantity(quantity);
+                                ticket.add(personalizedProducts);
+                                numberItems += quantity;
+                                result = true;
+                                return result;
+                            }
+                            BasicProducts productCopy = new BasicProducts((BasicProducts) product);//Por ahora lanza un classCastException, tenemos que asegurarnos de que funcione.
+                            productCopy.setQuantity(quantity);
+                            ticket.add(productCopy);
                             numberItems += quantity;
                             result = true;
-                            return result;
-                        }
-                        BasicProducts productCopy = new BasicProducts((BasicProducts) product);//Por ahora lanza un classCastException, tenemos que asegurarnos de que funcione.
-                        productCopy.setQuantity(quantity);
-                        ticket.add(productCopy);
-                        numberItems += quantity;
-                        result = true;
 
-                    } else if (product instanceof Lunch) {
-                        Lunch productCopy = new Lunch((Lunch) product);
-                        productCopy.setActualParticipants(quantity);
-                        ticket.add(productCopy);
-                        numberItems += 1;
-                        result = true;
-                    } else {
-                        Meeting productCopy = new Meeting((Meeting) product);
-                        productCopy.setActualParticipants(quantity);
-                        ticket.add(productCopy);
-                        numberItems += 1;
-                        result = true;
+                        } else if (product instanceof Lunch) {
+                            Lunch productCopy = new Lunch((Lunch) product);
+                            productCopy.setActualParticipants(quantity);
+                            ticket.add(productCopy);
+                            numberItems += 1;
+                            result = true;
+                        } else {
+                            Meeting productCopy = new Meeting((Meeting) product);
+                            productCopy.setActualParticipants(quantity);
+                            ticket.add(productCopy);
+                            numberItems += 1;
+                            result = true;
+                        }
                     }
-                }
-            } else System.out.println("Error: you have reached the maximum number of items");
-        }
-        checkDiscount();
-        if (result) {
-            this.ticketState = TicketState.ACTIVE;
+                } else System.out.println("Error: you have reached the maximum number of items");
+            }
+            checkDiscount();
+            if (result) {
+                this.ticketState = TicketState.ACTIVE;
+            }
         }
         return result;
     }
@@ -192,27 +202,36 @@ public class Receipt {
     public boolean addPersonalizedItem(int id, int quantity, String[] personalizations) {
         boolean result = false;
         Product product = productMap.getProduct(id);
+        //If the ticket type allows us to add a product
+        if(ticketType!= TicketType.SERVICE) {
+            if (product instanceof PersonalizedProducts productCopy) {
+                if ((numberItems + quantity) <= max_items) {
 
-        if (product instanceof PersonalizedProducts productCopy) {
-            if ((numberItems + quantity) <= max_items) {
+                    PersonalizedProducts copy = new PersonalizedProducts(productCopy.getId(), productCopy.getName(), productCopy.getBasePrice(), productCopy.getCategory()
+                            , quantity, personalizations.length);
 
-                PersonalizedProducts copy = new PersonalizedProducts(productCopy.getId(), productCopy.getName(), productCopy.getBasePrice(), productCopy.getCategory()
-                        , quantity, personalizations.length);
-
-                if (copy.addPersonalizations(personalizations)) {
-                    copy.setBasePrice(copy.getBasePrice() * (1 + 0.1f * personalizations.length));
-                    ticket.add(copy);
-                    numberItems += quantity;
-                    ticketState = TicketState.ACTIVE;
-                    checkDiscount();
-                    result = true;
-                    return result;
-                }
-            } else System.out.println("Error: you have reached the maximum number of items");
+                    if (copy.addPersonalizations(personalizations)) {
+                        copy.setBasePrice(copy.getBasePrice() * (1 + 0.1f * personalizations.length));
+                        ticket.add(copy);
+                        numberItems += quantity;
+                        ticketState = TicketState.ACTIVE;
+                        checkDiscount();
+                        result = true;
+                        return result;
+                    }
+                } else System.out.println("Error: you have reached the maximum number of items");
+            }
         }
         return result;
     }
+    public boolean addService(String id) {
+        boolean result = false;
+        //If the ticket type allows us to add a product
+        if(ticketType!=TicketType.PRODUCT){
 
+        }
+        return false;
+    }
     /**
      * Removes a product from the receipt by its ID.
      *
@@ -237,7 +256,7 @@ public class Receipt {
         }
         checkDiscount();
         if (ticket.isEmpty()) {
-            this.ticketState = TicketState.BLANK;
+            this.ticketState = TicketState.EMPTY;
         }
         return result;
     }
@@ -311,7 +330,7 @@ public class Receipt {
      * @return The formatted ticket string.
      */
     public String print() {
-        if (ticketState == TicketState.ACTIVE || ticketState == TicketState.BLANK) {
+        if (ticketState == TicketState.ACTIVE || ticketState == TicketState.EMPTY) {
             //Hay que actualizar el id en el gestor
             closeTicket();
         }
@@ -374,4 +393,21 @@ public class Receipt {
 
         return sb.toString();
     }
+    private boolean checkNIF(String nif){
+        boolean solucion = true;
+        if(nif.length() == 9) {
+            for(int i = 1; i < nif.length(); i++) {
+                if(!Character.isDigit(nif.charAt(i))){
+                    solucion = false;
+                }
+            }
+            if(!Character.isDigit(nif.charAt(0))){
+                solucion = false;
+            }
+        }else{
+            solucion = false;
+        }
+        return solucion;
+    }
+
 }
