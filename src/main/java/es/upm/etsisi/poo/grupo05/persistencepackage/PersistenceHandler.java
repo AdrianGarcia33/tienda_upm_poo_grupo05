@@ -87,6 +87,26 @@ public class PersistenceHandler {
         }
     }
 
+    public void loadUsers(String file, UserMap userMap) {
+        try {
+            FileReader fileReader = new FileReader(file);
+
+            //this line is for setting the typing the json should converto to,
+            Type listtype = new TypeToken<ArrayList<User>>(){}.getType();
+
+            ArrayList<User> userList = gson.fromJson(fileReader, listtype);
+
+            if (userList != null) {
+                for (User p : userList) {
+                    userMap.addUser(p);
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println(ExceptionHandler.getIoExceptionMessage());
+        }
+    }
+
     public void loadProducts(String file, ProductMap productMap) {
 
         try {
@@ -108,23 +128,5 @@ public class PersistenceHandler {
         }
     }
 
-    public void loadUsers(String file, UserMap userMap) {
-        try {
-            FileReader fileReader = new FileReader(file);
 
-            //this line is for setting the typing the json should converto to,
-            Type listtype = new TypeToken<ArrayList<User>>(){}.getType();
-
-            ArrayList<User> userList = gson.fromJson(fileReader, listtype);
-
-            if (userList != null) {
-                for (User p : userList) {
-                    userMap.addUser(p);
-                }
-            }
-
-        } catch (IOException e) {
-            System.out.println(ExceptionHandler.getIoExceptionMessage());
-        }
-    }
 }
