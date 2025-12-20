@@ -11,6 +11,8 @@ import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.User;
 import java.util.ArrayList;
 import java.util.List;
 
+import static es.upm.etsisi.poo.grupo05.ExceptionHandler.getInputMismatchExceptionMessage;
+
 /**
  * Class made for ticket add command, it will add the specified product to the ticket
  */
@@ -28,8 +30,6 @@ public class TicketAddCommand extends Command {
     @Override
     public boolean apply(String[] args) {
         try{
-            String line = String.join(" ", args).trim();
-            args= line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
             String receiptId = args[0];
             String cashierId = args[1];
@@ -71,4 +71,5 @@ public class TicketAddCommand extends Command {
         }
         return false;
     }
+
 }
