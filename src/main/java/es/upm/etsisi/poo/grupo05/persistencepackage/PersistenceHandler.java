@@ -1,16 +1,21 @@
 package es.upm.etsisi.poo.grupo05.persistencepackage;
 
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.*;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.User;
 
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PersistenceHandler {
     private final String catalogFile = "catalog.json";
@@ -49,7 +54,7 @@ public class PersistenceHandler {
             gson.toJson(jsonArray, writer);
 
         } catch (IOException e) {
-            System.out.println("Error al escribir en " + catalogFile + ": " + e.getMessage());
+            System.out.println(ExceptionHandler.getIoExceptionMessage());;
         }
     }
 
@@ -78,7 +83,48 @@ public class PersistenceHandler {
             gson.toJson(jsonArray, writer);
 
         } catch (IOException e) {
-            System.out.println("Error al escribir en " + userRegisterFile + ": " + e.getMessage());
+            System.out.println(ExceptionHandler.getIoExceptionMessage());
+        }
+    }
+
+    public void loadProducts(String file, ProductMap productMap) {
+
+        try {
+            FileReader fileReader = new FileReader(file);
+
+            //this line is for setting the typing the json should converto to,
+            Type listtype = new TypeToken<ArrayList<Product>>(){}.getType();
+
+            ArrayList<Product> productList = gson.fromJson(fileReader, listtype);
+
+            if (productList != null) {
+                for (Product p : productList) {
+                    productMap.addProduct(p);
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println(ExceptionHandler.getIoExceptionMessage());
+        }
+    }
+
+    public void loadUsers(String file, UserMap userMap) {
+        try {
+            FileReader fileReader = new FileReader(file);
+
+            //this line is for setting the typing the json should converto to,
+            Type listtype = new TypeToken<ArrayList<User>>(){}.getType();
+
+            ArrayList<User> userList = gson.fromJson(fileReader, listtype);
+
+            if (userList != null) {
+                for (User p : userList) {
+                    userMap.addUser(p);
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println(ExceptionHandler.getIoExceptionMessage());
         }
     }
 }

@@ -49,6 +49,10 @@ public class Handler {
      * This method sets up the available commands and links them to the required maps.
      */
     public void initialize() {
+
+        //Cargamos de los archivos los productos y usuarios
+        persistenceHandler.loadProducts("catalog.json", productmap);
+        persistenceHandler.loadUsers("user_register.json", usermap);
         //Creamos las clase con el nombre correspondiente
         ProdCommand prodCommand = new ProdCommand("prod");
         TicketCommand ticketCommand = new TicketCommand("ticket");

@@ -1,13 +1,30 @@
 [
   {
+    "maxPersonalizedTexts": 2,
+    "personalizations": [
+      null,
+      null
+    ],
+    "num_personalization": 0,
     "category": "BOOK",
     "quantity": 0,
     "discount": false,
     "afterDiscount": 0.9,
-    "discountedprice": 9.0,
-    "id": 3177,
-    "name": "wapo",
-    "basePrice": 10.0,
+    "discountedprice": 36.0,
+    "id": 1,
+    "name": "o",
+    "basePrice": 40.0,
+    "type": "PersonalizedProducts"
+  },
+  {
+    "category": "BOOK",
+    "quantity": 0,
+    "discount": false,
+    "afterDiscount": 0.9,
+    "discountedprice": 36.0,
+    "id": 2,
+    "name": "e",
+    "basePrice": 40.0,
     "type": "BasicProducts"
   }
 ]
