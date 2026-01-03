@@ -4,8 +4,7 @@ package es.upm.etsisi.poo.grupo05.resourcespackage.productpackage;
  * Abstract base class representing a generic product in the system.
  * It serves as a parent for BasicProducts, PersonalizedProducts, and Events.
  */
-public abstract class Product {
-    protected int id;
+public abstract class Product extends TicketElement {
     protected String name;
     protected float basePrice;
 
@@ -16,10 +15,9 @@ public abstract class Product {
      * @param basePrice Base price per unit or per person.
      */
     public Product(int id, String name, float basePrice) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.basePrice = basePrice;
-
     }
 
     /**
@@ -56,19 +54,5 @@ public abstract class Product {
      */
     //Metodos abstractos
     public abstract float getTotalPrice(int amount);
-
-    /**
-     * Abstract method to check if the product is temporally valid.
-     * @return True if the product is temporally valid, false otherwise
-     */
-    public abstract boolean isTemporallyValid();
-
-    /**
-     * Abstract method to provide a string representation of the product.
-     *
-     * @return A string representation of the product.
-     */
-    @Override
-    public abstract String toString();
 
 }
