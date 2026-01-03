@@ -2,14 +2,14 @@ package es.upm.etsisi.poo.grupo05.resourcespackage.productpackage;
 
 import java.time.LocalDate;
 
-public class ProductService extends Product{
+public class ProductService extends TicketElement{
 
     private static int count = 1;
     private ServiceType serviceType;
     private LocalDate maxDate;
 
     public ProductService(ServiceType serviceType, LocalDate maxDate) {
-        super(count, serviceType.toString(), 0 );
+        super(count);
         this.serviceType = serviceType;
         this.maxDate = maxDate;
         count++;
@@ -18,6 +18,7 @@ public class ProductService extends Product{
     public String getServiceId() {
         return this.getId() + "S";
     }
+
     public LocalDate getMaxDate() {
         return maxDate;
     }
@@ -26,11 +27,6 @@ public class ProductService extends Product{
         return serviceType;
     }
 
-
-    @Override
-    public float getTotalPrice(int amount) {
-        return 0;
-    }
 
 
     @Override
