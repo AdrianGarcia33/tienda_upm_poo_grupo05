@@ -2,14 +2,15 @@ package es.upm.etsisi.poo.grupo05.resourcespackage;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.BasicProducts;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Category;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Product;
-
 import java.util.*;
+import static es.upm.etsisi.poo.grupo05.ExceptionHandler.*;
 
 /**
  * Class made for storing all the data from our repertoire of products.
  */
 public class ProductMap {
     private HashMap<Integer, Product> productMap;
+    private HashMap<Integer, Product> serviceMap;
     private int number_products;
     private int max_products;
 
@@ -49,6 +50,14 @@ public class ProductMap {
         return this.productMap;
     }
 
+    public HashMap<Integer, Product> getServiceMap() {
+        return serviceMap;
+    }
+
+    public void setServiceMap(HashMap<Integer, Product> serviceMap) {
+        this.serviceMap = serviceMap;
+    }
+
     /**
      * As the name suggests, it returns a Product given a certain id.
      * @param id An integer which identifies an object in the list
@@ -59,13 +68,27 @@ public class ProductMap {
         if (p != null) {
             return p;
         } else {
-            System.out.println("Error: el producto no existe");
+            System.out.println(getNullPointerExceptionMessage());
             return null;
         }
     }
 
+    public Product getService (int id){
+        Product p = serviceMap.get(id);
+        if(p!= null){
+            return p;
+        }else{
+            System.out.println(getNullPointerExceptionMessage());
+            return null;
+        }
+
+    }
+
     public boolean hasProduct (int id) {
         return productMap.containsKey(id);
+    }
+    public boolean hasService (int id) {
+        return serviceMap.containsKey(id);
     }
 
 
@@ -111,6 +134,15 @@ public class ProductMap {
 
         return resultado;
 
+    }
+
+    public boolean addService (Product product) {
+        boolean resultado = false;
+        if (product != null) {
+            serviceMap.put(product.getId(), product);
+            resultado = true;
+        }
+        return resultado;
     }
 
     /**

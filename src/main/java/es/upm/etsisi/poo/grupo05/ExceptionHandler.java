@@ -17,6 +17,7 @@ public class ExceptionHandler {
     private static final String NULL_ARGUMENT = "Error: Some data for creating the object is incorrect";
     private static final String DATE_TIME_PARSE_EXCEPTION = "DateTimeParseException (yyyy-MM-dd)";
     private static final String IO_EXCEPTION_MESSAGE = "Error: FileNotFound";
+    private static final String TICKET_TYPE_UNACCPTABLE = "ERROR: Unknown ticket type";
 
     public static String getNullPointerExceptionMessage() {
         return NULL_POINTER_EXCEPTION_MESSAGE;
@@ -63,5 +64,7 @@ public class ExceptionHandler {
     public static String getDateTimeParseException() {return DATE_TIME_PARSE_EXCEPTION;}
 
     public static String getIoExceptionMessage() {return IO_EXCEPTION_MESSAGE;}
+
+    public static String getTicketTypeUnacceptable(){ return TICKET_TYPE_UNACCPTABLE; }
 }
 

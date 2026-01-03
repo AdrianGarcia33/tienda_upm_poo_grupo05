@@ -29,6 +29,8 @@ public class TicketAddCommand extends Command {
 
     @Override
     public boolean apply(String[] args) {
+        String line = String.join(" ", args).trim();
+        args= line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
         try{
 
             String receiptId = args[0];

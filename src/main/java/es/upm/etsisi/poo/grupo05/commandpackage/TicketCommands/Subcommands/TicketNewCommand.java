@@ -10,8 +10,7 @@ import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Cashier;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Client;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.User;
 
-import static es.upm.etsisi.poo.grupo05.ExceptionHandler.getInputMismatchExceptionMessage;
-import static es.upm.etsisi.poo.grupo05.ExceptionHandler.getNotInstanceOfCashierMessage;
+import static es.upm.etsisi.poo.grupo05.ExceptionHandler.*;
 
 /**
  * Class for the ticket new command, it will create a new ticket
@@ -27,8 +26,7 @@ public class TicketNewCommand extends Command {
 
     @Override
     public boolean apply(String[] args) {
-        String line = String.join(" ", args).trim();
-        args= line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
         try{
             String ticketID=null, userID, cashierID;
             TicketType ticketType = TicketType.PRODUCT;
@@ -68,11 +66,13 @@ public class TicketNewCommand extends Command {
                     System.out.println(getInputMismatchExceptionMessage());
                     return false;
                 }
-                Receipt receipt = new Receipt(ticketID, cashierID, userID, ticketType ,productMap);
+                if(ticketType!=null) {
+                    Receipt receipt = new Receipt(ticketID, cashierID, userID, ticketType, productMap);
 
-                if(cashier.getReceiptMap().newReceipt(receipt)) {
-                    System.out.println(receipt.provisionalPrice());
-                    System.out.println("ticket new: ok\n");
+                    if (cashier.getReceiptMap().newReceipt(receipt)) {
+                        System.out.println(receipt.provisionalPrice());
+                        System.out.println("ticket new: ok\n");
+                    }
                 }
         }catch(IllegalArgumentException e){
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
@@ -104,7 +104,7 @@ public class TicketNewCommand extends Command {
                 if(line.equals("-c")){
                     return TicketType.COMBINED;
                 }else{
-                    System.out.println("ERROR: ");
+                    System.out.println(getTicketTypeUnacceptable());
                     return null;
                 }
             }

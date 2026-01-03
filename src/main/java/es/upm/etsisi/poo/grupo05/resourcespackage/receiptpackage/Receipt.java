@@ -224,13 +224,16 @@ public class Receipt {
         }
         return result;
     }
-    public boolean addService(String id) {
+    public boolean addService(int id) {
         boolean result = false;
+        Product product = productMap.getService(id);
         //If the ticket type allows us to add a product
-        if(ticketType!=TicketType.PRODUCT){
+        if(ticketType!=TicketType.PRODUCT && product instanceof ProductService){
+            if(((ProductService) product).isTemporallyValid()){
 
+            }
         }
-        return false;
+        return result;
     }
     /**
      * Removes a product from the receipt by its ID.
@@ -269,7 +272,11 @@ public class Receipt {
 
         closingDate = LocalDateTime.now();
         ticketState = TicketState.CLOSED;
-
+        for(int i = 0; i< productMap.getServiceMap().size(); i++){
+            if(!productMap.getServiceMap().get(i+1).isTemporallyValid()){
+                //lo que tengamos que hacer si no es valirdo temporalmente
+            }
+        }
         String oldId = this.id;
         String sufix = "-" + closingDate.format(FORMATTER);
 
