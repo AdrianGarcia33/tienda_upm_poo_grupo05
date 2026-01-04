@@ -2,6 +2,8 @@ package es.upm.etsisi.poo.grupo05.resourcespackage;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.BasicProducts;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Category;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Product;
+import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.ProductService;
+
 import java.util.*;
 import static es.upm.etsisi.poo.grupo05.ExceptionHandler.*;
 
@@ -10,7 +12,7 @@ import static es.upm.etsisi.poo.grupo05.ExceptionHandler.*;
  */
 public class ProductMap {
     private HashMap<Integer, Product> productMap;
-    private HashMap<Integer, Product> serviceMap;
+    private HashMap<Integer, ProductService> serviceMap;
     private int number_products;
     private int max_products;
 
@@ -50,11 +52,11 @@ public class ProductMap {
         return this.productMap;
     }
 
-    public HashMap<Integer, Product> getServiceMap() {
+    public HashMap<Integer, ProductService> getServiceMap() {
         return serviceMap;
     }
 
-    public void setServiceMap(HashMap<Integer, Product> serviceMap) {
+    public void setServiceMap(HashMap<Integer, ProductService> serviceMap) {
         this.serviceMap = serviceMap;
     }
 
@@ -73,8 +75,8 @@ public class ProductMap {
         }
     }
 
-    public Product getService (int id){
-        Product p = serviceMap.get(id);
+    public ProductService getService (int id){
+        ProductService p = serviceMap.get(id);
         if(p!= null){
             return p;
         }else{
@@ -136,7 +138,7 @@ public class ProductMap {
 
     }
 
-    public boolean addService (Product product) {
+    public boolean addService (ProductService product) {
         boolean resultado = false;
         if (product != null) {
             serviceMap.put(product.getId(), product);
