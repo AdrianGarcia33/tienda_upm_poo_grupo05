@@ -1,6 +1,8 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage;
 
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.*;
+
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,15 +14,17 @@ public class EnterprisePrinter<T extends TicketElement> implements ReceiptPrinte
         List<T> items = receipt.getTicketItems(); //
 
         // 1. Filtrar servicios y productos para el conteo de descuento
-        List<ProductService> services = items.stream()
-                .filter(i -> i instanceof ProductService)
-                .map(i -> (ProductService) i)
-                .collect(Collectors.toList());
+        List<ProductService> services = new ArrayList<>();
+        List<Product> products = new ArrayList<>();
 
-        List<Product> products = items.stream()
-                .filter(i -> i instanceof Product && !(i instanceof ProductService))
-                .map(i -> (Product) i)
-                .collect(Collectors.toList());
+        // 2. Repartimos los items del ticket en las listas (Sustituye a los Streams)
+        for (T item : receipt.getTicketItems()) { //
+            if (item instanceof ProductService) {
+                services.add((ProductService) item); //
+            } else if (item instanceof Product) {
+                products.add((Product) item); //
+            }
+        }
 
         int nServicios = services.size();
         double extraDiscountRate = nServicios * 0.15; // 15% por cada servicio
@@ -32,11 +36,8 @@ public class EnterprisePrinter<T extends TicketElement> implements ReceiptPrinte
         if (!services.isEmpty()) {
             sb.append("Services Included: \n");
             for (ProductService s : services) {
-                sb.append("  {class:").append(s.getClass().getSimpleName())
-                        .append(", id:").append(s.getId())
-                        .append(", category:").append(s.getServiceType())
-                        .append(", expiration:").append(s.getMaxDate())
-                        .append("}\n");
+                sb.append(s.toString()+"\n");
+
             }
         }
 
@@ -47,25 +48,7 @@ public class EnterprisePrinter<T extends TicketElement> implements ReceiptPrinte
             for (Product p : products) {
                 double itemPrice = 0.0;
 
-                sb.append("  {class:").append(p.getClass().getSimpleName())
-                        .append(", id:").append(p.getId())
-                        .append(", name:'").append(p.getName()).append("'");
-
-                if (p instanceof Events event) { // Manejo de Lunch/Meeting
-                    int participants = event.getActualParticipants();
-                    itemPrice = event.getTotalPrice(participants);
-                    sb.append(", price:").append(String.format(Locale.US, "%.1f", itemPrice))
-                            .append(", date of Event:").append(event.getExpirationDate())
-                            .append(", max people allowed:").append(event.getMaxParticipants())
-                            .append(", actual people in event:").append(participants);
-                } else if (p instanceof BasicProducts bp) {
-                    itemPrice = bp.getTotalPrice(bp.getQuantity());
-                    sb.append(", price:").append(String.format(Locale.US, "%.1f", itemPrice))
-                            .append(", category:").append(bp.getCategory())
-                            .append(", quantity:").append(bp.getQuantity());
-                }
-
-                sb.append("}\n");
+                sb.append( p.toString()+ "\n");
                 subTotalPrice += itemPrice;
             }
 

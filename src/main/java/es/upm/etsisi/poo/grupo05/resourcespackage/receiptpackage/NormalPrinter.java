@@ -24,7 +24,7 @@ public class NormalPrinter<T extends Product> implements ReceiptPrinter<T> {
             if (p instanceof BasicProducts bp) {
                 int quantity = bp.getQuantity();
                 for (int i = 0; i < quantity; i++) {
-                    sb.append("\t").append(bp.toString()).append("\n");
+                    sb.append(bp.toString()).append("\n");
                 }
                 totalPrice += (price * quantity);
                 finalPrice += p.getTotalPrice(quantity);
