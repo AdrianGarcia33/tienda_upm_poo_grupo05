@@ -8,6 +8,8 @@ import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Product;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.ProductService;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.ServiceType;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.TicketElement;
+import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.EnterprisePrinter;
+import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.NormalPrinter;
 import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.Receipt;
 import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.TicketType;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Cashier;

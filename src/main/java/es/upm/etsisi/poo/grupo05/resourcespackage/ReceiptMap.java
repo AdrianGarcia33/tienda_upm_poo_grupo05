@@ -2,6 +2,7 @@ package es.upm.etsisi.poo.grupo05.resourcespackage;
 
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.PersonalizedProducts;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.TicketElement;
+import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.NormalPrinter;
 import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.Receipt;
 
 import java.util.ArrayList;
@@ -101,7 +102,7 @@ public class ReceiptMap {
      * @param personalizations Array of strings containing the customizations.
      * @return true if the item was added successfully, false if the receipt was not found.
      */
-    public boolean addPersonalizedItemtoReceipt(String receipt_id, PersonalizedProducts prod_id, int quantity, String[] personalizations) {
+    public boolean addPersonalizedItemtoReceipt(String receipt_id, TicketElement prod_id, int quantity, String[] personalizations) {
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
             if (receipt.addProduct(prod_id, quantity, personalizations)) {

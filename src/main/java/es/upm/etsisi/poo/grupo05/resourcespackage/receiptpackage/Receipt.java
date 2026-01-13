@@ -18,12 +18,15 @@ public class Receipt<T extends TicketElement> {
 
     private final String cashId;
     private final String clientId;
-    private final boolean isNIF;
+
 
     private List<T> ticket;
     private int numberItems;
     private int max_items;
     private ProductMap productMap;
+
+    private NormalPrinter normalPrinter;
+    private EnterprisePrinter enterprisePrinter;
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm");
     private static final Random RANDOM = new Random();
@@ -42,15 +45,32 @@ public class Receipt<T extends TicketElement> {
 
         this.cashId = cashId;
         this.clientId = clientId;
-        this.isNIF = checkNIF(clientId);
         this.productMap = productMap;
 
         this.ticket = new LinkedList<>();
         this.numberItems = 0;
         this.max_items = 100;
         this.ticketState = TicketState.EMPTY;
+
+        this.normalPrinter = new NormalPrinter();
+        this.enterprisePrinter = new EnterprisePrinter();
     }
 
+    public String getCashId() {
+        return cashId;
+    }
+
+    public String getId() { return id; }
+    public TicketState getTicketState() { return ticketState; }
+    public List<T> getTicketItems() { return ticket; }
+    public String getClientId() { return clientId; }
+
+    public T getProduct(int id) {
+        for (T p : ticket) {
+            if (p.getId() == id) return p;
+        }
+        return null;
+    }
     // --- MÉTODOS DE GESTIÓN DE ITEMS ---
 
     /**
@@ -139,12 +159,12 @@ public class Receipt<T extends TicketElement> {
             T p = it.next();
             if (p.getId() == id) {
                 if (p instanceof BasicProducts) {
-                    BasicProducts bp = (BasicProducts) p; // Conversión manual
+                    BasicProducts bp = (BasicProducts) p;
                     numberItems = numberItems - bp.getQuantity();
                 } else {
                     numberItems = numberItems - 1;
                 }
-                it.remove();
+                ticket.remove(p);
                 result = true;
             }
         }
@@ -221,31 +241,30 @@ public class Receipt<T extends TicketElement> {
     /**
      * Cierra el ticket e inyecta el comportamiento de impresión.
      */
-    public String print(ReceiptPrinter<T> printer) {
-        if (ticketState != TicketState.CLOSED) {
+    public String print() {
+        if (ticketState == TicketState.ACTIVE || ticketState == TicketState.EMPTY) {
+            //Hay que actualizar el id en el gestor
             closeTicket();
         }
-        return printer.format(this);
+        if(checkNIF(clientId)){
+            return enterprisePrinter.format(this);
+        }else{
+            return normalPrinter.format(this);
+        }
+
     }
 
     /**
      * Genera un precio provisional sin cerrar el ticket.
      */
-    public String provisionalPrice(ReceiptPrinter<T> printer) {
-        return printer.format(this);
-    }
-
-    // --- GETTERS ---
-    public String getId() { return id; }
-    public TicketState getTicketState() { return ticketState; }
-    public List<T> getTicketItems() { return ticket; }
-    public String getClientId() { return clientId; }
-    public boolean isNIF() { return isNIF; }
-
-    public T getProduct(int id) {
-        for (T p : ticket) {
-            if (p.getId() == id) return p;
+    public String provisionalPrice() {
+        // comprobar que printer usar
+        if(checkNIF(clientId)){
+            return enterprisePrinter.format(this);
+        }else{
+            return normalPrinter.format(this);
         }
-        return null;
     }
+
+
 }

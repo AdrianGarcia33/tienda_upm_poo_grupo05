@@ -1,25 +1,50 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage;
 
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.*;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 
-public class NormalPrinter<T extends TicketElement> implements ReceiptPrinter<T> {
+public class NormalPrinter<T extends Product> implements ReceiptPrinter<T> {
     @Override
     public String format(Receipt<T> receipt) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("TICKET ID: ").append(receipt.getId()).append("\n");
-        sb.append("------------------------------------------\n");
+        List<T> ticketArray = new ArrayList<>(receipt.getTicketItems());
+        ticketArray.sort(Comparator.comparing(T::getName));
 
-        double total = 0;
-        for (T item : receipt.getTicketItems()) {
-            sb.append(item.toString()).append("\n");
-            // En ticket normal, todos los productos suman su precio total
-            if (item instanceof Product p) {
-                total += p.getTotalPrice(1); // Simplificado para el ejemplo
+        StringBuilder sb = new StringBuilder();
+        sb.append("Ticket : ").append(receipt.getId()).append("\n");
+
+        double totalPrice = 0.0;
+        double finalPrice = 0.0;
+
+        for (T p : ticketArray) {
+            float price = p.getBasePrice();
+            if (p instanceof BasicProducts bp) {
+                int quantity = bp.getQuantity();
+                for (int i = 0; i < quantity; i++) {
+                    sb.append("\t").append(bp.toString()).append("\n");
+                }
+                totalPrice += (price * quantity);
+                finalPrice += p.getTotalPrice(quantity);
+            } else {
+                sb.append("\t").append(p.toString()).append("\n");
+
+                // Calculate price based on actual participants
+                int participants = ((Events) p).getActualParticipants();
+                float eventTotal = p.getTotalPrice(participants);
+
+                totalPrice += eventTotal;
+                finalPrice += eventTotal;
             }
         }
-        sb.append("------------------------------------------\n");
-        sb.append("TOTAL: ").append(String.format(Locale.US, "%.2f", total)).append("€\n");
+        double totalDiscount = totalPrice - finalPrice;
+
+        sb.append("\tTotal price: " + String.format(Locale.US, "%.3f", totalPrice) + "\n");
+        sb.append("\tTotal discount: " + String.format(Locale.US, "%.6f", totalDiscount) + "\n");
+        sb.append("\tFinal price: " + String.format(Locale.US, "%.3f", finalPrice) + "\n");
+
         return sb.toString();
     }
 }

@@ -38,7 +38,7 @@ public class ProdRemoveCommand extends Command {
             HashMap<String, User> userHashMap = userMap.getUserMap();
             for (User user : userHashMap.values()) {
                 ReceiptMap receiptMap = user.getReceiptMap();
-                receiptMap.removeItemsFromAllReceipts(productMap.getProduct(id));
+                receiptMap.removeItemsFromAllReceipts(id);
             }
             System.out.println("prod remove: ok");
         }
