@@ -1,5 +1,7 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage;
 
+import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.PersonalizedProducts;
+import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.TicketElement;
 import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.Receipt;
 
 import java.util.ArrayList;
@@ -72,14 +74,14 @@ public class ReceiptMap {
      * If successful, it prints the provisional price of the receipt.
      *
      * @param receipt_id The ID of the receipt.
-     * @param prod_id    The ID of the product to add.
+     * @param product    The product to add.
      * @param quantity   The amount of the product to add.
      * @return true if the item was added successfully, false if the receipt was not found.
      */
-    public boolean addItemtoReceipt(String receipt_id, int prod_id, int quantity) {
+    public boolean addItemtoReceipt(String receipt_id, TicketElement product, int quantity) {
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
-            if (receipt.addItem(prod_id, quantity)) {
+            if (receipt.addProduct(product, quantity, new String[0])) {
                 System.out.println(receipt.provisionalPrice());
                 return true;
             }
@@ -99,10 +101,10 @@ public class ReceiptMap {
      * @param personalizations Array of strings containing the customizations.
      * @return true if the item was added successfully, false if the receipt was not found.
      */
-    public boolean addPersonalizedItemtoReceipt(String receipt_id, int prod_id, int quantity, String[] personalizations) {
+    public boolean addPersonalizedItemtoReceipt(String receipt_id, PersonalizedProducts prod_id, int quantity, String[] personalizations) {
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
-            if (receipt.addPersonalizedItem(prod_id, quantity, personalizations)) {
+            if (receipt.addProduct(prod_id, quantity, personalizations)) {
                 System.out.println(receipt.provisionalPrice());
                 return true;
             }
@@ -112,24 +114,24 @@ public class ReceiptMap {
         return false;
     }
 
-    /**
-     * Removes a specific product from a specific receipt.
-     *
-     * @param receipt_id The ID of the receipt.
-     * @param prod_id    The ID of the product to remove.
-     * @return true if the removal was successful, false if the receipt was not found.
-     */
-    public boolean removeItemFromReceipt(String receipt_id, int prod_id) {
-        if (receiptmap.containsKey(receipt_id)) {
-            Receipt receipt = receiptmap.get(receipt_id);
-            if (receipt.removeItem(prod_id)) {
-                return true;
-            }
-        } else {
-            System.out.println("Error: TicketNotFound");
-        }
-        return false;
-    }
+//    /**
+//     * Removes a specific product from a specific receipt.
+//     *
+//     * @param receipt_id The ID of the receipt.
+//     * @param prod_id    The ID of the product to remove.
+//     * @return true if the removal was successful, false if the receipt was not found.
+//     */
+//    public boolean removeItemFromReceipt(String receipt_id, int prod_id) {
+//        if (receiptmap.containsKey(receipt_id)) {
+//            Receipt receipt = receiptmap.get(receipt_id);
+//            if (receipt.removeItem()) {
+//                return true;
+//            }
+//        } else {
+//            System.out.println("Error: TicketNotFound");
+//        }
+//        return false;
+//    }
 
     /**
      * Generates the printable string (invoice) for a specific receipt.

@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage.productpackage;
 
 public abstract class TicketElement {
+    protected String name;
     protected int id;
 
     public TicketElement(int id) {

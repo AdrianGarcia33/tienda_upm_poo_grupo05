@@ -4,6 +4,10 @@ import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
+import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Product;
+import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.ProductService;
+import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.ServiceType;
+import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.TicketElement;
 import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.Receipt;
 import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.TicketType;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Cashier;
@@ -66,8 +70,25 @@ public class TicketNewCommand extends Command {
                     System.out.println(getInputMismatchExceptionMessage());
                     return false;
                 }
-                if(ticketType!=null) {
-                    Receipt receipt = new Receipt(ticketID, cashierID, userID, ticketType, productMap);
+                if(ticketType== TicketType.COMBINED) {
+                    Receipt<TicketElement> receipt = new Receipt(ticketID, cashierID, userID, productMap);
+
+                    if (cashier.getReceiptMap().newReceipt(receipt)) {
+                        System.out.println(receipt.provisionalPrice());
+                        System.out.println("ticket new: ok\n");
+                    }
+                }
+                if(ticketType== TicketType.SERVICE) {
+                    Receipt<ProductService> receipt = new Receipt(ticketID, cashierID, userID, productMap);
+
+                    if (cashier.getReceiptMap().newReceipt(receipt)) {
+                        System.out.println(receipt.provisionalPrice());
+                        System.out.println("ticket new: ok\n");
+                    }
+                }
+
+                if(ticketType== TicketType.PRODUCT) {
+                    Receipt<Product> receipt = new Receipt(ticketID, cashierID, userID, productMap);
 
                     if (cashier.getReceiptMap().newReceipt(receipt)) {
                         System.out.println(receipt.provisionalPrice());

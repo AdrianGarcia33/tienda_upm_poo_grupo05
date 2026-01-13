@@ -2,15 +2,15 @@ package es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage;
 
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.*;
 import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
- * Represents a purchase receipt (ticket) containing a list of products and transaction details.
+ * Representa un ticket de compra parametrizado.
+ * Mantiene todas las funciones auxiliares de gestión de ID, NIF y descuentos.
  */
-public class Receipt {
+public class Receipt<T extends TicketElement> {
     private String id;
     private final LocalDateTime openingDate;
     private LocalDateTime closingDate;
@@ -20,29 +20,17 @@ public class Receipt {
     private final String clientId;
     private final boolean isNIF;
 
-    private List<Product> ticket;
+    private List<T> ticket;
     private int numberItems;
     private int max_items;
     private ProductMap productMap;
-    private final TicketType ticketType;
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm");
     private static final Random RANDOM = new Random();
     private static final Set<String> idsGenerated = new HashSet<>();
 
-
-
-    /**
-     * Constructs a new Receipt. Generates a unique ID if null is provided.
-     *
-     * @param id         Unique identifier (can be null).
-     * @param cashId     ID of the cashier creating the ticket.
-     * @param clientId   ID of the client associated with the ticket.
-     * @param productMap Reference to the global product catalog.
-     */
-    public Receipt(String id, String cashId, String clientId, TicketType ticketType,ProductMap productMap) {
+    public Receipt(String id, String cashId, String clientId, ProductMap productMap) {
         this.openingDate = LocalDateTime.now();
-        this.ticketType = ticketType;
         if (id == null) {
             this.id = generateId(openingDate);
         } else {
@@ -54,10 +42,7 @@ public class Receipt {
 
         this.cashId = cashId;
         this.clientId = clientId;
-
-        if(checkNIF(clientId)) isNIF = true;
-        else isNIF = false;
-
+        this.isNIF = checkNIF(clientId);
         this.productMap = productMap;
 
         this.ticket = new LinkedList<>();
@@ -66,282 +51,163 @@ public class Receipt {
         this.ticketState = TicketState.EMPTY;
     }
 
-    /**
-     * Getters and Setters.
-     */
-    public String getId() {
-        return id;
-    }
-
-    public TicketState getTicketState() {
-        return ticketState;
-    }
-
-    public void setTicketState(TicketState ticketState) {
-        this.ticketState = ticketState;
-    }
-
-    public String getCashId() {
-        return cashId;
-    }
-
-    public List<Product> getTicket() {
-        return ticket;
-    }
-
+    // --- MÉTODOS DE GESTIÓN DE ITEMS ---
 
     /**
-     * Generates and ID for the receipt
-     *
-     * @param openingDate Date used for the ID
-     * @return random ticket ID
+     * Añade un producto al ticket manteniendo la lógica original de copias y tipos.
      */
-    private static String generateId(LocalDateTime openingDate) {
-        String prefix = openingDate.format(FORMATTER) + "-";
-        String fullId;
+    public boolean addProduct(T product, int quantity, String[] personalizations) {
+        if (product == null || ticketState == TicketState.CLOSED) return false;
 
-        do {
-            int rand = 10000 + RANDOM.nextInt(90000);
-            fullId = prefix + rand;
-        } while (!idsGenerated.add(fullId));
-
-        return fullId;
-    }
-
-    /**
-     * Resets the receipt, clearing all items.
-     *
-     * @return true if successful.
-     */
-    public boolean reset() {
-        this.ticket = new LinkedList<>();
-        this.numberItems = 0;
-        return true;
-    }
-
-    /**
-     * Adds a product to the receipt. Handles quantity updates for basic products and restrictions for events.
-     *
-     * @param id       Product ID.
-     * @param quantity Amount to add.
-     * @return true if successful.
-     */
-    public boolean addItem(int id, int quantity) {
         boolean result = false;
         boolean added = false;
-        Product product = productMap.getProduct(id);
 
-        //If the ticket type allows us to add a product
-        if(ticketType!= TicketType.SERVICE) {
-            // If the product is already on the ticket
-            if (product != null) {
+        // Caso 1: Es un Producto (Básico, Personalizado o Evento)
+        if (product instanceof Product) {
+
+                //Si es un producto basico
                 if ((numberItems + quantity) <= max_items) {
-                    for (Product p : ticket) {
-                        if (p.getId() == id) {
-                            if (p instanceof BasicProducts basicProducts) {
+                    // Comprobar si ya existe para actualizar cantidad (BasicProducts)
+                    for (T p : ticket) {
+                        if (p.getId() == product.getId()) {
+                            if (p instanceof BasicProducts basicProducts && !(p instanceof PersonalizedProducts)) {
                                 basicProducts.setQuantity(basicProducts.getQuantity() + quantity);
                                 numberItems += quantity;
-                                result = true;
                                 added = true;
-                            } else if (p instanceof Lunch) {
-                                throw new IllegalArgumentException("Lunch already exists");
-                            } else if (p instanceof Meeting) {
-                                throw new IllegalArgumentException("Meeting already exists");
-                            }
-                        }
-                    }
-                    // If there is not a product, we insert a copy of it
-                    if (!added) {
-                        if (product instanceof BasicProducts) {
-                            if (product instanceof PersonalizedProducts) {
-                                PersonalizedProducts personalizedProducts = (PersonalizedProducts) product;
-                                personalizedProducts.setQuantity(quantity);
-                                ticket.add(personalizedProducts);
-                                numberItems += quantity;
                                 result = true;
-                                return result;
+                            } else if (p instanceof Lunch || p instanceof Meeting) {
+                                throw new IllegalArgumentException("Event already exists");
                             }
-                            BasicProducts productCopy = new BasicProducts((BasicProducts) product);//Por ahora lanza un classCastException, tenemos que asegurarnos de que funcione.
-                            productCopy.setQuantity(quantity);
-                            ticket.add(productCopy);
-                            numberItems += quantity;
-                            result = true;
+                        }
+                    }
 
-                        } else if (product instanceof Lunch) {
-                            Lunch productCopy = new Lunch((Lunch) product);
-                            productCopy.setActualParticipants(quantity);
-                            ticket.add(productCopy);
+                    if (!added) {
+                        T copy = null;
+                        if (product instanceof PersonalizedProducts pProd) {
+                            PersonalizedProducts pCopy = new PersonalizedProducts(pProd.getId(), pProd.getName(),
+                                    pProd.getBasePrice(), pProd.getCategory(), quantity, personalizations.length);
+                            if (pCopy.addPersonalizations(personalizations)) {
+                                pCopy.setBasePrice(pCopy.getBasePrice() * (1 + 0.1f * personalizations.length));
+                                copy = (T) pCopy;
+                                numberItems += quantity;
+                            }
+                        } else if (product instanceof BasicProducts bProd) {
+                            BasicProducts bCopy = new BasicProducts(bProd);
+                            bCopy.setQuantity(quantity);
+                            copy = (T) bCopy;
+                            numberItems += quantity;
+                        } else if (product instanceof Lunch lunch) {
+                            Lunch lCopy = new Lunch(lunch);
+                            lCopy.setActualParticipants(quantity);
+                            copy = (T) lCopy;
                             numberItems += 1;
-                            result = true;
-                        } else {
-                            Meeting productCopy = new Meeting((Meeting) product);
-                            productCopy.setActualParticipants(quantity);
-                            ticket.add(productCopy);
+                        } else if (product instanceof Meeting meeting) {
+                            Meeting mCopy = new Meeting(meeting);
+                            mCopy.setActualParticipants(quantity);
+                            copy = (T) mCopy;
                             numberItems += 1;
+                        }
+
+                        if (copy != null) {
+                            ticket.add(copy);
                             result = true;
                         }
                     }
-                } else System.out.println("Error: you have reached the maximum number of items");
+                } else {
+                    System.out.println("Error: you have reached the maximum number of items");
+                }
+            // Caso 2: Es un Servicio
+        } else if (product instanceof ProductService service) {
+            if (service.isTemporallyValid()) {
+                ticket.add(product);
+                numberItems += 1;
+                result = true;
             }
+        }
+
+        if (result) {
             checkDiscount();
-            if (result) {
-                this.ticketState = TicketState.ACTIVE;
-            }
+            this.ticketState = TicketState.ACTIVE;
         }
         return result;
     }
 
-    /**
-     * Adds a personalized product with custom texts to the receipt.
-     *
-     * @param id               Product ID.
-     * @param quantity         Amount to add.
-     * @param personalizations Array of custom text strings.
-     * @return true if successful.
-     */
-    public boolean addPersonalizedItem(int id, int quantity, String[] personalizations) {
-        boolean result = false;
-        Product product = productMap.getProduct(id);
-        //If the ticket type allows us to add a product
-        if(ticketType!= TicketType.SERVICE) {
-            if (product instanceof PersonalizedProducts productCopy) {
-                if ((numberItems + quantity) <= max_items) {
-
-                    PersonalizedProducts copy = new PersonalizedProducts(productCopy.getId(), productCopy.getName(), productCopy.getBasePrice(), productCopy.getCategory()
-                            , quantity, personalizations.length);
-
-                    if (copy.addPersonalizations(personalizations)) {
-                        copy.setBasePrice(copy.getBasePrice() * (1 + 0.1f * personalizations.length));
-                        ticket.add(copy);
-                        numberItems += quantity;
-                        ticketState = TicketState.ACTIVE;
-                        checkDiscount();
-                        result = true;
-                        return result;
-                    }
-                } else System.out.println("Error: you have reached the maximum number of items");
-            }
-        }
-        return result;
-    }
-    public boolean addService(int id) {
-        boolean result = false;
-        Product product = productMap.getService(id);
-        //If the ticket type allows us to add a product
-        if(ticketType!=TicketType.PRODUCT && product instanceof ProductService){
-            if(((ProductService) product).isTemporallyValid()){
-
-            }
-        }
-        return result;
-    }
-    /**
-     * Removes a product from the receipt by its ID.
-     *
-     * @param id Product ID.
-     * @return true if successful.
-     */
     public boolean removeItem(int id) {
-
         boolean result = false;
-        Iterator<Product> it = ticket.iterator();
+        Iterator<T> it = ticket.iterator();
         while (it.hasNext() && !result) {
-            Product p = it.next();
+            T p = it.next();
             if (p.getId() == id) {
                 if (p instanceof BasicProducts) {
-                    numberItems -= ((BasicProducts) p).getQuantity();
+                    BasicProducts bp = (BasicProducts) p; // Conversión manual
+                    numberItems = numberItems - bp.getQuantity();
                 } else {
-                    numberItems -= 1;
+                    numberItems = numberItems - 1;
                 }
                 it.remove();
                 result = true;
             }
         }
         checkDiscount();
-        if (ticket.isEmpty()) {
-            this.ticketState = TicketState.EMPTY;
-        }
+        if (ticket.isEmpty()) this.ticketState = TicketState.EMPTY;
         return result;
     }
 
-    /**
-     * Finalizes the receipt, updates its state to CLOSED, and appends the closing timestamp to the ID.
-     */
-    private void closeTicket() {
-        checkTicketClosed();
+    public boolean reset() {
+        this.ticket = new LinkedList<>();
+        this.numberItems = 0;
+        this.ticketState = TicketState.EMPTY;
+        return true;
+    }
 
-        closingDate = LocalDateTime.now();
-        ticketState = TicketState.CLOSED;
-        for(int i = 0; i< productMap.getServiceMap().size(); i++){
-            if(!productMap.getServiceMap().get(i+1).isTemporallyValid()){
-                //lo que tengamos que hacer si no es valirdo temporalmente
+    // --- FUNCIONES AUXILIARES DE LÓGICA ---
+
+    private void checkDiscount() {
+        for (Category category : Category.values()) {
+            int count = 0;
+            for (T p : ticket) {
+                if (p instanceof BasicProducts bp && bp.getCategory() == category) {
+                    count += bp.getQuantity();
+                }
+            }
+            boolean applyDiscount = count > 1;
+            for (T p : ticket) {
+                if (p instanceof BasicProducts bp && bp.getCategory() == category) {
+                    bp.setDiscount(applyDiscount);
+                }
             }
         }
+    }
+
+    private void closeTicket() {
+        checkTicketClosed();
+        closingDate = LocalDateTime.now();
+        ticketState = TicketState.CLOSED;
+
         String oldId = this.id;
         String sufix = "-" + closingDate.format(FORMATTER);
-
         this.id = oldId + sufix;
 
         idsGenerated.remove(oldId);
         idsGenerated.add(this.id);
     }
 
-    /**
-     * Checks and applies discounts based on product categories.
-     */
-    private void checkDiscount() {
-        for (Category category : Category.values()) {
-            // Step 1: Count all products of this category
-            int count = 0;
-            for (Product p : ticket) {
-                if (p instanceof BasicProducts) {
-                    BasicProducts basicProduct = (BasicProducts) p;
-                    if (basicProduct.getCategory() == category) {
-                        count += basicProduct.getQuantity();
-                    }
-                }
-            }
-
-            // Step 2: Apply or remove discount based on the total count
-            boolean applyDiscount = count > 1;
-            for (Product p : ticket) {
-                if (p instanceof BasicProducts) {
-                    BasicProducts basicProduct = (BasicProducts) p;
-                    if (basicProduct.getCategory() == category) {
-                        basicProduct.setDiscount(applyDiscount);
-                    }
-                }
-            }
+    private boolean checkNIF(String nif) {
+        if (nif == null || nif.length() != 9) return false;
+        for (int i = 0; i < 8; i++) {
+            if (!Character.isDigit(nif.charAt(i))) return false;
         }
+        return Character.isLetter(nif.charAt(8));
     }
 
-
-    /**
-     * Searches for a product in the ticket by its ID.
-     *
-     * @param id Product ID.
-     * @return The product or null if not found.
-     */
-    public Product getProduct(int id) {
-        for (Product p : ticket) {
-            if (p.getId() == id) {
-                return p;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Closes the ticket and generates the final bill string with totals.
-     *
-     * @return The formatted ticket string.
-     */
-    public String print() {
-        if (ticketState == TicketState.ACTIVE || ticketState == TicketState.EMPTY) {
-            //Hay que actualizar el id en el gestor
-            closeTicket();
-        }
-        return generateBillString();
+    private static String generateId(LocalDateTime openingDate) {
+        String prefix = openingDate.format(FORMATTER) + "-";
+        String fullId;
+        do {
+            int rand = 10000 + RANDOM.nextInt(90000);
+            fullId = prefix + rand;
+        } while (!idsGenerated.add(fullId));
+        return fullId;
     }
 
     private void checkTicketClosed() {
@@ -350,71 +216,36 @@ public class Receipt {
         }
     }
 
-    /**
-     * Generates a provisional bill string without closing the ticket.
-     *
-     * @return The formatted provisional ticket string.
-     */
-    public String provisionalPrice() {
-        return generateBillString();
-    }
+    // --- GESTIÓN DE IMPRESIÓN (Inyección de Dependencia) ---
 
     /**
-     * Private helper to generate the formatted bill string to avoid code duplication.
+     * Cierra el ticket e inyecta el comportamiento de impresión.
      */
-    private String generateBillString() {
-        List<Product> ticketArray = new ArrayList<>(ticket);
-        ticketArray.sort(Comparator.comparing(Product::getName));
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("Ticket : ").append(id).append("\n");
-
-        double totalPrice = 0.0;
-        double finalPrice = 0.0;
-
-        for (Product p : ticketArray) {
-            float price = p.getBasePrice();
-            if (p instanceof BasicProducts bp) {
-                int quantity = bp.getQuantity();
-                for (int i = 0; i < quantity; i++) {
-                    sb.append("\t").append(bp.toString()).append("\n");
-                }
-                totalPrice += (price * quantity);
-                finalPrice += p.getTotalPrice(quantity);
-            } else {
-                sb.append("\t").append(p.toString()).append("\n");
-
-                // Calculate price based on actual participants
-                int participants = ((Events) p).getActualParticipants();
-                float eventTotal = p.getTotalPrice(participants);
-
-                totalPrice += eventTotal;
-                finalPrice += eventTotal;
-            }
+    public String print(ReceiptPrinter<T> printer) {
+        if (ticketState != TicketState.CLOSED) {
+            closeTicket();
         }
-        double totalDiscount = totalPrice - finalPrice;
-
-        sb.append("\tTotal price: " + String.format(Locale.US, "%.3f", totalPrice) + "\n");
-        sb.append("\tTotal discount: " + String.format(Locale.US, "%.6f", totalDiscount) + "\n");
-        sb.append("\tFinal price: " + String.format(Locale.US, "%.3f", finalPrice) + "\n");
-
-        return sb.toString();
-    }
-    private boolean checkNIF(String nif){
-        boolean solucion = true;
-        if(nif.length() == 9) {
-            for(int i = 1; i < nif.length(); i++) {
-                if(!Character.isDigit(nif.charAt(i))){
-                    solucion = false;
-                }
-            }
-            if(!Character.isDigit(nif.charAt(0))){
-                solucion = false;
-            }
-        }else{
-            solucion = false;
-        }
-        return solucion;
+        return printer.format(this);
     }
 
+    /**
+     * Genera un precio provisional sin cerrar el ticket.
+     */
+    public String provisionalPrice(ReceiptPrinter<T> printer) {
+        return printer.format(this);
+    }
+
+    // --- GETTERS ---
+    public String getId() { return id; }
+    public TicketState getTicketState() { return ticketState; }
+    public List<T> getTicketItems() { return ticket; }
+    public String getClientId() { return clientId; }
+    public boolean isNIF() { return isNIF; }
+
+    public T getProduct(int id) {
+        for (T p : ticket) {
+            if (p.getId() == id) return p;
+        }
+        return null;
+    }
 }

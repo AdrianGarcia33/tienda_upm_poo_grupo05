@@ -26,7 +26,7 @@ public class TicketCommand extends Command {
         TicketAddCommand ticketAddCommand = new TicketAddCommand("add", userMap, productMap);
         TicketListCommand ticketListCommand = new TicketListCommand("list", userMap);
         TicketPrintCommand ticketPrintCommand = new TicketPrintCommand("print", userMap);
-        TicketRemoveCommand ticketRemoveCommand = new TicketRemoveCommand("remove", userMap);
+        TicketRemoveCommand ticketRemoveCommand = new TicketRemoveCommand("remove", userMap, productMap);
 
         subcommands.add(ticketNewCommand);
         subcommands.add(ticketAddCommand);

@@ -45,7 +45,7 @@ public class TicketAddCommand extends Command {
             }
 
             if (args.length == 4){
-                if(cashier.getReceiptMap().addItemtoReceipt(receiptId, productId, amount)) {
+                if(cashier.getReceiptMap().addItemtoReceipt(receiptId, productMap.getProduct(productId), amount)) {
                     System.out.println("ticket add: ok");
                 }
             }else {
@@ -60,7 +60,7 @@ public class TicketAddCommand extends Command {
 
                     String[] personalizations = personalizationsList.toArray(new String[0]);
 
-                    if(cashier.getReceiptMap().addPersonalizedItemtoReceipt(receiptId, productId, amount, personalizations)) {
+                    if(cashier.getReceiptMap().addPersonalizedItemtoReceipt(receiptId, productMap.getProduct(productId), amount, personalizations)) {
                         System.out.println("ticket add: ok");
                     }
                 }

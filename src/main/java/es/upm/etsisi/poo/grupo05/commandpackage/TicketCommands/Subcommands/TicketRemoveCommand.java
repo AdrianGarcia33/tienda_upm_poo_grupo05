@@ -2,6 +2,7 @@ package es.upm.etsisi.poo.grupo05.commandpackage.TicketCommands.Subcommands;
 
 import es.upm.etsisi.poo.grupo05.commandpackage.Command;
 import es.upm.etsisi.poo.grupo05.ExceptionHandler;
+import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.ReceiptMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.Receipt;
@@ -17,8 +18,8 @@ import java.util.regex.Pattern;
  */
 public class TicketRemoveCommand extends Command {
     private UserMap userMap;
-
-    public TicketRemoveCommand(String name, UserMap userMap) {
+    private ProductMap productMap;
+    public TicketRemoveCommand(String name, UserMap userMap, ProductMap productMap) {
         super(name);
         this.userMap = userMap;
     }
