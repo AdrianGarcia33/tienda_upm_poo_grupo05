@@ -2,8 +2,10 @@ package es.upm.etsisi.poo.grupo05.resourcespackage;
 
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.PersonalizedProducts;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.TicketElement;
+import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.EnterprisePrinter;
 import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.NormalPrinter;
 import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.Receipt;
+import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.ReceiptPrinter;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -70,6 +72,20 @@ public class ReceiptMap {
         return receiptmap.containsKey(id);
     }
 
+    // --- FACTORÍA DE PRINTERS (MÉTODO AUXILIAR PRIVADO) ---
+    // Aquí está la lógica que sacamos de Receipt.
+    // Usamos (Receipt<TicketElement>) casting seguro porque el Printer acepta TicketElement genérico
+    private ReceiptPrinter<TicketElement> getPrinterFor(Receipt<?> receipt) {
+        if (receipt.isCompanyClient()) { // Usamos el método público que añadimos a Receipt
+            return new EnterprisePrinter<>();
+        } else {
+            // Nota: NormalPrinter espera <T extends Product>, así que hay que tener cuidado con los warnings
+            // o hacer que NormalPrinter acepte TicketElement pero ignore servicios.
+            // Para simplificar, usaremos un cast genérico que funcione en ambos.
+            return (ReceiptPrinter) new NormalPrinter<>();
+        }
+    }
+
     /**
      * Adds a specific quantity of a standard product to a specific receipt.
      * If successful, it prints the provisional price of the receipt.
@@ -83,7 +99,7 @@ public class ReceiptMap {
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
             if (receipt.addProduct(product, quantity, new String[0])) {
-                System.out.println(receipt.provisionalPrice());
+                System.out.println(receipt.provisionalPrice(getPrinterFor(receipt)));
                 return true;
             }
         } else {
@@ -106,7 +122,7 @@ public class ReceiptMap {
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
             if (receipt.addProduct(prod_id, quantity, personalizations)) {
-                System.out.println(receipt.provisionalPrice());
+                System.out.println(receipt.provisionalPrice(getPrinterFor(receipt)));
                 return true;
             }
         } else {
@@ -144,7 +160,7 @@ public class ReceiptMap {
         String salida = "";
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
-            salida = receipt.print();
+            salida = receipt.print(getPrinterFor(receipt));
         } else {
             System.out.println("Error: TicketNotFound");
         }
