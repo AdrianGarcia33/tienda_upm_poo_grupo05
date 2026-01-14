@@ -99,7 +99,7 @@ public class ReceiptMap {
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
             if (receipt.addProduct(product, quantity, new String[0])) {
-                System.out.println(receipt.provisionalPrice(getPrinterFor(receipt)));
+                System.out.println(receipt.provisionalPrice());
                 return true;
             }
         } else {
@@ -122,7 +122,7 @@ public class ReceiptMap {
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
             if (receipt.addProduct(prod_id, quantity, personalizations)) {
-                System.out.println(receipt.provisionalPrice(getPrinterFor(receipt)));
+                System.out.println(receipt.provisionalPrice());
                 return true;
             }
         } else {
@@ -160,7 +160,7 @@ public class ReceiptMap {
         String salida = "";
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
-            salida = receipt.print(getPrinterFor(receipt));
+            salida = receipt.print();
         } else {
             System.out.println("Error: TicketNotFound");
         }

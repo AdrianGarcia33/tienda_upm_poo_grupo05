@@ -26,6 +26,9 @@ public class Receipt<T extends TicketElement> {
     private int max_items;
     private ProductMap productMap;
 
+    private NormalPrinter normalPrinter;
+    private EnterprisePrinter enterprisePrinter;
+
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm");
     private static final Random RANDOM = new Random();
     private static final Set<String> idsGenerated = new HashSet<>();
@@ -45,6 +48,9 @@ public class Receipt<T extends TicketElement> {
         this.clientId = clientId;
         this.productMap = productMap;
         this.type = type;
+
+        normalPrinter= new NormalPrinter<>();
+        enterprisePrinter = new EnterprisePrinter();
 
         if (checkNIF(clientId) && type != TicketType.PRODUCT) {
             throw new IllegalArgumentException("Error: Non-company clients cannot create Service or Combined tickets.");
@@ -141,7 +147,7 @@ public class Receipt<T extends TicketElement> {
                         }
 
                         if (copy != null) {
-                            for(int i=0; i<quantity; i++) ticket.add(copy);
+                            ticket.add(copy);
                             result = true;
                         }
                     }
@@ -225,15 +231,22 @@ public class Receipt<T extends TicketElement> {
     }
 
     private boolean checkNIF(String nif) {
-        if (nif == null || nif.length() != 9) return false;
-        for (int i = 0; i < 8; i++) {
-            if (!Character.isDigit(nif.charAt(i))) return false;
+        if (nif == null || nif.length() != 9) {
+            return false;
         }
-        return Character.isLetter(nif.charAt(8));
+        if (!Character.isLetter(nif.charAt(0))) {
+            return false;
+        }
+        for (int i = 1; i < nif.length(); i++) {
+            char c = nif.charAt(i);
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
-
-    public boolean isCompanyClient() {
-        return checkNIF(this.clientId);
+    public boolean isCompanyClient(){
+        return checkNIF(clientId);
     }
 
     private static String generateId(LocalDateTime openingDate) {
@@ -257,7 +270,7 @@ public class Receipt<T extends TicketElement> {
     /**
      * Cierra el ticket e inyecta el comportamiento de impresión.
      */
-    public String print(ReceiptPrinter<T> printer) {
+    public String print() {
         if (ticketState == TicketState.ACTIVE || ticketState == TicketState.EMPTY) {
             //Hay que actualizar el id en el gestor
             // Un ticket combinado si no tiene productos no puede cerrarse
@@ -275,14 +288,26 @@ public class Receipt<T extends TicketElement> {
             }
             closeTicket();
         }
-        return printer.format(this);
+        if(checkNIF(clientId)) {
+            System.out.println("--------------------------------------------enterprise");
+            return enterprisePrinter.format(this);
+        }else{
+            System.out.println("--------------------------------------------normal");
+            return normalPrinter.format(this);
+        }
+
     }
 
     /**
      * Genera un precio provisional sin cerrar el ticket.
      */
-    public String provisionalPrice(ReceiptPrinter<T> printer) {
-        // comprobar que printer usar
-        return printer.format(this);
+    public String provisionalPrice(){
+        if(checkNIF(clientId)) {
+            System.out.println("--------------------------------------------enterprise");
+            return enterprisePrinter.format(this);
+        }else{
+            System.out.println("--------------------------------------------normal");
+            return normalPrinter.format(this);
+        }
     }
 }

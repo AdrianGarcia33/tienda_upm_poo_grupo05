@@ -73,7 +73,7 @@ public class TicketNewCommand extends Command {
                     return false;
                 }
                 if(ticketType== TicketType.COMBINED) {
-                    Receipt<TicketElement> receipt = new Receipt(ticketID, cashierID, userID, productMap);
+                    Receipt<TicketElement> receipt = new Receipt(ticketID, cashierID, userID, productMap, ticketType);
 
                     if (cashier.getReceiptMap().newReceipt(receipt)) {
                         System.out.println(receipt.provisionalPrice());
@@ -81,7 +81,7 @@ public class TicketNewCommand extends Command {
                     }
                 }
                 if(ticketType== TicketType.SERVICE) {
-                    Receipt<ProductService> receipt = new Receipt(ticketID, cashierID, userID, productMap);
+                    Receipt<ProductService> receipt = new Receipt(ticketID, cashierID, userID, productMap, ticketType);
 
                     if (cashier.getReceiptMap().newReceipt(receipt)) {
                         System.out.println(receipt.provisionalPrice());
@@ -90,7 +90,7 @@ public class TicketNewCommand extends Command {
                 }
 
                 if(ticketType== TicketType.PRODUCT) {
-                    Receipt<Product> receipt = new Receipt(ticketID, cashierID, userID, productMap);
+                    Receipt<Product> receipt = new Receipt(ticketID, cashierID, userID, productMap, ticketType);
 
                     if (cashier.getReceiptMap().newReceipt(receipt)) {
                         System.out.println(receipt.provisionalPrice());
