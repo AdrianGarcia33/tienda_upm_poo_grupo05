@@ -30,48 +30,67 @@ public class TicketAddCommand extends Command {
     @Override
     public boolean apply(String[] args) {
         String line = String.join(" ", args).trim();
-        args= line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-        try{
+        args = line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+        try {
 
             String receiptId = args[0];
             String cashierId = args[1];
-            int productId = Integer.parseInt(args[2]);
-            int amount = Integer.parseInt(args[3]);
+            String productIdString = args[2];
 
             User cashier = userMap.getUserMap().get(cashierId);
             if (!(cashier instanceof Cashier)) {
                 System.out.println("No such cashier with ID: " + cashierId);
                 return false;
             }
-
-            if (args.length == 4){
-                if(cashier.getReceiptMap().addItemtoReceipt(receiptId, productMap.getProduct(productId), amount)) {
+            if(!(cashier.getReceiptMap().contains(receiptId))){
+                System.out.println(ExceptionHandler.getTicketNotExists());
+                return false;
+            }
+            if (isServiceId(productIdString)) {
+                if (cashier.getReceiptMap().addItemtoReceipt(receiptId, productMap.getService(serviceIdToInteger(productIdString)), 1)) {
                     System.out.println("ticket add: ok");
                 }
-            }else {
-                if(productMap.getProduct(productId) instanceof PersonalizedProducts){
-                    List<String> personalizationsList = new ArrayList<>();
-
-                    for (int i=4;i<args.length;i++){
-                        if(args[i].startsWith("--p")){
-                            personalizationsList.add(args[i].substring(3));
-                        }
-                    }
-
-                    String[] personalizations = personalizationsList.toArray(new String[0]);
-
-                    if(cashier.getReceiptMap().addPersonalizedItemtoReceipt(receiptId, productMap.getProduct(productId), amount, personalizations)) {
+            } else {
+                int amount = Integer.parseInt(args[3]);
+                int productId = Integer.parseInt(args[2]);
+                if (args.length == 4) {
+                    if (cashier.getReceiptMap().addItemtoReceipt(receiptId, productMap.getProduct(productId), amount)) {
                         System.out.println("ticket add: ok");
+                    }
+                } else {
+                    if (productMap.getProduct(productId) instanceof PersonalizedProducts){
+                        List<String> personalizationsList = new ArrayList<>();
+
+                        for (int i = 4; i < args.length; i++) {
+                            if (args[i].startsWith("--p")) {
+                                personalizationsList.add(args[i].substring(3));
+                            }
+                        }
+
+                        String[] personalizations = personalizationsList.toArray(new String[0]);
+
+                        if (cashier.getReceiptMap().addPersonalizedItemtoReceipt(receiptId, productMap.getProduct(productId), amount, personalizations)) {
+                            System.out.println("ticket add: ok");
+                        }
                     }
                 }
             }
 
-        }catch(IllegalArgumentException ex){
-            System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
-        }catch (NullPointerException ex){
-            System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
-        }
-        return false;
+            }catch(IllegalArgumentException ex){
+                System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
+            }catch(NullPointerException ex){
+                System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
+            }
+
+            return false;
+    }
+    private boolean isServiceId(String line){
+        if(line.endsWith("S")){return true;}
+        else return false;
+    }
+    private int serviceIdToInteger(String line) {
+        String onlyNumbers = line.replaceAll("[^0-9]", "");
+        return Integer.parseInt(onlyNumbers);
     }
 
 }

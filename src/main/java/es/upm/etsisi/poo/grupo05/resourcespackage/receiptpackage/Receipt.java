@@ -129,7 +129,7 @@ public class Receipt<T extends TicketElement> {
                         }
 
                         if (copy != null) {
-                            ticket.add(copy);
+                            for(int i=0; i<quantity; i++) ticket.add(copy);
                             result = true;
                         }
                     }
