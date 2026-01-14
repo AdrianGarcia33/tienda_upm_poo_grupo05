@@ -19,20 +19,18 @@ public class Receipt<T extends TicketElement> {
     private final String cashId;
     private final String clientId;
 
+    private final TicketType type;
 
     private List<T> ticket;
     private int numberItems;
     private int max_items;
     private ProductMap productMap;
 
-    private NormalPrinter normalPrinter;
-    private EnterprisePrinter enterprisePrinter;
-
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm");
     private static final Random RANDOM = new Random();
     private static final Set<String> idsGenerated = new HashSet<>();
 
-    public Receipt(String id, String cashId, String clientId, ProductMap productMap) {
+    public Receipt(String id, String cashId, String clientId, ProductMap productMap, TicketType type) {
         this.openingDate = LocalDateTime.now();
         if (id == null) {
             this.id = generateId(openingDate);
@@ -46,14 +44,17 @@ public class Receipt<T extends TicketElement> {
         this.cashId = cashId;
         this.clientId = clientId;
         this.productMap = productMap;
+        this.type = type;
+
+        if (checkNIF(clientId) && type != TicketType.PRODUCT) {
+            throw new IllegalArgumentException("Error: Non-company clients cannot create Service or Combined tickets.");
+        }
 
         this.ticket = new LinkedList<>();
         this.numberItems = 0;
         this.max_items = 100;
         this.ticketState = TicketState.EMPTY;
 
-        this.normalPrinter = new NormalPrinter();
-        this.enterprisePrinter = new EnterprisePrinter();
     }
 
     public String getCashId() {
@@ -64,6 +65,7 @@ public class Receipt<T extends TicketElement> {
     public TicketState getTicketState() { return ticketState; }
     public List<T> getTicketItems() { return ticket; }
     public String getClientId() { return clientId; }
+    public TicketType getTicketType() { return type; }
 
     public T getProduct(int id) {
         for (T p : ticket) {
@@ -78,6 +80,16 @@ public class Receipt<T extends TicketElement> {
      */
     public boolean addProduct(T product, int quantity, String[] personalizations) {
         if (product == null || ticketState == TicketState.CLOSED) return false;
+
+        if (this.type == TicketType.PRODUCT && product instanceof ProductService) {
+            System.out.println("Error: Cannot add Service to a PRODUCT-only ticket.");
+            return false;
+        }
+
+        if (this.type == TicketType.SERVICE && product instanceof Product) {
+            System.out.println("Error: Cannot add Product to a SERVICE-only ticket.");
+            return false;
+        }
 
         boolean result = false;
         boolean added = false;
@@ -220,6 +232,10 @@ public class Receipt<T extends TicketElement> {
         return Character.isLetter(nif.charAt(8));
     }
 
+    public boolean isCompanyClient() {
+        return checkNIF(this.clientId);
+    }
+
     private static String generateId(LocalDateTime openingDate) {
         String prefix = openingDate.format(FORMATTER) + "-";
         String fullId;
@@ -241,30 +257,32 @@ public class Receipt<T extends TicketElement> {
     /**
      * Cierra el ticket e inyecta el comportamiento de impresión.
      */
-    public String print() {
+    public String print(ReceiptPrinter<T> printer) {
         if (ticketState == TicketState.ACTIVE || ticketState == TicketState.EMPTY) {
             //Hay que actualizar el id en el gestor
+            // Un ticket combinado si no tiene productos no puede cerrarse
+            if (this.type == TicketType.COMBINED) {
+                boolean hasProduct = false;
+                boolean hasService = false;
+                for (T item : ticket) {
+                    if (item instanceof Product) hasProduct = true;
+                    if (item instanceof ProductService) hasService = true;
+                }
+
+                if (!hasProduct || !hasService) {
+                    return "Error: Combined tickets cannot be closed without at least one Product and one Service.";
+                }
+            }
             closeTicket();
         }
-        if(checkNIF(clientId)){
-            return enterprisePrinter.format(this);
-        }else{
-            return normalPrinter.format(this);
-        }
-
+        return printer.format(this);
     }
 
     /**
      * Genera un precio provisional sin cerrar el ticket.
      */
-    public String provisionalPrice() {
+    public String provisionalPrice(ReceiptPrinter<T> printer) {
         // comprobar que printer usar
-        if(checkNIF(clientId)){
-            return enterprisePrinter.format(this);
-        }else{
-            return normalPrinter.format(this);
-        }
+        return printer.format(this);
     }
-
-
 }
