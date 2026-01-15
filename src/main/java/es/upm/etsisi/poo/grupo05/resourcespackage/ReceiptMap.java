@@ -1,5 +1,6 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage;
 
+import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.PersonalizedProducts;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.TicketElement;
 import es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage.EnterprisePrinter;
@@ -103,7 +104,7 @@ public class ReceiptMap {
                 return true;
             }
         } else {
-            System.out.println("Error: TicketNotFound");
+            System.out.println(ExceptionHandler.getTicketNotExists());
         }
         return false;
     }
@@ -126,7 +127,7 @@ public class ReceiptMap {
                 return true;
             }
         } else {
-            System.out.println("Error: TicketNotFound");
+            System.out.println(ExceptionHandler.getTicketNotExists());
         }
         return false;
     }
@@ -162,7 +163,7 @@ public class ReceiptMap {
             Receipt receipt = receiptmap.get(receipt_id);
             salida = receipt.print();
         } else {
-            System.out.println("Error: TicketNotFound");
+            System.out.println(ExceptionHandler.getTicketNotExists());
         }
         return salida;
     }
