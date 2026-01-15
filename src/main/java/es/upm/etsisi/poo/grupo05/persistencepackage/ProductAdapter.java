@@ -18,7 +18,7 @@ public class ProductAdapter implements JsonDeserializer<Product> {
         String type = jsonObject.get("type").getAsString();
 
         // We choose the class we are deserializating
-        Class<? extends Product> productClass;
+        Class<? extends Product> productClass; //? means we still dont know which class we'll get until the switch
         switch (type) {
             case "BasicProducts":
                 productClass = BasicProducts.class;
