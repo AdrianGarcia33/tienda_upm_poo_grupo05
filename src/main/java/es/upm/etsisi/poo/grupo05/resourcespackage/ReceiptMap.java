@@ -100,7 +100,7 @@ public class ReceiptMap {
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
             if (receipt.addProduct(product, quantity, new String[0])) {
-                System.out.println(receipt.provisionalPrice());
+                System.out.println(receipt.provisionalPrice(getPrinterFor(receipt)));
                 return true;
             }
         } else {
@@ -123,7 +123,7 @@ public class ReceiptMap {
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
             if (receipt.addProduct(prod_id, quantity, personalizations)) {
-                System.out.println(receipt.provisionalPrice());
+                System.out.println(receipt.provisionalPrice(getPrinterFor(receipt)));
                 return true;
             }
         } else {
@@ -161,12 +161,31 @@ public class ReceiptMap {
         String salida = "";
         if(receiptmap.containsKey(receipt_id)) {
             Receipt receipt = receiptmap.get(receipt_id);
-            salida = receipt.print();
+            salida = receipt.print(getPrinterFor(receipt));
         } else {
             System.out.println(ExceptionHandler.getTicketNotExists());
         }
         return salida;
     }
+
+    /**
+     * Devuelve el texto del ticket SIN cerrarlo.
+     * Útil para comandos intermedios (add, remove, new).
+     */
+    public String getProvisionalString(String receiptId) {
+        String salida = "";
+        if (receiptmap.containsKey(receiptId)) {
+            Receipt<?> receipt = receiptmap.get(receiptId);
+            ReceiptPrinter<TicketElement> printer = getPrinterFor(receipt);
+            // Hacemos cast a (Receipt) para que funcione con el genérico
+            salida = ((Receipt)receipt).provisionalPrice(printer);
+        } else {
+            System.out.println(ExceptionHandler.getTicketNotExists());
+        }
+        return salida;
+    }
+
+
 
     /**
      * Removes a specific product from all existing receipts in the map.

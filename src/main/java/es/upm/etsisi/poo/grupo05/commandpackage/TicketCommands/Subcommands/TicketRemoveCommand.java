@@ -57,7 +57,7 @@ public class TicketRemoveCommand extends Command {
                 Receipt receipt = cashier.getReceiptMap().getReceiptmap().get(ticketId);
 
                 if (receipt.removeItem(prodId)) {
-                    System.out.println(receipt.provisionalPrice());
+                    System.out.println(cashier.getReceiptMap().getProvisionalString(ticketId));
                     System.out.println("ticket remove: ok");
                 } else {
                     System.out.println("Error: El producto con ID " + prodId + " no existe en el ticket.");

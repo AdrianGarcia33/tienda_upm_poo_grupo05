@@ -75,7 +75,7 @@ public class TicketNewCommand extends Command {
                 if(ticketType== TicketType.COMBINED) {
                     Receipt<TicketElement> receipt = new Receipt<>(ticketID, cashierID, userID, productMap, ticketType);
                     if (cashier.getReceiptMap().newReceipt(receipt)) {
-                        System.out.println(receipt.provisionalPrice());
+                        System.out.println(cashier.getReceiptMap().getProvisionalString(ticketID));
                         System.out.println("ticket new: ok\n");
                     }
                 }
@@ -83,7 +83,7 @@ public class TicketNewCommand extends Command {
                     Receipt<ProductService> receipt = new Receipt<>(ticketID, cashierID, userID, productMap, ticketType);
 
                     if (cashier.getReceiptMap().newReceipt(receipt)) {
-                        System.out.println(receipt.provisionalPrice());
+                        System.out.println(cashier.getReceiptMap().getProvisionalString(ticketID));
                         System.out.println("ticket new: ok\n");
                     }
                 }
@@ -92,7 +92,7 @@ public class TicketNewCommand extends Command {
                     Receipt<Product> receipt = new Receipt<>(ticketID, cashierID, userID, productMap, ticketType);
 
                     if (cashier.getReceiptMap().newReceipt(receipt)) {
-                        System.out.println(receipt.provisionalPrice());
+                        System.out.println(cashier.getReceiptMap().getProvisionalString(ticketID));
                         System.out.println("ticket new: ok\n");
                     }
                 }

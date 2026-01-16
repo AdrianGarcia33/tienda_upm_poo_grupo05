@@ -26,9 +26,6 @@ public class Receipt<T extends TicketElement> {
     private int max_items;
     private ProductMap productMap;
 
-    private NormalPrinter normalPrinter;
-    private EnterprisePrinter enterprisePrinter;
-
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm");
     private static final Random RANDOM = new Random();
     private static final Set<String> idsGenerated = new HashSet<>();
@@ -47,9 +44,6 @@ public class Receipt<T extends TicketElement> {
         this.clientId = clientId;
         this.productMap = productMap;
         this.type = type;
-
-        normalPrinter= new NormalPrinter<>();
-        enterprisePrinter = new EnterprisePrinter();
 
         if (!checkNIF(clientId) && type != TicketType.PRODUCT) {
             throw new IllegalArgumentException("Error: Non-company clients cannot create Service or Combined tickets.");
@@ -134,15 +128,19 @@ public class Receipt<T extends TicketElement> {
                             copy = (T) bCopy;
                             numberItems += quantity;
                         } else if (product instanceof Lunch lunch) {
-                            Lunch lCopy = new Lunch(lunch);
-                            lCopy.setActualParticipants(quantity);
-                            copy = (T) lCopy;
-                            numberItems += 1;
+                            if (lunch.isTemporallyValid()) {
+                                Lunch lCopy = new Lunch(lunch);
+                                lCopy.setActualParticipants(quantity);
+                                copy = (T) lCopy;
+                                numberItems += 1;
+                            }
                         } else if (product instanceof Meeting meeting) {
-                            Meeting mCopy = new Meeting(meeting);
-                            mCopy.setActualParticipants(quantity);
-                            copy = (T) mCopy;
-                            numberItems += 1;
+                            if (meeting.isTemporallyValid()) {
+                                Meeting mCopy = new Meeting(meeting);
+                                mCopy.setActualParticipants(quantity);
+                                copy = (T) mCopy;
+                                numberItems += 1;
+                            }
                         }
 
                         if (copy != null) {
@@ -269,7 +267,7 @@ public class Receipt<T extends TicketElement> {
     /**
      * Cierra el ticket e inyecta el comportamiento de impresión.
      */
-    public String print() {
+    public String print(ReceiptPrinter<T> printer) {
         if (ticketState == TicketState.ACTIVE || ticketState == TicketState.EMPTY) {
             //Hay que actualizar el id en el gestor
             // Un ticket combinado si no tiene productos no puede cerrarse
@@ -287,22 +285,13 @@ public class Receipt<T extends TicketElement> {
             }
             closeTicket();
         }
-        if(checkNIF(clientId)) {
-            return enterprisePrinter.format(this);
-        }else{
-            return normalPrinter.format(this);
-        }
-
+        return printer.format(this);
     }
 
     /**
      * Genera un precio provisional sin cerrar el ticket.
      */
-    public String provisionalPrice(){
-        if(checkNIF(clientId)) {
-            return enterprisePrinter.format(this);
-        }else{
-            return normalPrinter.format(this);
-        }
+    public String provisionalPrice(ReceiptPrinter<T> printer) {
+        return printer.format(this);
     }
 }
