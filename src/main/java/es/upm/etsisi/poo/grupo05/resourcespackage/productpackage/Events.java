@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage.productpackage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**

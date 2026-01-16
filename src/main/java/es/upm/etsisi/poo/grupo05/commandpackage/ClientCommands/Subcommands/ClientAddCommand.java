@@ -26,7 +26,7 @@ public class ClientAddCommand extends Command {
         if(userMap.getUserMap().containsKey(args[3])){
             cashier=(Cashier) userMap.getUserMap().get(args[3]);
         }
-        if(DNIAcceptable(DNI) && cashier!= null) {
+        if(DNIAcceptable(DNI) && cashier!= null){
             Client client= new Client(DNI, name, email, cashier);
             userMap.addUser(client);
             System.out.println(client);
@@ -47,9 +47,27 @@ public class ClientAddCommand extends Command {
         }else{
             if(DNI.length()==9 && DNI.matches(".*[a-zA-Z]$"))return true;
             else{
-                System.out.println("ERROR: Client ("+ DNI+") is not valid");
-                return false;
+                return NIFAcceptable(DNI);
             }
         }
     }
+    private boolean NIFAcceptable(String nif) {
+        if (nif == null || nif.length() != 9) {
+            System.out.println("ERROR: Client ("+ nif+") is not valid");
+            return false;
+        }
+        if (!Character.isLetter(nif.charAt(0))) {
+            System.out.println("ERROR: Client ("+ nif+") is not valid");
+            return false;
+        }
+        for (int i = 1; i < nif.length(); i++) {
+            char c = nif.charAt(i);
+            if (!Character.isDigit(c)) {
+                System.out.println("ERROR: Client ("+ nif+") is not valid");
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

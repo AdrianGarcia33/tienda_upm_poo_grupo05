@@ -43,7 +43,6 @@ public class Receipt<T extends TicketElement> {
             }
             this.id = id;
         }
-
         this.cashId = cashId;
         this.clientId = clientId;
         this.productMap = productMap;
@@ -52,7 +51,7 @@ public class Receipt<T extends TicketElement> {
         normalPrinter= new NormalPrinter<>();
         enterprisePrinter = new EnterprisePrinter();
 
-        if (checkNIF(clientId) && type != TicketType.PRODUCT) {
+        if (!checkNIF(clientId) && type != TicketType.PRODUCT) {
             throw new IllegalArgumentException("Error: Non-company clients cannot create Service or Combined tickets.");
         }
 
@@ -289,10 +288,8 @@ public class Receipt<T extends TicketElement> {
             closeTicket();
         }
         if(checkNIF(clientId)) {
-            System.out.println("--------------------------------------------enterprise");
             return enterprisePrinter.format(this);
         }else{
-            System.out.println("--------------------------------------------normal");
             return normalPrinter.format(this);
         }
 
@@ -303,10 +300,8 @@ public class Receipt<T extends TicketElement> {
      */
     public String provisionalPrice(){
         if(checkNIF(clientId)) {
-            System.out.println("--------------------------------------------enterprise");
             return enterprisePrinter.format(this);
         }else{
-            System.out.println("--------------------------------------------normal");
             return normalPrinter.format(this);
         }
     }

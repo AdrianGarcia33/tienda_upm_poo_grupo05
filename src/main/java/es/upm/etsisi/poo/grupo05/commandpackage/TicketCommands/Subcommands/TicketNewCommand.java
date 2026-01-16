@@ -68,20 +68,19 @@ public class TicketNewCommand extends Command {
                     System.out.println(getNotInstanceOfCashierMessage());
                     return false;
                 }
-                if((userMap.getUserMap().get(userID) instanceof Client) && ticketType!= TicketType.PRODUCT || userMap.getUserMap().get(userID) instanceof Cashier){
+                if( (DNIAcceptable(userID) && ticketType!= TicketType.PRODUCT) || userMap.getUserMap().get(userID) instanceof Cashier) {
                     System.out.println(getInputMismatchExceptionMessage());
                     return false;
                 }
                 if(ticketType== TicketType.COMBINED) {
-                    Receipt<TicketElement> receipt = new Receipt(ticketID, cashierID, userID, productMap, ticketType);
-
+                    Receipt<TicketElement> receipt = new Receipt<>(ticketID, cashierID, userID, productMap, ticketType);
                     if (cashier.getReceiptMap().newReceipt(receipt)) {
                         System.out.println(receipt.provisionalPrice());
                         System.out.println("ticket new: ok\n");
                     }
                 }
                 if(ticketType== TicketType.SERVICE) {
-                    Receipt<ProductService> receipt = new Receipt(ticketID, cashierID, userID, productMap, ticketType);
+                    Receipt<ProductService> receipt = new Receipt<>(ticketID, cashierID, userID, productMap, ticketType);
 
                     if (cashier.getReceiptMap().newReceipt(receipt)) {
                         System.out.println(receipt.provisionalPrice());
@@ -90,7 +89,7 @@ public class TicketNewCommand extends Command {
                 }
 
                 if(ticketType== TicketType.PRODUCT) {
-                    Receipt<Product> receipt = new Receipt(ticketID, cashierID, userID, productMap, ticketType);
+                    Receipt<Product> receipt = new Receipt<>(ticketID, cashierID, userID, productMap, ticketType);
 
                     if (cashier.getReceiptMap().newReceipt(receipt)) {
                         System.out.println(receipt.provisionalPrice());
@@ -106,7 +105,7 @@ public class TicketNewCommand extends Command {
     }
     private boolean isTicketId(String id){
         boolean solucion=true;
-        if(id.length()==6) {
+        if(id.length()<=6) {
             for(int i=0;i<id.length() && solucion;i++){
                 if(!Character.isDigit(id.charAt(i))){
                     solucion=false;
@@ -130,6 +129,16 @@ public class TicketNewCommand extends Command {
                     System.out.println(getTicketTypeUnacceptable());
                     return null;
                 }
+            }
+        }
+    }
+    private boolean DNIAcceptable(String DNI){
+        if(userMap.getUserMap().containsKey(DNI)){
+            return false;
+        }else{
+            if(DNI.length()==9 && DNI.matches(".*[a-zA-Z]$"))return true;
+            else{
+                return false;
             }
         }
     }
