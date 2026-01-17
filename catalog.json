@@ -1,5 +1,25 @@
 [
   {
+    "category": "CLOTHES",
+    "quantity": 0,
+    "discount": false,
+    "afterDiscount": 0.93,
+    "discountedprice": 13.95,
+    "basePrice": 15.0,
+    "name": "Camiseta talla:M UPM",
+    "id": 20352,
+    "type": "BasicProducts"
+  },
+  {
+    "expirationDate": "2026-12-21",
+    "maxParticipants": 100,
+    "actualParticipants": 0,
+    "basePrice": 12.0,
+    "name": "Reunion Rotonda",
+    "id": 23456,
+    "type": "Meeting"
+  },
+  {
     "category": "BOOK",
     "quantity": 0,
     "discount": false,
@@ -57,6 +77,28 @@
     "name": "Camiseta talla:L UPM",
     "id": 6,
     "type": "PersonalizedProducts"
+  },
+  {
+    "category": "CLOTHES",
+    "quantity": 0,
+    "discount": false,
+    "afterDiscount": 0.93,
+    "discountedprice": 13.95,
+    "basePrice": 15.0,
+    "name": "Camiseta talla:M UPM",
+    "id": 78457,
+    "type": "BasicProducts"
+  },
+  {
+    "category": "CLOTHES",
+    "quantity": 0,
+    "discount": false,
+    "afterDiscount": 0.93,
+    "discountedprice": 13.95,
+    "basePrice": 15.0,
+    "name": "Camiseta talla:M UPM",
+    "id": 53912,
+    "type": "BasicProducts"
   },
   {
     "category": "CLOTHES",

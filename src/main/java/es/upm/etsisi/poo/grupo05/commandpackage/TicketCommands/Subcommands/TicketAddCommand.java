@@ -8,6 +8,7 @@ import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.PersonalizedPro
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Cashier;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.User;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class TicketAddCommand extends Command {
             if(!(cashier.getReceiptMap().contains(receiptId))){
                 System.out.println(ExceptionHandler.getTicketNotExists());
                 return false;
+
             }
             if (isServiceId(productIdString)) {
                 if (cashier.getReceiptMap().addItemtoReceipt(receiptId, productMap.getService(serviceIdToInteger(productIdString)), 1)) {

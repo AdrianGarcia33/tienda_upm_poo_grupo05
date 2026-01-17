@@ -22,7 +22,7 @@ public class TicketPrintCommand extends Command {
             String receiptId = args[0];
             User cashier = userMap.getUserMap().get(args[1]);
             if (!(cashier instanceof Cashier)) {
-                System.out.println("No such cashier with this ID");
+                System.out.println(ExceptionHandler.getNotInstanceOfCashierMessage());
                 return false;
             }
             System.out.println(cashier.getReceiptMap().print(receiptId));

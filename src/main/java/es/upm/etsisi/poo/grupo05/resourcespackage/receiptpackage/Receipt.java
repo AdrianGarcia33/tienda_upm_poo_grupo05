@@ -1,5 +1,6 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage.receiptpackage;
 
+import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.*;
 import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
 import java.time.LocalDateTime;
@@ -81,12 +82,12 @@ public class Receipt<T extends TicketElement> {
         if (product == null || ticketState == TicketState.CLOSED) return false;
 
         if (this.type == TicketType.PRODUCT && product instanceof ProductService) {
-            System.out.println("Error: Cannot add Service to a PRODUCT-only ticket.");
+            System.out.println(ExceptionHandler.getInputMismatchExceptionMessage());
             return false;
         }
 
         if (this.type == TicketType.SERVICE && product instanceof Product) {
-            System.out.println("Error: Cannot add Product to a SERVICE-only ticket.");
+            System.out.println(ExceptionHandler.getInputMismatchExceptionMessage());
             return false;
         }
 
@@ -149,7 +150,7 @@ public class Receipt<T extends TicketElement> {
                         }
                     }
                 } else {
-                    System.out.println("Error: you have reached the maximum number of items");
+                    System.out.println(ExceptionHandler.getInputMismatchExceptionMessage());
                 }
             // Caso 2: Es un Servicio
         } else if (product instanceof ProductService service) {
@@ -157,6 +158,8 @@ public class Receipt<T extends TicketElement> {
                 ticket.add(product);
                 numberItems += 1;
                 result = true;
+            }else{
+                System.out.println(ExceptionHandler.getTemporallyInvalidMessage());
             }
         }
 
@@ -280,7 +283,7 @@ public class Receipt<T extends TicketElement> {
                 }
 
                 if (!hasProduct || !hasService) {
-                    return "Error: Combined tickets cannot be closed without at least one Product and one Service.";
+                    return "Error: Combined tickets can't be closed without at least one Product and one Service.";
                 }
             }
             closeTicket();

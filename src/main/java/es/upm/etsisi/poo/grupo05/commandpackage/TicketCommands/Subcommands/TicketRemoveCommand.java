@@ -41,13 +41,13 @@ public class TicketRemoveCommand extends Command {
             int prodId = Integer.parseInt(m.group(3));
 
             if (!userMap.getUserMap().containsKey(cashId)) {
-                System.out.println("Error: El cajero " + cashId + " no existe.");
+                System.out.println(ExceptionHandler.getNotInstanceOfCashierMessage());
                 return false;
             }
 
             User user = userMap.getUserMap().get(cashId);
             if (!(user instanceof Cashier)) {
-                System.out.println("Error: El usuario " + cashId + " no es un cajero.");
+                System.out.println(ExceptionHandler.getNotInstanceOfCashierMessage());
                 return false;
             }
 
@@ -60,11 +60,11 @@ public class TicketRemoveCommand extends Command {
                     System.out.println(cashier.getReceiptMap().getProvisionalString(ticketId));
                     System.out.println("ticket remove: ok");
                 } else {
-                    System.out.println("Error: El producto con ID " + prodId + " no existe en el ticket.");
+                    System.out.println(ExceptionHandler.getProductNotFound());
                 }
 
             } else {
-                System.out.println("Error: El ticket " + ticketId + " no pertenece al cajero " + cashId + ".");
+                System.out.println(ExceptionHandler.getTicketNotFromCashier());
             }
 
         } catch (NumberFormatException e) {

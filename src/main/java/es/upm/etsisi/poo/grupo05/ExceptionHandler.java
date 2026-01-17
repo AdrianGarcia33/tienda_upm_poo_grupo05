@@ -81,5 +81,12 @@ public class ExceptionHandler {
     public static String getNullPointerPersistence() {
         return NULL_POINTER_PERSISTENCE;
     }
+
+    public static String getTemporallyInvalidMessage(){return "ERROR: Service in not temporally valid";}
+
+    public static String getProductNotFound(){return "ERROR: The product couldn't be found on the ticket";}
+
+    public static String getTicketNotFromCashier(){ return "ERROR: The ticket doesn't belong to the cashier with provided ID";}
+
 }
 
