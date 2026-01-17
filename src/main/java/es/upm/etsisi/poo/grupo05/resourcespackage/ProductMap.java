@@ -76,6 +76,11 @@ public class ProductMap {
         }
     }
 
+    /**
+     * As the name suggests, it returns a ProductService given a certain id.
+     * @param id An integer which identifies an object in the list
+     * @return
+     */
     public ProductService getService (int id){
         ProductService p = serviceMap.get(id);
         if(p!= null){
@@ -87,9 +92,20 @@ public class ProductMap {
 
     }
 
+    /**
+     * Checks if a certain product in on the list
+     * @param id An integer which identifies an object in the list
+     * @return
+     */
     public boolean hasProduct (int id) {
         return productMap.containsKey(id);
     }
+
+    /**
+     * Checks if a certain productService in on the list
+     * @param id An integer which identifies an object in the list
+     * @return
+     */
     public boolean hasService (int id) {
         return serviceMap.containsKey(id);
     }
@@ -97,7 +113,7 @@ public class ProductMap {
 
     /**
      * Method made to add a product into our catalog
-     * @param product
+     * @param product Product to add
      * @return
      */
     public boolean addProduct (Product product) {
@@ -139,6 +155,11 @@ public class ProductMap {
 
     }
 
+    /**
+     * Method made to add a productService into our catalog
+     * @param product ProductService to add
+     * @return
+     */
     public boolean addService (ProductService product) {
         boolean resultado = false;
         if (product != null) {
@@ -150,7 +171,7 @@ public class ProductMap {
 
     /**
      * Method to remove said product from said id
-     * @param id
+     * @param id An integer which identifies an object in the list
      * @return
      */
     public boolean removeProduct (int id) {
@@ -224,7 +245,7 @@ public class ProductMap {
     }
 
     /**
-     * Generates an ID random that doesn't exists yet.
+     * Generates an ID random that does not exist yet.
      * We use 6 digits as standard
      */
     public int generateId() {
