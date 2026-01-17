@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.grupo05.persistencepackage;
 
 import com.google.gson.*;
+import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Cashier;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Client;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.User;
@@ -31,7 +32,7 @@ public class UserAdapter implements JsonDeserializer<User> {
                 break;
 
             default:
-                throw new JsonParseException("Unkown type of user" + type);
+                throw new JsonParseException(ExceptionHandler.getJsonParseException());
         }
 
         return context.deserialize(json, userClass);

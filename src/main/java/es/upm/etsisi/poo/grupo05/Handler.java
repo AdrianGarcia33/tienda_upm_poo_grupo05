@@ -41,7 +41,7 @@ public class Handler {
         this.productmap = new ProductMap(max_products);
         this.usermap = new UserMap();
         this.commands = new LinkedList<>();
-        //this.persistenceHandler = new PersistenceHandler();
+        this.persistenceHandler = new PersistenceHandler();
     }
 
     /**
@@ -51,8 +51,9 @@ public class Handler {
     public void initialize() {
 
         //Cargamos de los archivos los productos y usuarios
-//        persistenceHandler.loadProducts("catalog.json", productmap);
-//        persistenceHandler.loadUsers("user_register.json", usermap);
+        persistenceHandler.loadProducts(productmap);
+        persistenceHandler.loadUsers(usermap);
+        persistenceHandler.loadServices( productmap);
         //Creamos las clase con el nombre correspondiente
         ProdCommand prodCommand = new ProdCommand("prod");
         TicketCommand ticketCommand = new TicketCommand("ticket");
@@ -144,8 +145,9 @@ public class Handler {
                 // corresponde entoces llama el apply de tal clase;
                 //exit es el unico que cambiara stop a true entonces saldremos de este bucle
 
-//                persistenceHandler.updatePersistenceForProducts(productmap);
-//                persistenceHandler.updatePersistenceForUsers(usermap);
+               persistenceHandler.updatePersistenceForProducts(productmap);
+               persistenceHandler.updatePersistenceForUsers(usermap);
+               persistenceHandler.updatePersistenceForServices( productmap);
             }
 
         }

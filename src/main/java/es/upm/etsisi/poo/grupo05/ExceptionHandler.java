@@ -20,6 +20,10 @@ public class ExceptionHandler {
     private static final String TICKET_TYPE_UNACCPTABLE = "ERROR: Unknown ticket type";
     private static final String TICKET_NOT_EXISTS = "Error: The ticket was not found";
 
+    //Messages for printing errors about the persistence
+    private static final String JSON_PARSE_EXCEPTION = "Error: Unknown type of product";
+    private static final String NULL_POINTER_PERSISTENCE = "Error: Empty catalog/services/userlist, can not update correctly";
+
     public static String getNullPointerExceptionMessage() {
         return NULL_POINTER_EXCEPTION_MESSAGE;
     }
@@ -70,5 +74,12 @@ public class ExceptionHandler {
 
     public static String getTicketNotExists() { return TICKET_NOT_EXISTS; }
 
+    public static String getJsonParseException() {
+        return JSON_PARSE_EXCEPTION;
+    }
+
+    public static String getNullPointerPersistence() {
+        return NULL_POINTER_PERSISTENCE;
+    }
 }
 

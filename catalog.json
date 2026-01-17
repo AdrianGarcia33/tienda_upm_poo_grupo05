@@ -1,31 +1,72 @@
-[]
 [
   {
-    "maxPersonalizedTexts": 2,
+    "category": "BOOK",
+    "quantity": 0,
+    "discount": false,
+    "afterDiscount": 0.9,
+    "discountedprice": 22.5,
+    "basePrice": 30.0,
+    "name": "Libro POO V2",
+    "id": 1,
+    "type": "BasicProducts"
+  },
+  {
+    "category": "CLOTHES",
+    "quantity": 0,
+    "discount": false,
+    "afterDiscount": 0.93,
+    "discountedprice": 13.95,
+    "basePrice": 15.0,
+    "name": "Camiseta talla:M UPM",
+    "id": 2,
+    "type": "BasicProducts"
+  },
+  {
+    "maxPersonalizedTexts": 3,
     "personalizations": [
+      null,
       null,
       null
     ],
     "num_personalization": 0,
-    "category": "BOOK",
+    "category": "CLOTHES",
     "quantity": 0,
     "discount": false,
-    "afterDiscount": 0.9,
-    "discountedprice": 36.0,
-    "id": 1,
-    "name": "o",
-    "basePrice": 40.0,
+    "afterDiscount": 0.93,
+    "discountedprice": 13.95,
+    "basePrice": 15.0,
+    "name": "Camiseta talla:M UPM",
+    "id": 5,
     "type": "PersonalizedProducts"
   },
   {
-    "category": "BOOK",
+    "maxPersonalizedTexts": 4,
+    "personalizations": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "num_personalization": 0,
+    "category": "CLOTHES",
     "quantity": 0,
     "discount": false,
-    "afterDiscount": 0.9,
-    "discountedprice": 36.0,
-    "id": 2,
-    "name": "e",
-    "basePrice": 40.0,
+    "afterDiscount": 0.93,
+    "discountedprice": 18.6,
+    "basePrice": 20.0,
+    "name": "Camiseta talla:L UPM",
+    "id": 6,
+    "type": "PersonalizedProducts"
+  },
+  {
+    "category": "CLOTHES",
+    "quantity": 0,
+    "discount": false,
+    "afterDiscount": 0.93,
+    "discountedprice": 13.95,
+    "basePrice": 15.0,
+    "name": "Camiseta talla:M UPM",
+    "id": 17081,
     "type": "BasicProducts"
   }
 ]

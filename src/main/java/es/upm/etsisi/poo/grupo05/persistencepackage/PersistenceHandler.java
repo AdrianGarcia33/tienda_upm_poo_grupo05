@@ -6,8 +6,11 @@ import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.*;
+import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Cashier;
+import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.Client;
 import es.upm.etsisi.poo.grupo05.resourcespackage.userpackage.User;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,118 +18,211 @@ import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Class created to manage persistence, it is based on the library Gson from google: https://github.com/google/gson
+ */
 public class PersistenceHandler {
     private final String catalogFile = "catalog.json";
+    private final String servicesFile = "services.json";
     private final String userRegisterFile = "user_register.json";
     private final Gson gson;
 
+    /**
+     * Builder of this class, where it creates the base configuration for the gson used in deserializing
+     */
     public PersistenceHandler() {
-        // Configura Gson para leer (deserializar) y escribir el archivo final
+        // Configuración para deserializar (pasar de json a objetos de java)
         this.gson = new GsonBuilder()
-                .registerTypeAdapter(Product.class, new ProductAdapter())
-                .registerTypeAdapter(User.class, new UserAdapter())
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .registerTypeAdapter(User.class, new UserAdapter())
+                .registerTypeAdapter(ProductService.class, new ProductServiceAdapter())
+                .registerTypeAdapter(Product.class, new ProductAdapter()) 
                 .setPrettyPrinting()
                 .create();
     }
 
-    public void updatePersistenceForProducts(ProductMap productMap) {
-        try (FileWriter writer = new FileWriter(catalogFile)) {
-            
-            JsonArray jsonArray = new JsonArray();
-            
-            // IMPORTANTE: El Gson auxiliar también necesita saber manejar fechas
-            Gson cleanGson = new GsonBuilder().create();
 
-            for (Product product : productMap.getProductMap().values()) {
-                JsonElement jsonElement = cleanGson.toJsonTree(product);
-                
-                if (jsonElement.isJsonObject()) {
-                    JsonObject jsonObject = jsonElement.getAsJsonObject();
-                    jsonObject.addProperty("type", product.getClass().getSimpleName());
-                    jsonArray.add(jsonObject);
-                }
-            }
+    /**
+     * @return gson used for serializing
+     */
+    private Gson createWritingGson() {
 
-            gson.toJson(jsonArray, writer);
-
-        } catch (IOException e) {
-            System.out.println(ExceptionHandler.getIoExceptionMessage());;
-        }
-    }
-
-    public void updatePersistenceForUsers(UserMap userMap) {
-        try (FileWriter writer = new FileWriter(userRegisterFile)) {
-
-            JsonArray jsonArray = new JsonArray();
-
-            // IMPORTANTE: El Gson auxiliar también necesita saber manejar fechas
-            Gson cleanGson = new GsonBuilder()
+        JsonSerializer<Product> productSerializer = (src, typeOfSrc, context) -> {
+            JsonObject jsonObject = new GsonBuilder()
                     .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                     .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                    .create()
+                    .toJsonTree(src).getAsJsonObject();
+            jsonObject.addProperty("type", src.getClass().getSimpleName());
+            return jsonObject;
+        };
+
+        JsonSerializer<User> userSerializer = (src, typeOfSrc, context) -> {
+
+            Gson tempGson = new GsonBuilder()
+                    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+
+                    //registramos los objectos de tipo product y clases derivadas, el service como hereda de "ticketelement"  tiene un adapatador
+                    // propio "ProductServiceAdapter" que tiene su metodo serialize
+                    .registerTypeAdapter(Product.class, productSerializer)
+                    .registerTypeAdapter(BasicProducts.class, productSerializer)
+                    .registerTypeAdapter(PersonalizedProducts.class, productSerializer)
+                    .registerTypeAdapter(Lunch.class, productSerializer)
+                    .registerTypeAdapter(Meeting.class, productSerializer)
                     .create();
 
-            for (User user : userMap.getUserMap().values()) {
+            JsonObject jsonObject = tempGson.toJsonTree(src).getAsJsonObject();
+            jsonObject.addProperty("type", src.getClass().getSimpleName());
+            return jsonObject;
+        };
 
-                JsonElement jsonElement = cleanGson.toJsonTree(user);
+        return new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                //
+                .registerTypeAdapter(ProductService.class, new ProductServiceAdapter())
+                
+                // Los registramos
+                .registerTypeAdapter(Product.class, productSerializer)
+                .registerTypeAdapter(BasicProducts.class, productSerializer)
+                .registerTypeAdapter(PersonalizedProducts.class, productSerializer)
+                .registerTypeAdapter(Lunch.class, productSerializer)
+                .registerTypeAdapter(Meeting.class, productSerializer)
 
-                if (jsonElement.isJsonObject()) {
-                    JsonObject jsonObject = jsonElement.getAsJsonObject();
-                    jsonObject.addProperty("type", user.getClass().getSimpleName());
-                    jsonArray.add(jsonObject);
-                }
-            }
+                // Aqui igual
+                .registerTypeAdapter(User.class, userSerializer)
+                .registerTypeAdapter(Client.class, userSerializer)
+                .registerTypeAdapter(Cashier.class, userSerializer)
+                
+                .setPrettyPrinting()
+                .create();
+    }
 
-            gson.toJson(jsonArray, writer);
+    /**
+     * Method to update our json file with new products (catalog.json)
+     * @param productMap
+     */
+    public void updatePersistenceForProducts(ProductMap productMap) {
+        try (FileWriter writer = new FileWriter(catalogFile)) {
+            // Obtenemos todos los elementos de productmap, los metemos a un arraylist y luego los serializamos con nuestro writer con el gson
+            // que tenemos para escribir
+            ArrayList<Product> productList = new ArrayList<>(productMap.getProductMap().values());
+            createWritingGson().toJson(productList, writer);
 
         } catch (IOException e) {
             System.out.println(ExceptionHandler.getIoExceptionMessage());
         }
     }
 
-    public void loadUsers(String file, UserMap userMap) {
-        try {
-            FileReader fileReader = new FileReader(file);
+    /**
+     * Method to update our json file with new users (user_register.json)
+     * @param userMap
+     */
+    public void updatePersistenceForUsers(UserMap userMap) {
+        try (FileWriter writer = new FileWriter(userRegisterFile)) {
+            //Lo mismo aqui, como siempre, importante diferencia en este caso que tenemos dos gson, el de escribir y el de leer
+            ArrayList<User> userList = new ArrayList<>(userMap.getUserMap().values());
+            createWritingGson().toJson(userList, writer);
 
-            //this line is for setting the typing the json should converto to,
-            Type listtype = new TypeToken<ArrayList<User>>(){}.getType();
+        } catch (IOException e) {
+            System.out.println(ExceptionHandler.getIoExceptionMessage());
+        } catch (NullPointerException e ) {
+            System.out.println(ExceptionHandler.getNullPointerPersistence());
+        }
+    }
 
-            ArrayList<User> userList = gson.fromJson(fileReader, listtype);
+    /**
+     * Method to update our json file with services (services.json)
+     * @param productMap
+     */
+    public void updatePersistenceForServices(ProductMap productMap) {
+        try (FileWriter writer = new FileWriter(servicesFile)) {
 
-            if (userList != null) {
-                for (User p : userList) {
-                    userMap.addUser(p);
+            ArrayList<ProductService> serviceList = new ArrayList<>(productMap.getServiceMap().values());
+            createWritingGson().toJson(serviceList, writer);
+
+        } catch (IOException e) {
+            System.out.println(ExceptionHandler.getIoExceptionMessage());
+        } catch (NullPointerException e ) {
+        System.out.println(ExceptionHandler.getNullPointerPersistence());
+        }
+    }
+
+    /**
+     * We load the usermap with objects read from the jsonfile
+     * @param userMap
+     */
+    public void loadUsers(UserMap userMap) {
+        File file = new File(userRegisterFile);
+        if (!file.exists()) return;
+
+        try (FileReader reader = new FileReader(file)) {
+            Type listType = new TypeToken<ArrayList<User>>(){}.getType();
+            ArrayList<User> users = gson.fromJson(reader, listType);
+            //En este caso como vemos, usamos el gson para leer
+            if (users != null) {
+                for (User u : users) {
+                    userMap.addUser(u);
                 }
             }
 
         } catch (IOException e) {
             System.out.println(ExceptionHandler.getIoExceptionMessage());
+        } catch (NullPointerException e ) {
+            System.out.println(ExceptionHandler.getNullPointerPersistence());
         }
     }
 
-    public void loadProducts(String file, ProductMap productMap) {
+    /**
+     * We load the product hashmap of our productmap with objects of the corresponding json file
+     * @param productMap
+     */
+    public void loadProducts(ProductMap productMap) {
+        File file = new File(catalogFile);
+        if (!file.exists()) return;
 
-        try {
-            FileReader fileReader = new FileReader(file);
+        try (FileReader reader = new FileReader(file)) {
+            Type listType = new TypeToken<ArrayList<Product>>(){}.getType();
+            ArrayList<Product> products = gson.fromJson(reader, listType);
 
-            //this line is for setting the typing the json should converto to,
-            Type listtype = new TypeToken<ArrayList<Product>>(){}.getType();
-
-            ArrayList<Product> productList = gson.fromJson(fileReader, listtype);
-
-            if (productList != null) {
-                for (Product p : productList) {
+            if (products != null) {
+                for (Product p : products) {
                     productMap.addProduct(p);
                 }
             }
 
         } catch (IOException e) {
             System.out.println(ExceptionHandler.getIoExceptionMessage());
+        } catch (NullPointerException e ) {
+            System.out.println(ExceptionHandler.getNullPointerPersistence());
         }
     }
 
+    /**
+     * We load the hashmap for services from our productmap with objects of the corresponding jsonfile
+     * @param productMap
+     */
+    public void loadServices(ProductMap productMap) {
+        File file = new File(servicesFile);
+        if (!file.exists()) return;
 
+        try (FileReader reader = new FileReader(file)) {
+            Type listType = new TypeToken<ArrayList<ProductService>>(){}.getType();
+            ArrayList<ProductService> services = gson.fromJson(reader, listType);
+
+            if (services != null) {
+                for (ProductService s : services) {
+                    productMap.addService(s);
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println(ExceptionHandler.getIoExceptionMessage());
+        } catch (NullPointerException e ) {
+            System.out.println(ExceptionHandler.getNullPointerPersistence());
+        }
+    }
 }

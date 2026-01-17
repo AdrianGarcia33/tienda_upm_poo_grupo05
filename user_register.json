@@ -7,22 +7,24 @@
       "receiptMap": {
         "receiptmap": {
           "212121": {
-            "id": "212121-25-12-19-17:20",
-            "openingDate": "2025-12-19T17:20:05.0060961",
-            "closingDate": "2025-12-19T17:20:05.0224961",
+            "id": "212121-26-01-17-11:38",
+            "openingDate": "2026-01-17T11:38:24.8191817",
+            "closingDate": "2026-01-17T11:38:24.8476974",
             "ticketState": "CLOSED",
             "cashId": "UW1234567",
             "clientId": "55630667S",
+            "type": "PRODUCT",
             "ticket": [
               {
                 "category": "BOOK",
-                "quantity": 20,
+                "quantity": 20.0,
                 "discount": true,
                 "afterDiscount": 0.9,
                 "discountedprice": 0.0,
-                "id": 1,
+                "basePrice": 30.0,
                 "name": "Libro POO V2",
-                "basePrice": 30.0
+                "id": 1.0,
+                "type": "BasicProducts"
               }
             ],
             "numberItems": 20,
@@ -35,9 +37,10 @@
                   "discount": false,
                   "afterDiscount": 0.9,
                   "discountedprice": 22.5,
-                  "id": 1,
+                  "basePrice": 30.0,
                   "name": "Libro POO V2",
-                  "basePrice": 30.0
+                  "id": 1,
+                  "type": "BasicProducts"
                 },
                 "2": {
                   "category": "CLOTHES",
@@ -45,42 +48,94 @@
                   "discount": false,
                   "afterDiscount": 0.93,
                   "discountedprice": 13.95,
-                  "id": 2,
+                  "basePrice": 15.0,
                   "name": "Camiseta talla:M UPM",
-                  "basePrice": 15.0
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
                 }
               },
-              "number_products": 2,
+              "number_products": 5,
               "max_products": 200
             }
           },
           "212123": {
-            "id": "212123-25-12-19-17:20",
-            "openingDate": "2025-12-19T17:20:05.0304931",
-            "closingDate": "2025-12-19T17:20:05.0494922",
+            "id": "212123-26-01-17-11:38",
+            "openingDate": "2026-01-17T11:38:24.8646985",
+            "closingDate": "2026-01-17T11:38:24.8986976",
             "ticketState": "CLOSED",
             "cashId": "UW1234567",
             "clientId": "98948334B",
+            "type": "PRODUCT",
             "ticket": [
               {
                 "category": "BOOK",
-                "quantity": 20,
+                "quantity": 20.0,
                 "discount": true,
                 "afterDiscount": 0.9,
                 "discountedprice": 0.0,
-                "id": 1,
+                "basePrice": 30.0,
                 "name": "Libro POO V2",
-                "basePrice": 30.0
+                "id": 1.0,
+                "type": "BasicProducts"
               },
               {
                 "category": "CLOTHES",
-                "quantity": 3,
+                "quantity": 3.0,
                 "discount": true,
                 "afterDiscount": 0.93,
                 "discountedprice": 0.0,
-                "id": 2,
+                "basePrice": 15.0,
                 "name": "Camiseta talla:M UPM",
-                "basePrice": 15.0
+                "id": 2.0,
+                "type": "BasicProducts"
               }
             ],
             "numberItems": 23,
@@ -93,9 +148,10 @@
                   "discount": false,
                   "afterDiscount": 0.9,
                   "discountedprice": 22.5,
-                  "id": 1,
+                  "basePrice": 30.0,
                   "name": "Libro POO V2",
-                  "basePrice": 30.0
+                  "id": 1,
+                  "type": "BasicProducts"
                 },
                 "2": {
                   "category": "CLOTHES",
@@ -103,21 +159,71 @@
                   "discount": false,
                   "afterDiscount": 0.93,
                   "discountedprice": 13.95,
-                  "id": 2,
+                  "basePrice": 15.0,
                   "name": "Camiseta talla:M UPM",
-                  "basePrice": 15.0
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
                 }
               },
-              "number_products": 2,
+              "number_products": 5,
               "max_products": 200
             }
           },
-          "25-12-19-17:20-97320": {
-            "id": "25-12-19-17:20-97320",
-            "openingDate": "2025-12-19T17:20:04.9800897",
-            "ticketState": "BLANK",
+          "26-01-17-11:38-53397": {
+            "id": "26-01-17-11:38-53397",
+            "openingDate": "2026-01-17T11:38:24.7991806",
+            "ticketState": "EMPTY",
             "cashId": "UW1234567",
             "clientId": "55630667S",
+            "type": "PRODUCT",
             "ticket": [],
             "numberItems": 0,
             "max_items": 100,
@@ -129,9 +235,10 @@
                   "discount": false,
                   "afterDiscount": 0.9,
                   "discountedprice": 22.5,
-                  "id": 1,
+                  "basePrice": 30.0,
                   "name": "Libro POO V2",
-                  "basePrice": 30.0
+                  "id": 1,
+                  "type": "BasicProducts"
                 },
                 "2": {
                   "category": "CLOTHES",
@@ -139,17 +246,1210 @@
                   "discount": false,
                   "afterDiscount": 0.93,
                   "discountedprice": 13.95,
-                  "id": 2,
+                  "basePrice": 15.0,
                   "name": "Camiseta talla:M UPM",
-                  "basePrice": 15.0
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
                 }
               },
-              "number_products": 2,
+              "number_products": 5,
+              "max_products": 200
+            }
+          },
+          "212130": {
+            "id": "212130",
+            "openingDate": "2026-01-17T11:38:25.1713091",
+            "ticketState": "EMPTY",
+            "cashId": "UW1234567",
+            "clientId": "B12345674",
+            "type": "COMBINED",
+            "ticket": [],
+            "numberItems": 0,
+            "max_items": 100,
+            "productMap": {
+              "productMap": {
+                "1": {
+                  "category": "BOOK",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.9,
+                  "discountedprice": 22.5,
+                  "basePrice": 30.0,
+                  "name": "Libro POO V2",
+                  "id": 1,
+                  "type": "BasicProducts"
+                },
+                "2": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
+                }
+              },
+              "number_products": 5,
+              "max_products": 200
+            }
+          },
+          "212128": {
+            "id": "212128-26-01-17-11:38",
+            "openingDate": "2026-01-17T11:38:25.0222142",
+            "closingDate": "2026-01-17T11:38:25.0612619",
+            "ticketState": "CLOSED",
+            "cashId": "UW1234567",
+            "clientId": "98948334B",
+            "type": "PRODUCT",
+            "ticket": [
+              {
+                "maxPersonalizedTexts": 0.0,
+                "personalizations": [],
+                "num_personalization": 0.0,
+                "category": "CLOTHES",
+                "quantity": 1.0,
+                "discount": true,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 5.0,
+                "type": "PersonalizedProducts"
+              },
+              {
+                "maxPersonalizedTexts": 3.0,
+                "personalizations": [
+                  "red",
+                  "blue",
+                  "green"
+                ],
+                "num_personalization": 3.0,
+                "category": "CLOTHES",
+                "quantity": 3.0,
+                "discount": true,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 19.5,
+                "name": "Camiseta talla:M UPM",
+                "id": 5.0,
+                "type": "PersonalizedProducts"
+              },
+              {
+                "maxPersonalizedTexts": 2.0,
+                "personalizations": [
+                  "red",
+                  "blue"
+                ],
+                "num_personalization": 2.0,
+                "category": "CLOTHES",
+                "quantity": 3.0,
+                "discount": true,
+                "afterDiscount": 0.93,
+                "discountedprice": 18.6,
+                "basePrice": 24.0,
+                "name": "Camiseta talla:L UPM",
+                "id": 6.0,
+                "type": "PersonalizedProducts"
+              }
+            ],
+            "numberItems": 7,
+            "max_items": 100,
+            "productMap": {
+              "productMap": {
+                "1": {
+                  "category": "BOOK",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.9,
+                  "discountedprice": 22.5,
+                  "basePrice": 30.0,
+                  "name": "Libro POO V2",
+                  "id": 1,
+                  "type": "BasicProducts"
+                },
+                "2": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
+                }
+              },
+              "number_products": 5,
+              "max_products": 200
+            }
+          },
+          "212129": {
+            "id": "212129-26-01-17-11:38",
+            "openingDate": "2026-01-17T11:38:25.1162613",
+            "closingDate": "2026-01-17T11:38:25.1583106",
+            "ticketState": "CLOSED",
+            "cashId": "UW1234567",
+            "clientId": "B12345674",
+            "type": "SERVICE",
+            "ticket": [],
+            "numberItems": 0,
+            "max_items": 100,
+            "productMap": {
+              "productMap": {
+                "1": {
+                  "category": "BOOK",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.9,
+                  "discountedprice": 22.5,
+                  "basePrice": 30.0,
+                  "name": "Libro POO V2",
+                  "id": 1,
+                  "type": "BasicProducts"
+                },
+                "2": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
+                }
+              },
+              "number_products": 5,
+              "max_products": 200
+            }
+          },
+          "212127": {
+            "id": "212127-26-01-17-11:38",
+            "openingDate": "2026-01-17T11:38:24.9592155",
+            "closingDate": "2026-01-17T11:38:24.979215",
+            "ticketState": "CLOSED",
+            "cashId": "UW1234567",
+            "clientId": "98948334B",
+            "type": "PRODUCT",
+            "ticket": [
+              {
+                "category": "CLOTHES",
+                "quantity": 3.0,
+                "discount": true,
+                "afterDiscount": 0.93,
+                "discountedprice": 0.0,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 2.0,
+                "type": "BasicProducts"
+              }
+            ],
+            "numberItems": 3,
+            "max_items": 100,
+            "productMap": {
+              "productMap": {
+                "1": {
+                  "category": "BOOK",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.9,
+                  "discountedprice": 22.5,
+                  "basePrice": 30.0,
+                  "name": "Libro POO V2",
+                  "id": 1,
+                  "type": "BasicProducts"
+                },
+                "2": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
+                }
+              },
+              "number_products": 5,
               "max_products": 200
             }
           }
         },
-        "num_receipt": 3
+        "num_receipt": 7
+      }
+    },
+    "id": "B12345674",
+    "email": "pepe5@upm.es",
+    "name": "pepe2",
+    "receiptMap": {
+      "receiptmap": {},
+      "num_receipt": 0
+    },
+    "type": "Client"
+  },
+  {
+    "creator": {
+      "id": "UW1234567",
+      "email": "pepe0@upm.es",
+      "name": "pepecurro3",
+      "receiptMap": {
+        "receiptmap": {
+          "212121": {
+            "id": "212121-26-01-17-11:38",
+            "openingDate": "2026-01-17T11:38:24.8191817",
+            "closingDate": "2026-01-17T11:38:24.8476974",
+            "ticketState": "CLOSED",
+            "cashId": "UW1234567",
+            "clientId": "55630667S",
+            "type": "PRODUCT",
+            "ticket": [
+              {
+                "category": "BOOK",
+                "quantity": 20.0,
+                "discount": true,
+                "afterDiscount": 0.9,
+                "discountedprice": 0.0,
+                "basePrice": 30.0,
+                "name": "Libro POO V2",
+                "id": 1.0,
+                "type": "BasicProducts"
+              }
+            ],
+            "numberItems": 20,
+            "max_items": 100,
+            "productMap": {
+              "productMap": {
+                "1": {
+                  "category": "BOOK",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.9,
+                  "discountedprice": 22.5,
+                  "basePrice": 30.0,
+                  "name": "Libro POO V2",
+                  "id": 1,
+                  "type": "BasicProducts"
+                },
+                "2": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
+                }
+              },
+              "number_products": 5,
+              "max_products": 200
+            }
+          },
+          "212123": {
+            "id": "212123-26-01-17-11:38",
+            "openingDate": "2026-01-17T11:38:24.8646985",
+            "closingDate": "2026-01-17T11:38:24.8986976",
+            "ticketState": "CLOSED",
+            "cashId": "UW1234567",
+            "clientId": "98948334B",
+            "type": "PRODUCT",
+            "ticket": [
+              {
+                "category": "BOOK",
+                "quantity": 20.0,
+                "discount": true,
+                "afterDiscount": 0.9,
+                "discountedprice": 0.0,
+                "basePrice": 30.0,
+                "name": "Libro POO V2",
+                "id": 1.0,
+                "type": "BasicProducts"
+              },
+              {
+                "category": "CLOTHES",
+                "quantity": 3.0,
+                "discount": true,
+                "afterDiscount": 0.93,
+                "discountedprice": 0.0,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 2.0,
+                "type": "BasicProducts"
+              }
+            ],
+            "numberItems": 23,
+            "max_items": 100,
+            "productMap": {
+              "productMap": {
+                "1": {
+                  "category": "BOOK",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.9,
+                  "discountedprice": 22.5,
+                  "basePrice": 30.0,
+                  "name": "Libro POO V2",
+                  "id": 1,
+                  "type": "BasicProducts"
+                },
+                "2": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
+                }
+              },
+              "number_products": 5,
+              "max_products": 200
+            }
+          },
+          "26-01-17-11:38-53397": {
+            "id": "26-01-17-11:38-53397",
+            "openingDate": "2026-01-17T11:38:24.7991806",
+            "ticketState": "EMPTY",
+            "cashId": "UW1234567",
+            "clientId": "55630667S",
+            "type": "PRODUCT",
+            "ticket": [],
+            "numberItems": 0,
+            "max_items": 100,
+            "productMap": {
+              "productMap": {
+                "1": {
+                  "category": "BOOK",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.9,
+                  "discountedprice": 22.5,
+                  "basePrice": 30.0,
+                  "name": "Libro POO V2",
+                  "id": 1,
+                  "type": "BasicProducts"
+                },
+                "2": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
+                }
+              },
+              "number_products": 5,
+              "max_products": 200
+            }
+          },
+          "212130": {
+            "id": "212130",
+            "openingDate": "2026-01-17T11:38:25.1713091",
+            "ticketState": "EMPTY",
+            "cashId": "UW1234567",
+            "clientId": "B12345674",
+            "type": "COMBINED",
+            "ticket": [],
+            "numberItems": 0,
+            "max_items": 100,
+            "productMap": {
+              "productMap": {
+                "1": {
+                  "category": "BOOK",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.9,
+                  "discountedprice": 22.5,
+                  "basePrice": 30.0,
+                  "name": "Libro POO V2",
+                  "id": 1,
+                  "type": "BasicProducts"
+                },
+                "2": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
+                }
+              },
+              "number_products": 5,
+              "max_products": 200
+            }
+          },
+          "212128": {
+            "id": "212128-26-01-17-11:38",
+            "openingDate": "2026-01-17T11:38:25.0222142",
+            "closingDate": "2026-01-17T11:38:25.0612619",
+            "ticketState": "CLOSED",
+            "cashId": "UW1234567",
+            "clientId": "98948334B",
+            "type": "PRODUCT",
+            "ticket": [
+              {
+                "maxPersonalizedTexts": 0.0,
+                "personalizations": [],
+                "num_personalization": 0.0,
+                "category": "CLOTHES",
+                "quantity": 1.0,
+                "discount": true,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 5.0,
+                "type": "PersonalizedProducts"
+              },
+              {
+                "maxPersonalizedTexts": 3.0,
+                "personalizations": [
+                  "red",
+                  "blue",
+                  "green"
+                ],
+                "num_personalization": 3.0,
+                "category": "CLOTHES",
+                "quantity": 3.0,
+                "discount": true,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 19.5,
+                "name": "Camiseta talla:M UPM",
+                "id": 5.0,
+                "type": "PersonalizedProducts"
+              },
+              {
+                "maxPersonalizedTexts": 2.0,
+                "personalizations": [
+                  "red",
+                  "blue"
+                ],
+                "num_personalization": 2.0,
+                "category": "CLOTHES",
+                "quantity": 3.0,
+                "discount": true,
+                "afterDiscount": 0.93,
+                "discountedprice": 18.6,
+                "basePrice": 24.0,
+                "name": "Camiseta talla:L UPM",
+                "id": 6.0,
+                "type": "PersonalizedProducts"
+              }
+            ],
+            "numberItems": 7,
+            "max_items": 100,
+            "productMap": {
+              "productMap": {
+                "1": {
+                  "category": "BOOK",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.9,
+                  "discountedprice": 22.5,
+                  "basePrice": 30.0,
+                  "name": "Libro POO V2",
+                  "id": 1,
+                  "type": "BasicProducts"
+                },
+                "2": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
+                }
+              },
+              "number_products": 5,
+              "max_products": 200
+            }
+          },
+          "212129": {
+            "id": "212129-26-01-17-11:38",
+            "openingDate": "2026-01-17T11:38:25.1162613",
+            "closingDate": "2026-01-17T11:38:25.1583106",
+            "ticketState": "CLOSED",
+            "cashId": "UW1234567",
+            "clientId": "B12345674",
+            "type": "SERVICE",
+            "ticket": [],
+            "numberItems": 0,
+            "max_items": 100,
+            "productMap": {
+              "productMap": {
+                "1": {
+                  "category": "BOOK",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.9,
+                  "discountedprice": 22.5,
+                  "basePrice": 30.0,
+                  "name": "Libro POO V2",
+                  "id": 1,
+                  "type": "BasicProducts"
+                },
+                "2": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
+                }
+              },
+              "number_products": 5,
+              "max_products": 200
+            }
+          },
+          "212127": {
+            "id": "212127-26-01-17-11:38",
+            "openingDate": "2026-01-17T11:38:24.9592155",
+            "closingDate": "2026-01-17T11:38:24.979215",
+            "ticketState": "CLOSED",
+            "cashId": "UW1234567",
+            "clientId": "98948334B",
+            "type": "PRODUCT",
+            "ticket": [
+              {
+                "category": "CLOTHES",
+                "quantity": 3.0,
+                "discount": true,
+                "afterDiscount": 0.93,
+                "discountedprice": 0.0,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 2.0,
+                "type": "BasicProducts"
+              }
+            ],
+            "numberItems": 3,
+            "max_items": 100,
+            "productMap": {
+              "productMap": {
+                "1": {
+                  "category": "BOOK",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.9,
+                  "discountedprice": 22.5,
+                  "basePrice": 30.0,
+                  "name": "Libro POO V2",
+                  "id": 1,
+                  "type": "BasicProducts"
+                },
+                "2": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
+                }
+              },
+              "number_products": 5,
+              "max_products": 200
+            }
+          }
+        },
+        "num_receipt": 7
       }
     },
     "id": "55630667S",
@@ -162,16 +1462,6 @@
     "type": "Client"
   },
   {
-    "id": "UW4922561",
-    "email": "pepe0@upm.es",
-    "name": "pepecurro2",
-    "receiptMap": {
-      "receiptmap": {},
-      "num_receipt": 0
-    },
-    "type": "Cashier"
-  },
-  {
     "creator": {
       "id": "UW1234567",
       "email": "pepe0@upm.es",
@@ -179,22 +1469,24 @@
       "receiptMap": {
         "receiptmap": {
           "212121": {
-            "id": "212121-25-12-19-17:20",
-            "openingDate": "2025-12-19T17:20:05.0060961",
-            "closingDate": "2025-12-19T17:20:05.0224961",
+            "id": "212121-26-01-17-11:38",
+            "openingDate": "2026-01-17T11:38:24.8191817",
+            "closingDate": "2026-01-17T11:38:24.8476974",
             "ticketState": "CLOSED",
             "cashId": "UW1234567",
             "clientId": "55630667S",
+            "type": "PRODUCT",
             "ticket": [
               {
                 "category": "BOOK",
-                "quantity": 20,
+                "quantity": 20.0,
                 "discount": true,
                 "afterDiscount": 0.9,
                 "discountedprice": 0.0,
-                "id": 1,
+                "basePrice": 30.0,
                 "name": "Libro POO V2",
-                "basePrice": 30.0
+                "id": 1.0,
+                "type": "BasicProducts"
               }
             ],
             "numberItems": 20,
@@ -207,9 +1499,10 @@
                   "discount": false,
                   "afterDiscount": 0.9,
                   "discountedprice": 22.5,
-                  "id": 1,
+                  "basePrice": 30.0,
                   "name": "Libro POO V2",
-                  "basePrice": 30.0
+                  "id": 1,
+                  "type": "BasicProducts"
                 },
                 "2": {
                   "category": "CLOTHES",
@@ -217,42 +1510,94 @@
                   "discount": false,
                   "afterDiscount": 0.93,
                   "discountedprice": 13.95,
-                  "id": 2,
+                  "basePrice": 15.0,
                   "name": "Camiseta talla:M UPM",
-                  "basePrice": 15.0
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
                 }
               },
-              "number_products": 2,
+              "number_products": 5,
               "max_products": 200
             }
           },
           "212123": {
-            "id": "212123-25-12-19-17:20",
-            "openingDate": "2025-12-19T17:20:05.0304931",
-            "closingDate": "2025-12-19T17:20:05.0494922",
+            "id": "212123-26-01-17-11:38",
+            "openingDate": "2026-01-17T11:38:24.8646985",
+            "closingDate": "2026-01-17T11:38:24.8986976",
             "ticketState": "CLOSED",
             "cashId": "UW1234567",
             "clientId": "98948334B",
+            "type": "PRODUCT",
             "ticket": [
               {
                 "category": "BOOK",
-                "quantity": 20,
+                "quantity": 20.0,
                 "discount": true,
                 "afterDiscount": 0.9,
                 "discountedprice": 0.0,
-                "id": 1,
+                "basePrice": 30.0,
                 "name": "Libro POO V2",
-                "basePrice": 30.0
+                "id": 1.0,
+                "type": "BasicProducts"
               },
               {
                 "category": "CLOTHES",
-                "quantity": 3,
+                "quantity": 3.0,
                 "discount": true,
                 "afterDiscount": 0.93,
                 "discountedprice": 0.0,
-                "id": 2,
+                "basePrice": 15.0,
                 "name": "Camiseta talla:M UPM",
-                "basePrice": 15.0
+                "id": 2.0,
+                "type": "BasicProducts"
               }
             ],
             "numberItems": 23,
@@ -265,9 +1610,10 @@
                   "discount": false,
                   "afterDiscount": 0.9,
                   "discountedprice": 22.5,
-                  "id": 1,
+                  "basePrice": 30.0,
                   "name": "Libro POO V2",
-                  "basePrice": 30.0
+                  "id": 1,
+                  "type": "BasicProducts"
                 },
                 "2": {
                   "category": "CLOTHES",
@@ -275,21 +1621,71 @@
                   "discount": false,
                   "afterDiscount": 0.93,
                   "discountedprice": 13.95,
-                  "id": 2,
+                  "basePrice": 15.0,
                   "name": "Camiseta talla:M UPM",
-                  "basePrice": 15.0
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
                 }
               },
-              "number_products": 2,
+              "number_products": 5,
               "max_products": 200
             }
           },
-          "25-12-19-17:20-97320": {
-            "id": "25-12-19-17:20-97320",
-            "openingDate": "2025-12-19T17:20:04.9800897",
-            "ticketState": "BLANK",
+          "26-01-17-11:38-53397": {
+            "id": "26-01-17-11:38-53397",
+            "openingDate": "2026-01-17T11:38:24.7991806",
+            "ticketState": "EMPTY",
             "cashId": "UW1234567",
             "clientId": "55630667S",
+            "type": "PRODUCT",
             "ticket": [],
             "numberItems": 0,
             "max_items": 100,
@@ -301,9 +1697,10 @@
                   "discount": false,
                   "afterDiscount": 0.9,
                   "discountedprice": 22.5,
-                  "id": 1,
+                  "basePrice": 30.0,
                   "name": "Libro POO V2",
-                  "basePrice": 30.0
+                  "id": 1,
+                  "type": "BasicProducts"
                 },
                 "2": {
                   "category": "CLOTHES",
@@ -311,17 +1708,479 @@
                   "discount": false,
                   "afterDiscount": 0.93,
                   "discountedprice": 13.95,
-                  "id": 2,
+                  "basePrice": 15.0,
                   "name": "Camiseta talla:M UPM",
-                  "basePrice": 15.0
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
                 }
               },
-              "number_products": 2,
+              "number_products": 5,
+              "max_products": 200
+            }
+          },
+          "212130": {
+            "id": "212130",
+            "openingDate": "2026-01-17T11:38:25.1713091",
+            "ticketState": "EMPTY",
+            "cashId": "UW1234567",
+            "clientId": "B12345674",
+            "type": "COMBINED",
+            "ticket": [],
+            "numberItems": 0,
+            "max_items": 100,
+            "productMap": {
+              "productMap": {
+                "1": {
+                  "category": "BOOK",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.9,
+                  "discountedprice": 22.5,
+                  "basePrice": 30.0,
+                  "name": "Libro POO V2",
+                  "id": 1,
+                  "type": "BasicProducts"
+                },
+                "2": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
+                }
+              },
+              "number_products": 5,
+              "max_products": 200
+            }
+          },
+          "212128": {
+            "id": "212128-26-01-17-11:38",
+            "openingDate": "2026-01-17T11:38:25.0222142",
+            "closingDate": "2026-01-17T11:38:25.0612619",
+            "ticketState": "CLOSED",
+            "cashId": "UW1234567",
+            "clientId": "98948334B",
+            "type": "PRODUCT",
+            "ticket": [
+              {
+                "maxPersonalizedTexts": 0.0,
+                "personalizations": [],
+                "num_personalization": 0.0,
+                "category": "CLOTHES",
+                "quantity": 1.0,
+                "discount": true,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 5.0,
+                "type": "PersonalizedProducts"
+              },
+              {
+                "maxPersonalizedTexts": 3.0,
+                "personalizations": [
+                  "red",
+                  "blue",
+                  "green"
+                ],
+                "num_personalization": 3.0,
+                "category": "CLOTHES",
+                "quantity": 3.0,
+                "discount": true,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 19.5,
+                "name": "Camiseta talla:M UPM",
+                "id": 5.0,
+                "type": "PersonalizedProducts"
+              },
+              {
+                "maxPersonalizedTexts": 2.0,
+                "personalizations": [
+                  "red",
+                  "blue"
+                ],
+                "num_personalization": 2.0,
+                "category": "CLOTHES",
+                "quantity": 3.0,
+                "discount": true,
+                "afterDiscount": 0.93,
+                "discountedprice": 18.6,
+                "basePrice": 24.0,
+                "name": "Camiseta talla:L UPM",
+                "id": 6.0,
+                "type": "PersonalizedProducts"
+              }
+            ],
+            "numberItems": 7,
+            "max_items": 100,
+            "productMap": {
+              "productMap": {
+                "1": {
+                  "category": "BOOK",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.9,
+                  "discountedprice": 22.5,
+                  "basePrice": 30.0,
+                  "name": "Libro POO V2",
+                  "id": 1,
+                  "type": "BasicProducts"
+                },
+                "2": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
+                }
+              },
+              "number_products": 5,
+              "max_products": 200
+            }
+          },
+          "212129": {
+            "id": "212129-26-01-17-11:38",
+            "openingDate": "2026-01-17T11:38:25.1162613",
+            "closingDate": "2026-01-17T11:38:25.1583106",
+            "ticketState": "CLOSED",
+            "cashId": "UW1234567",
+            "clientId": "B12345674",
+            "type": "SERVICE",
+            "ticket": [],
+            "numberItems": 0,
+            "max_items": 100,
+            "productMap": {
+              "productMap": {
+                "1": {
+                  "category": "BOOK",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.9,
+                  "discountedprice": 22.5,
+                  "basePrice": 30.0,
+                  "name": "Libro POO V2",
+                  "id": 1,
+                  "type": "BasicProducts"
+                },
+                "2": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
+                }
+              },
+              "number_products": 5,
+              "max_products": 200
+            }
+          },
+          "212127": {
+            "id": "212127-26-01-17-11:38",
+            "openingDate": "2026-01-17T11:38:24.9592155",
+            "closingDate": "2026-01-17T11:38:24.979215",
+            "ticketState": "CLOSED",
+            "cashId": "UW1234567",
+            "clientId": "98948334B",
+            "type": "PRODUCT",
+            "ticket": [
+              {
+                "category": "CLOTHES",
+                "quantity": 3.0,
+                "discount": true,
+                "afterDiscount": 0.93,
+                "discountedprice": 0.0,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 2.0,
+                "type": "BasicProducts"
+              }
+            ],
+            "numberItems": 3,
+            "max_items": 100,
+            "productMap": {
+              "productMap": {
+                "1": {
+                  "category": "BOOK",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.9,
+                  "discountedprice": 22.5,
+                  "basePrice": 30.0,
+                  "name": "Libro POO V2",
+                  "id": 1,
+                  "type": "BasicProducts"
+                },
+                "2": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 2,
+                  "type": "BasicProducts"
+                },
+                "5": {
+                  "maxPersonalizedTexts": 3,
+                  "personalizations": [
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 5,
+                  "type": "PersonalizedProducts"
+                },
+                "6": {
+                  "maxPersonalizedTexts": 4,
+                  "personalizations": [
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "num_personalization": 0,
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 18.6,
+                  "basePrice": 20.0,
+                  "name": "Camiseta talla:L UPM",
+                  "id": 6,
+                  "type": "PersonalizedProducts"
+                },
+                "17081": {
+                  "category": "CLOTHES",
+                  "quantity": 0,
+                  "discount": false,
+                  "afterDiscount": 0.93,
+                  "discountedprice": 13.95,
+                  "basePrice": 15.0,
+                  "name": "Camiseta talla:M UPM",
+                  "id": 17081,
+                  "type": "BasicProducts"
+                }
+              },
+              "number_products": 5,
               "max_products": 200
             }
           }
         },
-        "num_receipt": 3
+        "num_receipt": 7
       }
     },
     "id": "98948334B",
@@ -340,22 +2199,24 @@
     "receiptMap": {
       "receiptmap": {
         "212121": {
-          "id": "212121-25-12-19-17:20",
-          "openingDate": "2025-12-19T17:20:05.0060961",
-          "closingDate": "2025-12-19T17:20:05.0224961",
+          "id": "212121-26-01-17-11:38",
+          "openingDate": "2026-01-17T11:38:24.8191817",
+          "closingDate": "2026-01-17T11:38:24.8476974",
           "ticketState": "CLOSED",
           "cashId": "UW1234567",
           "clientId": "55630667S",
+          "type": "PRODUCT",
           "ticket": [
             {
               "category": "BOOK",
-              "quantity": 20,
+              "quantity": 20.0,
               "discount": true,
               "afterDiscount": 0.9,
               "discountedprice": 0.0,
-              "id": 1,
+              "basePrice": 30.0,
               "name": "Libro POO V2",
-              "basePrice": 30.0
+              "id": 1.0,
+              "type": "BasicProducts"
             }
           ],
           "numberItems": 20,
@@ -368,9 +2229,10 @@
                 "discount": false,
                 "afterDiscount": 0.9,
                 "discountedprice": 22.5,
-                "id": 1,
+                "basePrice": 30.0,
                 "name": "Libro POO V2",
-                "basePrice": 30.0
+                "id": 1,
+                "type": "BasicProducts"
               },
               "2": {
                 "category": "CLOTHES",
@@ -378,42 +2240,94 @@
                 "discount": false,
                 "afterDiscount": 0.93,
                 "discountedprice": 13.95,
-                "id": 2,
+                "basePrice": 15.0,
                 "name": "Camiseta talla:M UPM",
-                "basePrice": 15.0
+                "id": 2,
+                "type": "BasicProducts"
+              },
+              "5": {
+                "maxPersonalizedTexts": 3,
+                "personalizations": [
+                  null,
+                  null,
+                  null
+                ],
+                "num_personalization": 0,
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 5,
+                "type": "PersonalizedProducts"
+              },
+              "6": {
+                "maxPersonalizedTexts": 4,
+                "personalizations": [
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                "num_personalization": 0,
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 18.6,
+                "basePrice": 20.0,
+                "name": "Camiseta talla:L UPM",
+                "id": 6,
+                "type": "PersonalizedProducts"
+              },
+              "17081": {
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 17081,
+                "type": "BasicProducts"
               }
             },
-            "number_products": 2,
+            "number_products": 5,
             "max_products": 200
           }
         },
         "212123": {
-          "id": "212123-25-12-19-17:20",
-          "openingDate": "2025-12-19T17:20:05.0304931",
-          "closingDate": "2025-12-19T17:20:05.0494922",
+          "id": "212123-26-01-17-11:38",
+          "openingDate": "2026-01-17T11:38:24.8646985",
+          "closingDate": "2026-01-17T11:38:24.8986976",
           "ticketState": "CLOSED",
           "cashId": "UW1234567",
           "clientId": "98948334B",
+          "type": "PRODUCT",
           "ticket": [
             {
               "category": "BOOK",
-              "quantity": 20,
+              "quantity": 20.0,
               "discount": true,
               "afterDiscount": 0.9,
               "discountedprice": 0.0,
-              "id": 1,
+              "basePrice": 30.0,
               "name": "Libro POO V2",
-              "basePrice": 30.0
+              "id": 1.0,
+              "type": "BasicProducts"
             },
             {
               "category": "CLOTHES",
-              "quantity": 3,
+              "quantity": 3.0,
               "discount": true,
               "afterDiscount": 0.93,
               "discountedprice": 0.0,
-              "id": 2,
+              "basePrice": 15.0,
               "name": "Camiseta talla:M UPM",
-              "basePrice": 15.0
+              "id": 2.0,
+              "type": "BasicProducts"
             }
           ],
           "numberItems": 23,
@@ -426,9 +2340,10 @@
                 "discount": false,
                 "afterDiscount": 0.9,
                 "discountedprice": 22.5,
-                "id": 1,
+                "basePrice": 30.0,
                 "name": "Libro POO V2",
-                "basePrice": 30.0
+                "id": 1,
+                "type": "BasicProducts"
               },
               "2": {
                 "category": "CLOTHES",
@@ -436,21 +2351,71 @@
                 "discount": false,
                 "afterDiscount": 0.93,
                 "discountedprice": 13.95,
-                "id": 2,
+                "basePrice": 15.0,
                 "name": "Camiseta talla:M UPM",
-                "basePrice": 15.0
+                "id": 2,
+                "type": "BasicProducts"
+              },
+              "5": {
+                "maxPersonalizedTexts": 3,
+                "personalizations": [
+                  null,
+                  null,
+                  null
+                ],
+                "num_personalization": 0,
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 5,
+                "type": "PersonalizedProducts"
+              },
+              "6": {
+                "maxPersonalizedTexts": 4,
+                "personalizations": [
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                "num_personalization": 0,
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 18.6,
+                "basePrice": 20.0,
+                "name": "Camiseta talla:L UPM",
+                "id": 6,
+                "type": "PersonalizedProducts"
+              },
+              "17081": {
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 17081,
+                "type": "BasicProducts"
               }
             },
-            "number_products": 2,
+            "number_products": 5,
             "max_products": 200
           }
         },
-        "25-12-19-17:20-97320": {
-          "id": "25-12-19-17:20-97320",
-          "openingDate": "2025-12-19T17:20:04.9800897",
-          "ticketState": "BLANK",
+        "26-01-17-11:38-53397": {
+          "id": "26-01-17-11:38-53397",
+          "openingDate": "2026-01-17T11:38:24.7991806",
+          "ticketState": "EMPTY",
           "cashId": "UW1234567",
           "clientId": "55630667S",
+          "type": "PRODUCT",
           "ticket": [],
           "numberItems": 0,
           "max_items": 100,
@@ -462,9 +2427,10 @@
                 "discount": false,
                 "afterDiscount": 0.9,
                 "discountedprice": 22.5,
-                "id": 1,
+                "basePrice": 30.0,
                 "name": "Libro POO V2",
-                "basePrice": 30.0
+                "id": 1,
+                "type": "BasicProducts"
               },
               "2": {
                 "category": "CLOTHES",
@@ -472,17 +2438,489 @@
                 "discount": false,
                 "afterDiscount": 0.93,
                 "discountedprice": 13.95,
-                "id": 2,
+                "basePrice": 15.0,
                 "name": "Camiseta talla:M UPM",
-                "basePrice": 15.0
+                "id": 2,
+                "type": "BasicProducts"
+              },
+              "5": {
+                "maxPersonalizedTexts": 3,
+                "personalizations": [
+                  null,
+                  null,
+                  null
+                ],
+                "num_personalization": 0,
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 5,
+                "type": "PersonalizedProducts"
+              },
+              "6": {
+                "maxPersonalizedTexts": 4,
+                "personalizations": [
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                "num_personalization": 0,
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 18.6,
+                "basePrice": 20.0,
+                "name": "Camiseta talla:L UPM",
+                "id": 6,
+                "type": "PersonalizedProducts"
+              },
+              "17081": {
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 17081,
+                "type": "BasicProducts"
               }
             },
-            "number_products": 2,
+            "number_products": 5,
+            "max_products": 200
+          }
+        },
+        "212130": {
+          "id": "212130",
+          "openingDate": "2026-01-17T11:38:25.1713091",
+          "ticketState": "EMPTY",
+          "cashId": "UW1234567",
+          "clientId": "B12345674",
+          "type": "COMBINED",
+          "ticket": [],
+          "numberItems": 0,
+          "max_items": 100,
+          "productMap": {
+            "productMap": {
+              "1": {
+                "category": "BOOK",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.9,
+                "discountedprice": 22.5,
+                "basePrice": 30.0,
+                "name": "Libro POO V2",
+                "id": 1,
+                "type": "BasicProducts"
+              },
+              "2": {
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 2,
+                "type": "BasicProducts"
+              },
+              "5": {
+                "maxPersonalizedTexts": 3,
+                "personalizations": [
+                  null,
+                  null,
+                  null
+                ],
+                "num_personalization": 0,
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 5,
+                "type": "PersonalizedProducts"
+              },
+              "6": {
+                "maxPersonalizedTexts": 4,
+                "personalizations": [
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                "num_personalization": 0,
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 18.6,
+                "basePrice": 20.0,
+                "name": "Camiseta talla:L UPM",
+                "id": 6,
+                "type": "PersonalizedProducts"
+              },
+              "17081": {
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 17081,
+                "type": "BasicProducts"
+              }
+            },
+            "number_products": 5,
+            "max_products": 200
+          }
+        },
+        "212128": {
+          "id": "212128-26-01-17-11:38",
+          "openingDate": "2026-01-17T11:38:25.0222142",
+          "closingDate": "2026-01-17T11:38:25.0612619",
+          "ticketState": "CLOSED",
+          "cashId": "UW1234567",
+          "clientId": "98948334B",
+          "type": "PRODUCT",
+          "ticket": [
+            {
+              "maxPersonalizedTexts": 0.0,
+              "personalizations": [],
+              "num_personalization": 0.0,
+              "category": "CLOTHES",
+              "quantity": 1.0,
+              "discount": true,
+              "afterDiscount": 0.93,
+              "discountedprice": 13.95,
+              "basePrice": 15.0,
+              "name": "Camiseta talla:M UPM",
+              "id": 5.0,
+              "type": "PersonalizedProducts"
+            },
+            {
+              "maxPersonalizedTexts": 3.0,
+              "personalizations": [
+                "red",
+                "blue",
+                "green"
+              ],
+              "num_personalization": 3.0,
+              "category": "CLOTHES",
+              "quantity": 3.0,
+              "discount": true,
+              "afterDiscount": 0.93,
+              "discountedprice": 13.95,
+              "basePrice": 19.5,
+              "name": "Camiseta talla:M UPM",
+              "id": 5.0,
+              "type": "PersonalizedProducts"
+            },
+            {
+              "maxPersonalizedTexts": 2.0,
+              "personalizations": [
+                "red",
+                "blue"
+              ],
+              "num_personalization": 2.0,
+              "category": "CLOTHES",
+              "quantity": 3.0,
+              "discount": true,
+              "afterDiscount": 0.93,
+              "discountedprice": 18.6,
+              "basePrice": 24.0,
+              "name": "Camiseta talla:L UPM",
+              "id": 6.0,
+              "type": "PersonalizedProducts"
+            }
+          ],
+          "numberItems": 7,
+          "max_items": 100,
+          "productMap": {
+            "productMap": {
+              "1": {
+                "category": "BOOK",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.9,
+                "discountedprice": 22.5,
+                "basePrice": 30.0,
+                "name": "Libro POO V2",
+                "id": 1,
+                "type": "BasicProducts"
+              },
+              "2": {
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 2,
+                "type": "BasicProducts"
+              },
+              "5": {
+                "maxPersonalizedTexts": 3,
+                "personalizations": [
+                  null,
+                  null,
+                  null
+                ],
+                "num_personalization": 0,
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 5,
+                "type": "PersonalizedProducts"
+              },
+              "6": {
+                "maxPersonalizedTexts": 4,
+                "personalizations": [
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                "num_personalization": 0,
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 18.6,
+                "basePrice": 20.0,
+                "name": "Camiseta talla:L UPM",
+                "id": 6,
+                "type": "PersonalizedProducts"
+              },
+              "17081": {
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 17081,
+                "type": "BasicProducts"
+              }
+            },
+            "number_products": 5,
+            "max_products": 200
+          }
+        },
+        "212129": {
+          "id": "212129-26-01-17-11:38",
+          "openingDate": "2026-01-17T11:38:25.1162613",
+          "closingDate": "2026-01-17T11:38:25.1583106",
+          "ticketState": "CLOSED",
+          "cashId": "UW1234567",
+          "clientId": "B12345674",
+          "type": "SERVICE",
+          "ticket": [],
+          "numberItems": 0,
+          "max_items": 100,
+          "productMap": {
+            "productMap": {
+              "1": {
+                "category": "BOOK",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.9,
+                "discountedprice": 22.5,
+                "basePrice": 30.0,
+                "name": "Libro POO V2",
+                "id": 1,
+                "type": "BasicProducts"
+              },
+              "2": {
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 2,
+                "type": "BasicProducts"
+              },
+              "5": {
+                "maxPersonalizedTexts": 3,
+                "personalizations": [
+                  null,
+                  null,
+                  null
+                ],
+                "num_personalization": 0,
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 5,
+                "type": "PersonalizedProducts"
+              },
+              "6": {
+                "maxPersonalizedTexts": 4,
+                "personalizations": [
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                "num_personalization": 0,
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 18.6,
+                "basePrice": 20.0,
+                "name": "Camiseta talla:L UPM",
+                "id": 6,
+                "type": "PersonalizedProducts"
+              },
+              "17081": {
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 17081,
+                "type": "BasicProducts"
+              }
+            },
+            "number_products": 5,
+            "max_products": 200
+          }
+        },
+        "212127": {
+          "id": "212127-26-01-17-11:38",
+          "openingDate": "2026-01-17T11:38:24.9592155",
+          "closingDate": "2026-01-17T11:38:24.979215",
+          "ticketState": "CLOSED",
+          "cashId": "UW1234567",
+          "clientId": "98948334B",
+          "type": "PRODUCT",
+          "ticket": [
+            {
+              "category": "CLOTHES",
+              "quantity": 3.0,
+              "discount": true,
+              "afterDiscount": 0.93,
+              "discountedprice": 0.0,
+              "basePrice": 15.0,
+              "name": "Camiseta talla:M UPM",
+              "id": 2.0,
+              "type": "BasicProducts"
+            }
+          ],
+          "numberItems": 3,
+          "max_items": 100,
+          "productMap": {
+            "productMap": {
+              "1": {
+                "category": "BOOK",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.9,
+                "discountedprice": 22.5,
+                "basePrice": 30.0,
+                "name": "Libro POO V2",
+                "id": 1,
+                "type": "BasicProducts"
+              },
+              "2": {
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 2,
+                "type": "BasicProducts"
+              },
+              "5": {
+                "maxPersonalizedTexts": 3,
+                "personalizations": [
+                  null,
+                  null,
+                  null
+                ],
+                "num_personalization": 0,
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 5,
+                "type": "PersonalizedProducts"
+              },
+              "6": {
+                "maxPersonalizedTexts": 4,
+                "personalizations": [
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                "num_personalization": 0,
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 18.6,
+                "basePrice": 20.0,
+                "name": "Camiseta talla:L UPM",
+                "id": 6,
+                "type": "PersonalizedProducts"
+              },
+              "17081": {
+                "category": "CLOTHES",
+                "quantity": 0,
+                "discount": false,
+                "afterDiscount": 0.93,
+                "discountedprice": 13.95,
+                "basePrice": 15.0,
+                "name": "Camiseta talla:M UPM",
+                "id": 17081,
+                "type": "BasicProducts"
+              }
+            },
+            "number_products": 5,
             "max_products": 200
           }
         }
       },
-      "num_receipt": 3
+      "num_receipt": 7
+    },
+    "type": "Cashier"
+  },
+  {
+    "id": "UW6390188",
+    "email": "pepe0@upm.es",
+    "name": "pepecurro2",
+    "receiptMap": {
+      "receiptmap": {},
+      "num_receipt": 0
     },
     "type": "Cashier"
   }

@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.grupo05.persistencepackage;
 
 import com.google.gson.*;
+import es.upm.etsisi.poo.grupo05.ExceptionHandler;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.*;
 import java.lang.reflect.Type;
 
@@ -10,15 +11,13 @@ public class ProductAdapter implements JsonDeserializer<Product> {
     public Product deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
 
-        // We read the type field of a our jsonelement
         if (!jsonObject.has("type")) {
             throw new JsonParseException("Type field is mandatory in order to deserializate object of the class Product");
         }
 
         String type = jsonObject.get("type").getAsString();
 
-        // We choose the class we are deserializating
-        Class<? extends Product> productClass; //? means we still dont know which class we'll get until the switch
+        Class<? extends Product> productClass;
         switch (type) {
             case "BasicProducts":
                 productClass = BasicProducts.class;
@@ -33,7 +32,7 @@ public class ProductAdapter implements JsonDeserializer<Product> {
                 productClass = Meeting.class;
                 break;
             default:
-                throw new JsonParseException("Unkown type of product" + type);
+                throw new JsonParseException(ExceptionHandler.getJsonParseException());
         }
 
         return context.deserialize(json, productClass);
