@@ -1,4 +1,4 @@
-package es.upm.etsisi.poo.grupo05.persistencepackage;
+package es.upm.etsisi.poo.grupo05.persistencepackage.adapters;
 
 import com.google.gson.*;
 import java.lang.reflect.Type;
