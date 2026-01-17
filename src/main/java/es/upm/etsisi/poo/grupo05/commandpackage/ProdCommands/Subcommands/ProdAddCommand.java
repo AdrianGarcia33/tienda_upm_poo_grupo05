@@ -115,7 +115,7 @@ public class ProdAddCommand extends Command {
         } catch (NullPointerException e) {
             System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
         } catch (DateTimeParseException e){
-            System.out.println("Date/Time format is incorrect, use yyyy-MM-dd");
+            System.out.println(ExceptionHandler.getDateTimeParseException());
         }
         return false;
     }

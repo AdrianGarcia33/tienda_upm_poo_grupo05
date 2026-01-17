@@ -1,9 +1,17 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage.productpackage;
 
+/**
+ * Abstract base class representing a generic element in the system.
+ * It serves as a parent for Product and ProductService.
+ */
 public abstract class TicketElement {
     protected String name;
     protected int id;
 
+    /**
+     * Constructs a new TicketElement.
+     * @param id
+     */
     public TicketElement(int id) {
         this.id = id;
     }

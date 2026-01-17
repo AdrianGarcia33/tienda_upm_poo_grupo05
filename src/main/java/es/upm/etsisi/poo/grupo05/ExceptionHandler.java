@@ -19,6 +19,11 @@ public class ExceptionHandler {
     private static final String IO_EXCEPTION_MESSAGE = "Error: FileNotFound";
     private static final String TICKET_TYPE_UNACCPTABLE = "ERROR: Unknown ticket type";
     private static final String TICKET_NOT_EXISTS = "Error: The ticket was not found";
+    private static final String DATE_IS_NOT_VALID = "Error: The date is not valid";
+    private static final String PRICE_CANNOT_BE_NEGATIVE = "Error: Price cannot be negative";
+    private static final String LIST_FULL = "Error: The list is already full";
+    private static final String NAME_OUT_OF_RANGE_MESSAGE = "Error: The name of the product is invalid";
+    private static final String INVALID_ID_MESSAGE = "Error: The product id is invalid";
 
     //Messages for printing errors about the persistence
     private static final String JSON_PARSE_EXCEPTION = "Error: Unknown type of product";
@@ -88,5 +93,14 @@ public class ExceptionHandler {
 
     public static String getTicketNotFromCashier(){ return "ERROR: The ticket doesn't belong to the cashier with provided ID";}
 
+    public static String getDateIsNotValid(){return DATE_IS_NOT_VALID;}
+
+    public static String getPriceCannotBeNegative(){return PRICE_CANNOT_BE_NEGATIVE;}
+
+    public static String getListFull(){return LIST_FULL;}
+
+    public static String getNameOutOfRangeMessage(){return NAME_OUT_OF_RANGE_MESSAGE;}
+
+    public static String getInvalidIdMessage(){return INVALID_ID_MESSAGE;}
 }
 

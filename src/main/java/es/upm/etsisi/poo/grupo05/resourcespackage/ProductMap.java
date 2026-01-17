@@ -1,10 +1,12 @@
 package es.upm.etsisi.poo.grupo05.resourcespackage;
+
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.BasicProducts;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Category;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.Product;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.ProductService;
 
 import java.util.*;
+
 import static es.upm.etsisi.poo.grupo05.ExceptionHandler.*;
 
 /**
@@ -17,7 +19,7 @@ public class ProductMap {
     private int max_products;
 
     //Builder
-    public ProductMap(int max_products){
+    public ProductMap(int max_products) {
         this.max_products = max_products;
         productMap = new HashMap<>();
         serviceMap = new HashMap<>();
@@ -63,10 +65,11 @@ public class ProductMap {
 
     /**
      * As the name suggests, it returns a Product given a certain id.
+     *
      * @param id An integer which identifies an object in the list
      * @return
      */
-    public Product getProduct (int id) {
+    public Product getProduct(int id) {
         Product p = productMap.get(id);
         if (p != null) {
             return p;
@@ -78,14 +81,15 @@ public class ProductMap {
 
     /**
      * As the name suggests, it returns a ProductService given a certain id.
+     *
      * @param id An integer which identifies an object in the list
      * @return
      */
-    public ProductService getService (int id){
+    public ProductService getService(int id) {
         ProductService p = serviceMap.get(id);
-        if(p!= null){
+        if (p != null) {
             return p;
-        }else{
+        } else {
             System.out.println(getNullPointerExceptionMessage());
             return null;
         }
@@ -94,61 +98,66 @@ public class ProductMap {
 
     /**
      * Checks if a certain product in on the list
+     *
      * @param id An integer which identifies an object in the list
      * @return
      */
-    public boolean hasProduct (int id) {
+    public boolean hasProduct(int id) {
         return productMap.containsKey(id);
     }
 
     /**
      * Checks if a certain productService in on the list
+     *
      * @param id An integer which identifies an object in the list
      * @return
      */
-    public boolean hasService (int id) {
+    public boolean hasService(int id) {
         return serviceMap.containsKey(id);
     }
 
 
     /**
      * Method made to add a product into our catalog
+     *
      * @param product Product to add
      * @return
      */
-    public boolean addProduct (Product product) {
+    public boolean addProduct(Product product) {
         boolean resultado = false;
         boolean problem = false;
         if (product != null) {
-        int id = product.getId();
+            int id = product.getId();
 
-        if (id <= 0) {
-            System.out.println("Error: product ID is out of range");
-            problem = true;
-        }
-        if(product.getName().isEmpty() || product.getName().length()>100){
-            System.out.println("Error: product NAME is out of range");
-            problem = true;
-        }
-        if(product.getBasePrice()<0){
-            System.out.println("Error: product PRICE is out of range");
-            problem = true;
-        }
-        if (number_products >= max_products) {
-            System.out.println("Error: product list is full");
-            problem = true;
-        }
-        if(problem){return resultado;}
+            if (id <= 0) {
+                System.out.println(getInvalidIdMessage());
+                problem = true;
+            }
+            if (product.getName().isEmpty() || product.getName().length() > 100) {
+                System.out.println(getNameOutOfRangeMessage());
+                problem = true;
+            }
+            if (product.getBasePrice() < 0) {
+                System.out.println(getPriceCannotBeNegative());
+                problem = true;
+            }
+            if (number_products >= max_products) {
+                System.out.println(getListFull());
+                problem = true;
+            }
+            if (problem) {
+                return resultado;
+            }
 
             if (productMap.containsKey(id)) {
-                System.out.println("This type of product already exists, please try to use the update product command ");
+                System.out.println(getIdOfProductsExists());
             } else {
                 productMap.put(id, product);
                 resultado = true;
                 number_products++;
             }
         } else {
-            System.out.println("Error: this product does not exist");
+            System.out.println(getNullPointerExceptionMessage());
         }
 
         return resultado;
@@ -157,24 +166,28 @@ public class ProductMap {
 
     /**
      * Method made to add a productService into our catalog
+     *
      * @param product ProductService to add
      * @return
      */
-    public boolean addService (ProductService product) {
+    public boolean addService(ProductService product) {
         boolean resultado = false;
         if (product != null) {
-            serviceMap.put(product.getId(), product);
-            resultado = true;
-        }
+            if (product.isTemporallyValid()) {
+                serviceMap.put(product.getId(), product);
+                resultado = true;
+            } else System.out.println(getDateIsNotValid());
+        } else System.out.println(getNullPointerExceptionMessage());
         return resultado;
     }
 
     /**
      * Method to remove said product from said id
+     *
      * @param id An integer which identifies an object in the list
      * @return
      */
-    public boolean removeProduct (int id) {
+    public boolean removeProduct(int id) {
         boolean resultado = false;
 
         if (productMap.get(id) != null) {
@@ -182,7 +195,7 @@ public class ProductMap {
             resultado = true;
             number_products--;
         } else {
-            System.out.println("Error: this product does not exist");
+            System.out.println(getNullPointerExceptionMessage());
         }
 
         return resultado;
@@ -190,6 +203,7 @@ public class ProductMap {
 
     /**
      * Method made to update the data of a certain product
+     *
      * @param id
      * @param name
      * @param price
@@ -199,33 +213,34 @@ public class ProductMap {
     public boolean updateProduct(int id, String name, float price, Category category) {
         boolean resultado = false;
 
-            if (productMap.get(id) != null) {
-                BasicProducts p = (BasicProducts) productMap.get(id);
+        if (productMap.get(id) != null) {
+            BasicProducts p = (BasicProducts) productMap.get(id);
 
-                if (name != null) {
-                    p.setName(name);
-                }
-
-                if (price < 0) {
-                    System.out.println("Error: product price cannot be negative");
-                } else {
-                    p.setBasePrice(price);
-                }
-
-                if (category != null) {
-                    p.setCategory(category);
-                }
-                resultado = true;
-
-            } else {
-                System.out.println("Error: product does not exist");
+            if (name != null) {
+                p.setName(name);
             }
+
+            if (price < 0) {
+                System.out.println(getPriceCannotBeNegative());
+            } else {
+                p.setBasePrice(price);
+            }
+
+            if (category != null) {
+                p.setCategory(category);
+            }
+            resultado = true;
+
+        } else {
+            System.out.println(getNullPointerExceptionMessage());
+        }
 
         return resultado;
     }
 
     /**
      * Method made to give a visual representation of our catalog
+     *
      * @return
      */
     public String printList() {
@@ -233,7 +248,12 @@ public class ProductMap {
         catalog.append("Catalog: ");
         for (Product product : productMap.values()) {
             if (product != null) {
-                catalog.append(" "+product.toString()+"\n");
+                catalog.append(" " + product.toString() + "\n");
+            }
+        }
+        for (ProductService service : serviceMap.values()) {
+            if (service != null) {
+                catalog.append(" " + service.toString() + "\n");
             }
         }
 
@@ -255,14 +275,6 @@ public class ProductMap {
         } while (this.hasProduct(newId));
         return newId;
     }
-
-
-
-
-
-
-
-
 
 
 }
