@@ -7,6 +7,7 @@ import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +25,36 @@ public class ProdAddCommand extends Command {
     @Override
     public boolean apply(String[] args) {
         try {
+            int id;
+            float price = -1;
+            Category category = null;
+            int maxPers = 0;
+
+            LocalDate maxDate = null;
+            ServiceType serviceType = null;
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            if (args.length == 2){
+
+                String date = args[0];
+                String service = args[1];
+
+                if (date != null){
+                    maxDate = LocalDate.parse(date, dateFormat);
+                }
+                if (service != null){
+                    serviceType = ServiceType.valueOf(service.toUpperCase());
+                }
+
+                ProductService productService = new ProductService(serviceType, maxDate);
+                if (productMap.addService(productService)) {
+                    System.out.println(productService.toString());
+                    System.out.println("prod add: ok");
+                }
+                return false;
+            }
+
+
             String line = String.join(" ", args).trim();
 
             line = line.replaceAll("\"{2,}", "\"");
@@ -36,77 +67,46 @@ public class ProdAddCommand extends Command {
                 return false;
             }
 
+            String idStr = m.group(1);           // puede ser null
+            String name = m.group(2);
+            String categoryStr = m.group(3);
+            String priceStr = m.group(4);
+            String maxPersStr = m.group(5);      // opcional
 
+            if (idStr != null) {
+                id = Integer.parseInt(idStr);
+            } else {
+                id = productMap.generateId();
+            }
 
-            int id;
-            float price = -1;
-            Category category = null;
-            int maxPers = 0;
+            if (priceStr != null) {
+                price = Float.parseFloat(priceStr);
+            }
 
-            LocalDate maxDate = null;
-            ServiceType serviceType = null;
-            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            if (categoryStr != null) {
+                category = Category.valueOf(categoryStr);
+            }
 
-            if (args.length == 2){
-
-                 String date = args[0];
-                 String service = args[1];
-
-                 if (date != null){
-                     maxDate = LocalDate.parse(date, dateFormat);
-                 }
-                 if (service != null){
-                     serviceType = ServiceType.valueOf(service.toUpperCase());
-                 }
-
-                 ProductService productService = new ProductService(serviceType, maxDate);
-                 if (productMap.addService(productService)) {
-                     System.out.println(productService.toString());
-                     System.out.println("prod add: ok");
-                 }
-            } else if (args.length > 2) {
-
-                String idStr = m.group(1);           // puede ser null
-                String name = m.group(2);
-                String categoryStr = m.group(3);
-                String priceStr = m.group(4);
-                String maxPersStr = m.group(5);      // opcional
-
-                if (idStr != null) {
-                    id = Integer.parseInt(idStr);
-                } else {
-                    id = productMap.generateId();
-                }
-
-                if (priceStr != null) {
-                    price = Float.parseFloat(priceStr);
-                }
-
-                if (categoryStr != null) {
-                    category = Category.valueOf(categoryStr);
-                }
-
-                if (maxPersStr != null) {
-                    maxPers = Integer.parseInt(maxPersStr);
-                }
-                if (productMap.hasProduct(id)) {
-                    System.out.println(ExceptionHandler.getIdOfProductsExists());
-                } else {
-                    if ((id > 0) && (price >= 0) && (category != null) && (name != null && !name.isEmpty())) {
-                        if (maxPers == 0) {
-                            BasicProducts product = new BasicProducts(id, name, price, category, 0);
-                            System.out.println(product.toString());
-                            productMap.addProduct(product);
-                            System.out.println("prod add: ok");
-                        } else {
-                            PersonalizedProducts product = new PersonalizedProducts(id, name, price, category, 0, maxPers);
-                            System.out.println(product.toString());
-                            productMap.addProduct(product);
-                            System.out.println("prod add: ok");
-                        }
+            if (maxPersStr != null) {
+                maxPers = Integer.parseInt(maxPersStr);
+            }
+            if (productMap.hasProduct(id)) {
+                System.out.println(ExceptionHandler.getIdOfProductsExists());
+            } else {
+                if ((id > 0) && (price >= 0) && (category != null) && (name != null && !name.isEmpty())) {
+                    if (maxPers == 0) {
+                        BasicProducts product = new BasicProducts(id, name, price, category, 0);
+                        System.out.println(product.toString());
+                        productMap.addProduct(product);
+                        System.out.println("prod add: ok");
                     } else {
-                        System.out.println(ExceptionHandler.getNullArgument());
+                        PersonalizedProducts product = new PersonalizedProducts(id, name, price, category, 0, maxPers);
+                        System.out.println(product.toString());
+                        productMap.addProduct(product);
+                        System.out.println("prod add: ok");
                     }
+                } else {
+                    System.out.println(ExceptionHandler.getNullArgument());
                 }
             }
 
@@ -114,6 +114,8 @@ public class ProdAddCommand extends Command {
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
         } catch (NullPointerException e) {
             System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
+        } catch (DateTimeParseException e){
+            System.out.println("Date/Time format is incorrect, use yyyy-MM-dd");
         }
         return false;
     }
