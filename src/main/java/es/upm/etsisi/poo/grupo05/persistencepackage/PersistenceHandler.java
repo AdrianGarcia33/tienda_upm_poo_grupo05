@@ -3,6 +3,7 @@ package es.upm.etsisi.poo.grupo05.persistencepackage;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import es.upm.etsisi.poo.grupo05.ExceptionHandler;
+import es.upm.etsisi.poo.grupo05.persistencepackage.adapters.*;
 import es.upm.etsisi.poo.grupo05.resourcespackage.ProductMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.UserMap;
 import es.upm.etsisi.poo.grupo05.resourcespackage.productpackage.*;
