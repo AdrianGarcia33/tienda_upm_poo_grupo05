@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "serviceType": "INSURANCE",
+    "maxDate": "2025-12-21",
+    "id": 1,
+    "type": "ProductService"
+  },
+  {
+    "serviceType": "TRANSPORT",
+    "maxDate": "2025-12-24",
+    "id": 2,
+    "type": "ProductService"
+  }
+]
