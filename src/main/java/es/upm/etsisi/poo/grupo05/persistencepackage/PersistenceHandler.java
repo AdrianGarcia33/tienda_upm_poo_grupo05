@@ -123,8 +123,11 @@ public class PersistenceHandler {
         try (FileWriter writer = new FileWriter(catalogFile)) {
             ArrayList<Product> productList = new ArrayList<>(productMap.getProductMap().values());
             createWritingGson().toJson(productList, writer);
+
         } catch (IOException e) {
             System.out.println(ExceptionHandler.getIoExceptionMessage());
+        }  catch (NullPointerException e ) {
+            System.out.println(ExceptionHandler.getNullPointerPersistence());
         }
     }
 
@@ -137,8 +140,11 @@ public class PersistenceHandler {
             //Lo mismo aqui, como siempre, importante diferencia en este caso que tenemos dos gson, el de escribir y el de leer
             ArrayList<User> userList = new ArrayList<>(userMap.getUserMap().values());
             createWritingGson().toJson(userList, writer);
+
         } catch (IOException e) {
             System.out.println(ExceptionHandler.getIoExceptionMessage());
+        }  catch (NullPointerException e ) {
+            System.out.println(ExceptionHandler.getNullPointerPersistence());
         }
     }
 
@@ -150,6 +156,7 @@ public class PersistenceHandler {
         try (FileWriter writer = new FileWriter(servicesFile)) {
             ArrayList<ProductService> serviceList = new ArrayList<>(productMap.getServiceMap().values());
             createWritingGson().toJson(serviceList, writer);
+
         } catch (IOException e) {
             System.out.println(ExceptionHandler.getIoExceptionMessage());
         } catch (NullPointerException e ) {
