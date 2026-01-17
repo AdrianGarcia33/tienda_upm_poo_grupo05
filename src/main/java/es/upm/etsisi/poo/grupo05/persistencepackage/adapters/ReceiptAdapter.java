@@ -18,7 +18,7 @@ public class ReceiptAdapter implements JsonDeserializer<Receipt> {
     public Receipt deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
 
-        // 1. Creamos un Gson auxiliar que sepa manejar la totalidad de los elementos
+        // Creamos un Gson auxiliar que sepa manejar la totalidad de los elementos
         // Necesitamos registrar los adaptadores para que pueda instanciar ProductMap y sus contenidos
         Gson tempGson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
@@ -27,11 +27,11 @@ public class ReceiptAdapter implements JsonDeserializer<Receipt> {
                 .registerTypeAdapter(ProductService.class, new ProductServiceAdapter())
                 .create();
 
-        // 2. Dejamos que este Gson cree la instancia base de Receipt
+        // Dejamos que este Gson cree la instancia base de Receipt
         // Ahora no fallará al encontrar ProductMap o Product abstractos
         Receipt receipt = tempGson.fromJson(json, Receipt.class);
 
-        // 3. Ahora arreglamos la lista "ticket" manualmente
+        // Ahora arreglamos la lista "ticket" manualmente
         JsonArray ticketArray = jsonObject.getAsJsonArray("ticket");
         if (ticketArray != null) {
             List<TicketElement> items = new LinkedList<>();
@@ -44,7 +44,7 @@ public class ReceiptAdapter implements JsonDeserializer<Receipt> {
             }
             
             // Hola muy buenas, digamos que esto (entre muchas cosas) me lo ha hecho la ia, es una cosa que se llama reflexión
-            // y es para hacer un bypass de la privacidad de algunas clases. Digamos que no lo entiendo.
+            // y es para hacer un bypass de la privacidad de algunas clases. Digamos que no lo entiendo. Muchas gracias por vuestro tiempo
             try {
                 java.lang.reflect.Field ticketField = Receipt.class.getDeclaredField("ticket");
                 ticketField.setAccessible(true);
