@@ -20,6 +20,7 @@ public class ProductMap {
     public ProductMap(int max_products){
         this.max_products = max_products;
         productMap = new HashMap<>();
+        serviceMap = new HashMap<>();
         this.number_products = 0;
     }
 
