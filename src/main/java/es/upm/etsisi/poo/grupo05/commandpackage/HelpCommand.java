@@ -15,7 +15,7 @@ public class HelpCommand extends Command {
 
         menu.append("Commands:\n");
         // Clientes
-        menu.append("  client add \"<nombre>\" <DNI> <email> <cashId>\n");
+        menu.append("  client add \"<name>\" (<DNI>|<NIF>) <email> <cashId> \n");
         menu.append("  client remove <DNI>\n");
         menu.append("  client list\n");
 
@@ -26,14 +26,14 @@ public class HelpCommand extends Command {
         menu.append("  cash tickets <id>\n");
 
         // Tickets
-        menu.append("  ticket new [<id>] <cashId> <userId>\n");
+        menu.append("  ticket new [<id>] <cashId> < userId> -[c|p|s] (default -p option)\n");
         menu.append("  ticket add <ticketId><cashId> <prodId> <amount> [--p<txt> --p<txt>]\n");
         menu.append("  ticket remove <ticketId><cashId> <prodId>\n");
         menu.append("  ticket print <ticketId> <cashId>\n");
         menu.append("  ticket list\n");
 
         // Productos
-        menu.append("  prod add <id> \"<name>\" <category> <price>\n");
+        menu.append("  prod add <expiration: yyyy-MM-dd > <category>\n");
         menu.append("  prod update <id> NAME|CATEGORY|PRICE <value>\n");
         menu.append("  prod addFood [<id>] \"<name>\" <price> <expiration:yyyy-MM-dd> <max_people>\n");
         menu.append("  prod addMeeting [<id>] \"<name>\" <price> <expiration:yyyy-MM-dd> <max_people>\n");
