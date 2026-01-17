@@ -22,6 +22,17 @@
     "type": "BasicProducts"
   },
   {
+    "category": "CLOTHES",
+    "quantity": 0,
+    "discount": false,
+    "afterDiscount": 0.93,
+    "discountedprice": 13.95,
+    "basePrice": 15.0,
+    "name": "Camiseta talla:M UPM",
+    "id": 70693,
+    "type": "BasicProducts"
+  },
+  {
     "maxPersonalizedTexts": 3,
     "personalizations": [
       null,
@@ -57,16 +68,5 @@
     "name": "Camiseta talla:L UPM",
     "id": 6,
     "type": "PersonalizedProducts"
-  },
-  {
-    "category": "CLOTHES",
-    "quantity": 0,
-    "discount": false,
-    "afterDiscount": 0.93,
-    "discountedprice": 13.95,
-    "basePrice": 15.0,
-    "name": "Camiseta talla:M UPM",
-    "id": 17081,
-    "type": "BasicProducts"
   }
 ]
