@@ -96,10 +96,12 @@ public class TicketNewCommand extends Command {
                         System.out.println("ticket new: ok\n");
                     }
                 }
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e){
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
-        }catch (NullPointerException e){
+        } catch (NullPointerException e){
             System.out.println(ExceptionHandler.getNullArgument());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(ExceptionHandler.getArrayIndexOutOfBoundsMessage());
         }
         return false;
     }
