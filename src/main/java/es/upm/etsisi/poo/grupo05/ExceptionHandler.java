@@ -8,7 +8,7 @@ public class ExceptionHandler {
     private static final String CLASS_CAST_EXCEPTION_MESSAGE = "Error: Incorrect typing of an object";
     private static final String ILLEGAL_ARGUMENT_EXCEPTION_MESSAGE = "Error: Incorrect type of data";
     private static final String INPUT_MISMATCH_EXCEPTION_MESSAGE = "Error: Incorrect input of data";
-    private static final String ARRAY_INDEX_OUT_OF_BOUNDS_MESSAGE = "Error: Issue found while accesing data";
+    private static final String ARRAY_INDEX_OUT_OF_BOUNDS_MESSAGE = "Error: Issue found while accesing data or reading parameters";
     private static final String FILE_NOT_FOUND_MESSAGE = "Error: Cannot find the input file";
     private static final String EMAIL_UNACCEPTABLE= "ERROR: The email is not acceptable";
     private static final String NOT_INSTANCE_OF_CASHIER_MESSAGE = "Error: No such cashier with this ID";
