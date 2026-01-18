@@ -31,13 +31,14 @@ public class TicketAddCommand extends Command {
     @Override
     public boolean apply(String[] args) {
         String line = String.join(" ", args).trim();
-        args = line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+        args = line.split("\\s+(?=(?:[^\"]\"[^\"]\")[^\"]$)");
         try {
 
             String receiptId = args[0];
             String cashierId = args[1];
             String productIdString = args[2];
-            int amount = Integer.parseInt(args[3]);
+            int amount = 1;
+            if (args.length >= 4) amount = Integer.parseInt(args[3]);
 
             User cashier = userMap.getUserMap().get(cashierId);
             if (!(cashier instanceof Cashier)) {
@@ -79,13 +80,13 @@ public class TicketAddCommand extends Command {
                 }
             }
 
-            }catch(IllegalArgumentException ex){
-                System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
-            }catch(NullPointerException ex){
-                System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
-            }
+        }catch(IllegalArgumentException ex){
+            System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
+        }catch(NullPointerException ex){
+            System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
+        }
 
-            return false;
+        return false;
     }
     private boolean isServiceId(String line){
         if(line.endsWith("S")){return true;}

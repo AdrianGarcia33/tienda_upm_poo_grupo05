@@ -37,7 +37,7 @@ public class EnterprisePrinter<T extends TicketElement> implements ReceiptPrinte
             }
         }
 
-        // 4. Bloque de Productos (siguiendo la lógica de NormalPrinter)
+        // 4. Bloque de Productos
         double subTotalPrice = 0.0;
         if (!products.isEmpty()) {
             sb.append("Product Included\n");
@@ -47,12 +47,15 @@ public class EnterprisePrinter<T extends TicketElement> implements ReceiptPrinte
                 if (p instanceof BasicProducts bp) {
                     int quantity = bp.getQuantity();
                     itemTotal = bp.getTotalPrice(quantity);
-                    // Imprimimos el toString del producto básico
-                    sb.append("  ").append(bp.toString()).append("\n");
+
+                    // CORRECCIÓN: Imprime la línea tantas veces como indique quantity
+                    for (int i = 0; i < quantity; i++) {
+                        sb.append("  ").append(bp.toString()).append("\n");
+                    }
                 } else if (p instanceof Events event) {
                     int participants = event.getActualParticipants();
                     itemTotal = p.getTotalPrice(participants);
-                    // Imprimimos el toString del evento (Meeting, etc)
+                    // Los eventos se suelen imprimir una vez con el total de asistentes
                     sb.append("  ").append(p.toString()).append("\n");
                 } else {
                     itemTotal = p.getTotalPrice(1);
