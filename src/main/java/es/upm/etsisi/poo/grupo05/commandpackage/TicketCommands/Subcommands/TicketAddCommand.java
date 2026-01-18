@@ -31,7 +31,7 @@ public class TicketAddCommand extends Command {
     @Override
     public boolean apply(String[] args) {
         String line = String.join(" ", args).trim();
-        args = line.split("\\s+(?=(?:[^\"]\"[^\"]\")[^\"]$)");
+        args = line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
         try {
 
             String receiptId = args[0];
@@ -39,7 +39,6 @@ public class TicketAddCommand extends Command {
             String productIdString = args[2];
             int amount = 1;
             if (args.length >= 4) amount = Integer.parseInt(args[3]);
-
             User cashier = userMap.getUserMap().get(cashierId);
             if (!(cashier instanceof Cashier)) {
                 System.out.println("No such cashier with ID: " + cashierId);

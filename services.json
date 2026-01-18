@@ -1,8 +1,14 @@
 [
   {
     "serviceType": "INSURANCE",
-    "maxDate": "2027-12-31",
+    "maxDate": "2026-12-21",
     "id": 1,
+    "type": "ProductService"
+  },
+  {
+    "serviceType": "TRANSPORT",
+    "maxDate": "2026-12-24",
+    "id": 2,
     "type": "ProductService"
   }
 ]
