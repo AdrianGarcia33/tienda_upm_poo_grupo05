@@ -116,6 +116,8 @@ public class ProdAddCommand extends Command {
             System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
         } catch (DateTimeParseException e){
             System.out.println(ExceptionHandler.getDateTimeParseException());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(ExceptionHandler.getArrayIndexOutOfBoundsMessage());
         }
         return false;
     }

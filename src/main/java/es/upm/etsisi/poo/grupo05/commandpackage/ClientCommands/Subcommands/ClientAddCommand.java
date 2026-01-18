@@ -36,6 +36,8 @@ public class ClientAddCommand extends Command {
         System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
     } catch (NullPointerException e) {
         System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
+    } catch (ArrayIndexOutOfBoundsException e) {
+        System.out.println(ExceptionHandler.getArrayIndexOutOfBoundsMessage());
     }
 
         return false;

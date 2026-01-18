@@ -83,6 +83,8 @@ public class TicketAddCommand extends Command {
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
         }catch(NullPointerException ex){
             System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(ExceptionHandler.getArrayIndexOutOfBoundsMessage());
         }
 
         return false;
