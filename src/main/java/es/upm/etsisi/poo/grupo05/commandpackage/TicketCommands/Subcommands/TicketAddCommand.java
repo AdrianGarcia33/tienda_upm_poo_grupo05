@@ -37,6 +37,7 @@ public class TicketAddCommand extends Command {
             String receiptId = args[0];
             String cashierId = args[1];
             String productIdString = args[2];
+            int amount = Integer.parseInt(args[3]);
 
             User cashier = userMap.getUserMap().get(cashierId);
             if (!(cashier instanceof Cashier)) {
@@ -49,11 +50,11 @@ public class TicketAddCommand extends Command {
 
             }
             if (isServiceId(productIdString)) {
-                if (cashier.getReceiptMap().addItemtoReceipt(receiptId, productMap.getService(serviceIdToInteger(productIdString)), 1)) {
+                if (cashier.getReceiptMap().addItemtoReceipt(receiptId, productMap.getService(serviceIdToInteger(productIdString)), amount)) {
                     System.out.println("ticket add: ok");
                 }
             } else {
-                int amount = Integer.parseInt(args[3]);
+
                 int productId = Integer.parseInt(args[2]);
                 if (args.length == 4) {
                     if (cashier.getReceiptMap().addItemtoReceipt(receiptId, productMap.getProduct(productId), amount)) {

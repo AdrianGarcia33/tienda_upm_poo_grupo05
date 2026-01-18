@@ -154,12 +154,18 @@ public class Receipt<T extends TicketElement> {
                 }
             // Caso 2: Es un Servicio
         } else if (product instanceof ProductService service) {
-            if (service.isTemporallyValid()) {
-                ticket.add(product);
-                numberItems += 1;
+            if ((numberItems + quantity) <= max_items) {
+                if (service.isTemporallyValid()) {
+                for (int i = 0; i < quantity; i++) {
+                    ticket.add(product);
+                }
+                numberItems += quantity;
                 result = true;
-            }else{
-                System.out.println(ExceptionHandler.getTemporallyInvalidMessage());
+                } else {
+                    System.out.println(ExceptionHandler.getTemporallyInvalidMessage());
+                }
+            } else {
+                System.out.println(ExceptionHandler.getInputMismatchExceptionMessage());
             }
         }
 
