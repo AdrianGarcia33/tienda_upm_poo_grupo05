@@ -33,7 +33,7 @@ public class TicketRemoveCommand extends Command {
             Matcher m = p.matcher(line);
 
             if (!m.find()) {
-                return false; // Formato no reconocido
+                throw new ArrayIndexOutOfBoundsException(); // Formato no reconocido
             }
 
             String ticketId = m.group(1);
@@ -67,7 +67,9 @@ public class TicketRemoveCommand extends Command {
                 System.out.println(ExceptionHandler.getTicketNotFromCashier());
             }
 
-        } catch (NumberFormatException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(ExceptionHandler.getArrayIndexOutOfBoundsMessage());
+        }catch (NumberFormatException e) {
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
         } catch (Exception e) {
             System.out.println(ExceptionHandler.getNullPointerExceptionMessage());

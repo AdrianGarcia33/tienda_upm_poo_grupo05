@@ -1,84 +1,59 @@
-help
-echo "Agrego Libro"
-prod add 1 "Libro POO" BOOK 25
-echo "Agrego Camiseta"
-prod add 2 "Camiseta talla:M UPM" CLOTHES 15
-prod add "Camiseta talla:M UPM" CLOTHES 15
-echo "Listo Productos"
-prod list
-echo "Actualizo Nombre y Precio del Libro"
-prod update 1 NAME "Libro POO V2"
-prod update 1 PRICE 30
-echo "inserto libro repetido y lo borro"
-prod add 3 "Libro POO repetido Error" BOOK 25
-prod remove 3
-echo "Creo un Trabajador"
-cash add UW1234567 "pepecurro3" pepe0@upm.es
-cash add "pepecurro2" pepe0@upm.es
-echo "Creo tres cliente listo borro uno y listo"
-client add "Pepe3" 55630667S pepe1@upm.es UW1234567
-client add "Pepe2" 98948334B pepe2@upm.es UW1234567
-client add "Pepe1" Y8682724P pepe3@upm.es UW1234567
-client list
-client remove Y8682724P
-client list
-echo "creo un cajero nuevo listo, lo booro y listo de nuevo"
-cash add UW1234569 "pepecurro1" pepe0@upm.es
-cash list
-cash remove UW1234569
-cash list
-echo "miro los tickets de UW1234567 creo un ticket y vuelvo a printar"
-cash tickets UW1234567
-ticket new UW1234567 55630667S
-cash tickets UW1234567
-echo "creo un ticket con ID"
-ticket new 212121 UW1234567 55630667S
-echo "Agrego un producto al ticket e imprimo el ticket"
-ticket add 212121 UW1234567 1 20
-ticket list
-ticket print 212121 UW1234567
-ticket list
-echo "Agrego dos productos al ticket e imprimo el ticket"
-ticket new 212123 UW1234567 98948334B
-ticket add 212123 UW1234567 1 20
-ticket add 212123 UW1234567 2 1
-ticket remove 212123 UW1234567 2
-ticket add 212123 UW1234567 2 3
-ticket list
-ticket print 212123 UW1234567
-ticket list
-echo "Trabajamos con productos de personas"
-prod addMeeting 23456 "Reunion Rotonda" 12 2025-12-21 100
-prod addMeeting 23457 "Graduacion ETSISI" 40 2025-12-21 30
-prod addFood 23458 "Cafeteria ETSISI" 5 2025-12-21 300
-prod addFood 23459 "Restaurante Asador" 50 2025-12-21 40
-prod list
-ticket new 212127 UW1234567 98948334B
-ticket add 212127 UW1234567 23456 20
-ticket add 212127 UW1234567 2 3
-ticket print 212127 UW1234567
-ticket list
-echo "Trabajamos con productos personalizados"
-prod add 5 "Camiseta talla:M UPM" CLOTHES 15 3
-prod add 6 "Camiseta talla:L UPM" CLOTHES 20 4
-ticket new 212128 UW1234567 98948334B
-ticket add 212128 UW1234567 5 1
-ticket add 212128 UW1234567 5 3 --pred --pblue --pgreen
-ticket add 212128 UW1234567 6 3 --pred --pblue
-ticket print 212128 UW1234567
-echo "Iniciamos productos servicio"
-prod add 2025-12-21 INSURANCE
-prod add 2025-12-24 TRANSPORT
-echo "Iniciamos empresas"
-client add "pepe2" B12345674 pepe5@upm.es UW1234567
-ticket new 212129 UW1234567 B12345674 -s
-ticket add 212129 UW1234567 1S
-ticket add 212129 UW1234567 2S
-ticket print 212129 UW1234567
-ticket new 212130 UW1234567 B12345674 -c
-ticket add 212130 UW1234567 1S
-ticket add 212130 UW1234567 2S
+echo "--- TEST DE PARÁMETROS FALTANTES Y ERRORES DE PARSER ---"
+
+echo "1. Comandos casi vacíos (¿ArrayIndexOutOfBoundsException?)"
+client add
+cash add
 prod add
-ticket add 212130 UW1234567 23456 20
-ticket print 212130 UW1234567
+ticket new
+ticket add
+
+echo "2. Parámetros incompletos (Faltan emails, IDs o categorías)"
+# Falta el email y el cashId
+client add "Pepe" 12345678Z
+# Falta el precio y la categoría
+prod add 10 "Libro Incompleto"
+# Falta el userId
+ticket new 101 UW1111111
+
+echo "3. Tipos de datos intercambiados (Letras por números)"
+# Poner el nombre donde va el ID (ID debería ser numérico o seguir un patrón)
+prod update "NoSoyUnID" PRICE 20
+# Poner un string en el precio
+prod add 20 "Libro Caro" BOOK "MuchoDinero"
+# Poner un precio donde va el ID del cajero
+ticket add 101 50.5 1 1
+
+echo "4. Strings vacíos o con espacios (¿Cómo los guarda tu programa?)"
+# ¿Permite crear un cliente sin nombre y sin DNI?
+client add "" "" "" ""
+# ¿Permite nombres que son solo espacios?
+cash add "   " "   "
+
+echo "5. Flags de personalización mal formados"
+# Añadir un producto pero sin el texto de la personalización
+# Según tu log: ticket add <ticketId> <cashId> <prodId> <amount> [--p<txt>]
+# ¿Qué pasa si pones el flag pero no el texto?
+cash add UW1111111 "Cajero1" cajero@upm.es
+prod add 1 "Camiseta" CLOTHES 10 2
+ticket new 202 UW1111111 12345678Z
+ticket add 202 UW1111111 1 1 --p
+ticket add 202 UW1111111 1 1 --
+
+echo "6. Comandos con exceso de parámetros (¿Ignora lo que sobra?)"
+# Añadir cosas al final que no deberían estar
+client remove 12345678Z "ArgumentoExtra" "OtroMas"
+prod list "Innecesario"
+
+echo "7. Errores de delimitadores (Comillas mal cerradas)"
+# Esto suele romper los scanners que buscan el siguiente token
+client add "Pepe sin cerrar comilla 12345678X pepe@upm.es UW1111111
+echo "Si el programa sigue vivo después de una comilla abierta, vas por buen camino"
+
+echo "8. Casos de IDs inexistentes pero con parámetros correctos"
+# Intentar borrar algo que nunca creamos
+client remove 99999999R
+prod remove 55555
+# Intentar añadir un producto a un ticket de un cajero que no existe
+ticket add 12345 UW0000000 1 1
+
 exit

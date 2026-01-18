@@ -43,7 +43,9 @@ public class ProdUpdateCommand extends Command {
             System.out.println(p.toString());
             System.out.println("prod update: ok");
 
-        } catch (ClassCastException e) {
+        }catch(ArrayIndexOutOfBoundsException ex){
+            System.out.println(ExceptionHandler.getArrayIndexOutOfBoundsMessage());
+        }catch (ClassCastException e) {
             System.out.println(ExceptionHandler.getClassCastExceptionMessage());
         }
         return false;

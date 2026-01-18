@@ -41,9 +41,9 @@ public class NormalPrinter<T extends Product> implements ReceiptPrinter<T> {
         }
         double totalDiscount = totalPrice - finalPrice;
 
-        sb.append("\tTotal price: " + String.format(Locale.US, "%.3f", totalPrice) + "\n");
-        sb.append("\tTotal discount: " + String.format(Locale.US, "%.3f", totalDiscount) + "\n");
-        sb.append("\tFinal price: " + String.format(Locale.US, "%.3f", finalPrice) + "\n");
+        sb.append("\tTotal price: " + String.format(Locale.US, "%.1f", totalPrice) + "\n");
+        sb.append("\tTotal discount: " + String.format(Locale.US, "%.1f", totalDiscount) + "\n");
+        sb.append("\tFinal price: " + String.format(Locale.US, "%.1f", finalPrice) + "\n");
 
         return sb.toString();
     }

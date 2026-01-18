@@ -33,58 +33,60 @@ public class TicketAddCommand extends Command {
         String line = String.join(" ", args).trim();
         args = line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
         try {
-
             String receiptId = args[0];
             String cashierId = args[1];
             String productIdString = args[2];
             int amount = 1;
             if (args.length >= 4) amount = Integer.parseInt(args[3]);
-            User cashier = userMap.getUserMap().get(cashierId);
-            if (!(cashier instanceof Cashier)) {
-                System.out.println("No such cashier with ID: " + cashierId);
-                return false;
-            }
-            if(!(cashier.getReceiptMap().contains(receiptId))){
-                System.out.println(ExceptionHandler.getTicketNotExists());
-                return false;
-
-            }
-            if (isServiceId(productIdString)) {
-                if (cashier.getReceiptMap().addItemtoReceipt(receiptId, productMap.getService(serviceIdToInteger(productIdString)), amount)) {
-                    System.out.println("ticket add: ok");
+            if (amount < 1) System.out.println(ExceptionHandler.getInputMismatchExceptionMessage());
+            else{
+                User cashier = userMap.getUserMap().get(cashierId);
+                if (!(cashier instanceof Cashier)) {
+                    System.out.println("No such cashier with ID: " + cashierId);
+                    return false;
                 }
-            } else {
+                if (!(cashier.getReceiptMap().contains(receiptId))) {
+                    System.out.println(ExceptionHandler.getTicketNotExists());
+                    return false;
 
-                int productId = Integer.parseInt(args[2]);
-                if (args.length == 4) {
-                    if (cashier.getReceiptMap().addItemtoReceipt(receiptId, productMap.getProduct(productId), amount)) {
+                }
+                if (isServiceId(productIdString)) {
+                    if (cashier.getReceiptMap().addItemtoReceipt(receiptId, productMap.getService(serviceIdToInteger(productIdString)), amount)) {
                         System.out.println("ticket add: ok");
                     }
                 } else {
-                    if (productMap.getProduct(productId) instanceof PersonalizedProducts){
-                        List<String> personalizationsList = new ArrayList<>();
 
-                        for (int i = 4; i < args.length; i++) {
-                            if (args[i].startsWith("--p")) {
-                                personalizationsList.add(args[i].substring(3));
-                            }
-                        }
-
-                        String[] personalizations = personalizationsList.toArray(new String[0]);
-
-                        if (cashier.getReceiptMap().addPersonalizedItemtoReceipt(receiptId, productMap.getProduct(productId), amount, personalizations)) {
+                    int productId = Integer.parseInt(args[2]);
+                    if (args.length == 4) {
+                        if (cashier.getReceiptMap().addItemtoReceipt(receiptId, productMap.getProduct(productId), amount)) {
                             System.out.println("ticket add: ok");
+                        }
+                    } else {
+                        if (productMap.getProduct(productId) instanceof PersonalizedProducts) {
+                            List<String> personalizationsList = new ArrayList<>();
+
+                            for (int i = 4; i < args.length; i++) {
+                                if (args[i].startsWith("--p")) {
+                                    personalizationsList.add(args[i].substring(3));
+                                }
+                            }
+
+                            String[] personalizations = personalizationsList.toArray(new String[0]);
+
+                            if (cashier.getReceiptMap().addPersonalizedItemtoReceipt(receiptId, productMap.getProduct(productId), amount, personalizations)) {
+                                System.out.println("ticket add: ok");
+                            }
                         }
                     }
                 }
-            }
 
+            }
+        }catch(ArrayIndexOutOfBoundsException ex){
+            System.out.println(ExceptionHandler.getArrayIndexOutOfBoundsMessage());
         }catch(IllegalArgumentException ex){
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
         }catch(NullPointerException ex){
             System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(ExceptionHandler.getArrayIndexOutOfBoundsMessage());
         }
 
         return false;

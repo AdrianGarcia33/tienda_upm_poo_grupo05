@@ -59,7 +59,7 @@ public class TicketNewCommand extends Command {
                     userID = args[1];
                     break;
                 default:
-                    System.out.println(getInputMismatchExceptionMessage());
+                    System.out.println(getArrayIndexOutOfBoundsMessage());
                     return false;
             }
                 User cashier = userMap.getUserMap().get(cashierID);
@@ -96,9 +96,9 @@ public class TicketNewCommand extends Command {
                         System.out.println("ticket new: ok\n");
                     }
                 }
-        } catch (IllegalArgumentException e){
+        }catch(IllegalArgumentException e){
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
-        } catch (NullPointerException e){
+        }catch (NullPointerException e){
             System.out.println(ExceptionHandler.getNullArgument());
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(ExceptionHandler.getArrayIndexOutOfBoundsMessage());

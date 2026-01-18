@@ -27,8 +27,8 @@ public class ProdRemoveCommand extends Command {
 
     @Override
     public boolean apply(String[] args) { //solo nos queda los datos que necesitamos
-        int id = Integer.parseInt(args[0]);
-        //No he hecho un seguimiento de excepciones
+        try{
+            int id = Integer.parseInt(args[0]);
         if (!productMap.hasProduct(id)) {
             System.out.println(ExceptionHandler.getIdOfProductsNotExists());
         } else {
@@ -41,6 +41,9 @@ public class ProdRemoveCommand extends Command {
                 receiptMap.removeItemsFromAllReceipts(id);
             }
             System.out.println("prod remove: ok");
+        }
+    }catch(ArrayIndexOutOfBoundsException e){
+            System.out.println(ExceptionHandler.getArrayIndexOutOfBoundsMessage());
         }
         return false;
     }

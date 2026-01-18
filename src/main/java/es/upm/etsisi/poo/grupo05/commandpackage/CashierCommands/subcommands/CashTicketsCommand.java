@@ -24,10 +24,12 @@ public class CashTicketsCommand extends Command {
         System.out.println("Tickets:");
         System.out.println(cashier.getReceiptMap().list());
         System.out.println("cash tickets: ok");
-    } catch (IllegalArgumentException e) {
+    }catch (IllegalArgumentException e) {
         System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
     } catch (NullPointerException e) {
         System.out.println(ExceptionHandler.getNullPointerExceptionMessage());
+    } catch (ArrayIndexOutOfBoundsException e) {
+        System.out.println(ExceptionHandler.getArrayIndexOutOfBoundsMessage());
     }
         return false;
     }

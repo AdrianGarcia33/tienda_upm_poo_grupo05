@@ -44,7 +44,7 @@ public class CashAddCommand extends Command {
                     System.out.println(cashier);
                     System.out.println("cash add: ok\n");
                 }else System.out.println(ExceptionHandler.getEmailUnacceptable());
-            }
+            }else throw new ArrayIndexOutOfBoundsException();
         } catch (IllegalArgumentException e) {
             System.out.println(ExceptionHandler.getIllegalArgumentExceptionMessage());
         } catch (NullPointerException e) {
