@@ -73,16 +73,10 @@ public class ReceiptMap {
         return receiptmap.containsKey(id);
     }
 
-    // --- FACTORÍA DE PRINTERS (MÉTODO AUXILIAR PRIVADO) ---
-    // Aquí está la lógica que sacamos de Receipt.
-    // Usamos (Receipt<TicketElement>) casting seguro porque el Printer acepta TicketElement genérico
     private ReceiptPrinter<TicketElement> getPrinterFor(Receipt<?> receipt) {
         if (receipt.isCompanyClient()) { // Usamos el método público que añadimos a Receipt
             return new EnterprisePrinter<>();
         } else {
-            // Nota: NormalPrinter espera <T extends Product>, así que hay que tener cuidado con los warnings
-            // o hacer que NormalPrinter acepte TicketElement pero ignore servicios.
-            // Para simplificar, usaremos un cast genérico que funcione en ambos.
             return (ReceiptPrinter) new NormalPrinter<>();
         }
     }
