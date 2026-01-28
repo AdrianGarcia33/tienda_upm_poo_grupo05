@@ -5,7 +5,6 @@ package es.upm.etsisi.poo.grupo05.resourcespackage.productpackage;
  * It serves as a parent for Product and ProductService.
  */
 public abstract class TicketElement {
-    protected String name;
     protected int id;
 
     /**

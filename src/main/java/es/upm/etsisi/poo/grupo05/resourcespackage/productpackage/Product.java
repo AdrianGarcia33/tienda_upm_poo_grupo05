@@ -5,6 +5,7 @@ package es.upm.etsisi.poo.grupo05.resourcespackage.productpackage;
  * It serves as a parent for BasicProducts, PersonalizedProducts, and Events.
  */
 public abstract class Product extends TicketElement {
+    protected String name;
     protected float basePrice;
 
     /**

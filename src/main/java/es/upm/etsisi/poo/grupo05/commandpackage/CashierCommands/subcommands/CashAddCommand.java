@@ -16,12 +16,12 @@ public class CashAddCommand extends Command {
     }
 
     @Override
-    public boolean apply(String[] args) { //solo nos queda los datos que necesitamos
+    public boolean apply(String[] args){ //solo nos queda los datos que necesitamos
         String line = String.join(" ", args).trim();
         args= line.split("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
         String id, name,email;
         try {
-            if (args.length == 3) {
+            if (args.length == 3){
                 id = args[0];
                 name = args[1].replace("\"", "");
                 email = args[2];

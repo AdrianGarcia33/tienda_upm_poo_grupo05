@@ -73,10 +73,12 @@ public class Receipt<T extends TicketElement> {
         }
         return null;
     }
-    // --- MÉTODOS DE GESTIÓN DE ITEMS ---
 
     /**
-     * Añade un producto al ticket manteniendo la lógica original de copias y tipos.
+     * Method for adding a new product using a generic method
+     * @param product the product we are trying to insert
+     * @param quantity the amount of the product we are trying to insert
+     * @param personalizations array containing the presonalizations the client wanted, if the product doesn't support personalizations it won't be used
      */
     public boolean addProduct(T product, int quantity, String[] personalizations) {
         if (product == null || ticketState == TicketState.CLOSED) return false;
@@ -94,12 +96,9 @@ public class Receipt<T extends TicketElement> {
         boolean result = false;
         boolean added = false;
 
-        // Caso 1: Es un Producto (Básico, Personalizado o Evento)
+        // if is a normal product
         if (product instanceof Product) {
-
-                //Si es un producto basico
                 if ((numberItems + quantity) <= max_items) {
-                    // Comprobar si ya existe para actualizar cantidad (BasicProducts)
                     for (T p : ticket) {
                         if (p.getId() == product.getId()) {
                             if (p instanceof BasicProducts basicProducts && !(p instanceof PersonalizedProducts)) {
@@ -152,7 +151,7 @@ public class Receipt<T extends TicketElement> {
                 } else {
                     System.out.println(ExceptionHandler.getInputMismatchExceptionMessage());
                 }
-            // Caso 2: Es un Servicio
+            // If is a service
         } else if (product instanceof ProductService service) {
             if ((numberItems + quantity) <= max_items) {
                 if (service.isTemporallyValid()) {
@@ -176,7 +175,7 @@ public class Receipt<T extends TicketElement> {
         return result;
     }
 
-    public boolean removeItem(int id) {
+    public boolean removeItem(int id){
         boolean result = false;
         Iterator<T> it = ticket.iterator();
         while (it.hasNext() && !result) {
@@ -204,7 +203,6 @@ public class Receipt<T extends TicketElement> {
         return true;
     }
 
-    // --- FUNCIONES AUXILIARES DE LÓGICA ---
 
     private void checkDiscount() {
         for (Category category : Category.values()) {
@@ -270,11 +268,8 @@ public class Receipt<T extends TicketElement> {
             throw new IllegalArgumentException("Error: This ticket is already closed");
         }
     }
-
-    // --- GESTIÓN DE IMPRESIÓN (Inyección de Dependencia) ---
-
     /**
-     * Cierra el ticket e inyecta el comportamiento de impresión.
+     * Closes the ticket, the printing behavior is injected.
      */
     public String print(ReceiptPrinter<T> printer) {
         if (ticketState == TicketState.ACTIVE || ticketState == TicketState.EMPTY) {
@@ -298,7 +293,7 @@ public class Receipt<T extends TicketElement> {
     }
 
     /**
-     * Genera un precio provisional sin cerrar el ticket.
+     * Generates a provisional prize wihthout closing the receipt
      */
     public String provisionalPrice(ReceiptPrinter<T> printer) {
         return printer.format(this);
