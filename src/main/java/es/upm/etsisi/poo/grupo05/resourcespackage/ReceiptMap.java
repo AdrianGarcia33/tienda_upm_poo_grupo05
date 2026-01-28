@@ -30,7 +30,6 @@ public class ReceiptMap {
 
     /**
      * Retrieves the complete map of stored receipts.
-     *
      * @return The HashMap containing all receipts.
      */
     public HashMap<String, Receipt> getReceiptmap() {
@@ -39,7 +38,6 @@ public class ReceiptMap {
 
     /**
      * Sets the map of receipts.
-     *
      * @param receiptmap The new HashMap of receipts.
      */
     public void setReceiptmap(HashMap<String, Receipt> receiptmap) {
@@ -126,24 +124,6 @@ public class ReceiptMap {
         return false;
     }
 
-//    /**
-//     * Removes a specific product from a specific receipt.
-//     *
-//     * @param receipt_id The ID of the receipt.
-//     * @param prod_id    The ID of the product to remove.
-//     * @return true if the removal was successful, false if the receipt was not found.
-//     */
-//    public boolean removeItemFromReceipt(String receipt_id, int prod_id) {
-//        if (receiptmap.containsKey(receipt_id)) {
-//            Receipt receipt = receiptmap.get(receipt_id);
-//            if (receipt.removeItem()) {
-//                return true;
-//            }
-//        } else {
-//            System.out.println("Error: TicketNotFound");
-//        }
-//        return false;
-//    }
 
     /**
      * Generates the printable string (invoice) for a specific receipt.
@@ -163,8 +143,8 @@ public class ReceiptMap {
     }
 
     /**
-     * Devuelve el texto del ticket SIN cerrarlo.
-     * Útil para comandos intermedios (add, remove, new).
+     * Method for printing the current products on the ticket without closing it
+     * @param receiptId the receiptthat whe are printing
      */
     public String getProvisionalString(String receiptId) {
         String salida = "";
